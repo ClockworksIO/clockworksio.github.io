@@ -1,0 +1,327 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+
+/******* BEGIN OF CUSTOM CSS ***********************/
+
+
+html {
+    --color-primary-text: rgba(0,0,0,0.87);
+    --color-secondary-text: rgba(0,0,0,0.54);
+    --primary-color-pink: #D91F5D;
+    --primary-color-grey: #58595B;
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    min-height: 100vh;
+    font-family: gibson-regular, sans-serif;
+    color: var(--color-primary-text);
+}
+
+#nav-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 1em;
+}
+
+.content {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.content > section {
+    max-width: 60%;
+}
+
+h1 {
+    font-family: gibson-semibold;
+    font-size: 2.5rem;
+}
+
+h4 {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+button:hover {
+    background: var(--primary-color-pink);
+}
+
+#page-header {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+#page-header img {
+    margin-left: -30px;
+    margin-bottom: 0px;
+}
+
+#primary-navigation ul {
+    display: flex;
+    flex-direction: row;
+    padding: 0 0 24px 0;
+}
+
+#primary-navigation li {
+    list-style: none;
+    padding-right: 24px;
+}
+
+#primary-navigation a {
+    color: var(--primary-color-grey);
+    font-style: normal;
+    font-weight: bolder;
+    text-decoration: none;
+}
+
+#primary-navigation #nav-current {
+    color: var(--primary-color-pink);
+    border-bottom: 3px solid var(--primary-color-pink);
+}
+
+.trapezium-big-up-grey {
+    border-right: 7vh solid transparent;
+    border-bottom: 35vh solid var(--primary-color-grey);
+    width: 40vh;
+    height: 0;
+    padding-top: 6vw;
+    margin-left: -8px;
+}
+
+.trapezium-big-down-pink {
+    border-left: 7vh solid transparent;
+    border-top: 35vh solid var(--primary-color-pink);
+    width: 40vh;
+    height: 0;
+    margin-left: auto;
+    margin-right: -8px;
+}
+
+@media only screen and (min-width: 672px) {
+    .trapezium-big-up-grey {
+        border-right: 7vw solid transparent;
+        border-bottom: 35vw solid var(--primary-color-grey);
+        width: 40vw;
+        height: 0;
+        padding-top: 6vw;
+    }
+
+    .trapezium-big-down-pink {
+        border-left: 7vw solid transparent;
+        border-top: 35vw solid var(--primary-color-pink);
+        width: 40vw;
+        height: 0;
+        margin-left: auto;
+    }
+
+    .trapezoid-text {
+        font-size: 2.5rem;
+    }
+}
+
+section {
+    padding-bottom: 5vh;
+}
+
+#intro {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 2em;
+}
+
+#intro article {
+    padding-top: 6vw;
+    margin-left: 0;
+}
+
+#intro article ul {
+    margin-top: 0px;
+    list-style: none;
+}
+
+#intro article li {
+    margin-bottom: 10%;
+}
+
+/*#intro .first {
+    padding-left: 0px;
+}
+
+#intro .second {
+    padding-left: 30px;
+}*/
+
+#intro .third {
+    padding-left: 60px;
+}
+
+#impressum {
+    text-align: center;
+}
+
+footer {
+    line-height: 25px;
+}
+
+footer section {
+    padding-bottom: 0vh;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 60%;
+    padding: 1em 0;
+    color: var(--color-secondary-text);
+    border-top: 1px solid var(--color-secondary-text);
+}
+
+footer a {
+    color: var(--primary-color-pink);
+    text-decoration: none;
+}
+
+form {
+    margin-bottom: 2.5rem;
+}
+
+article {
+    padding-bottom: 1vh;
+}
+
+#case-study {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: -30px;
+}
+
+.clip-each {
+    width: 300px;
+    height: 300px;
+    position: relative;
+    margin-top: 30px;
+}
+
+.clip-each:after {
+    content: "";
+    position: absolute;
+    background: #fff;
+    background-position: center;
+    background-size: 300px;
+    background-repeat: no-repeat;
+}
+
+#case-capm:after {
+    background-image: url("/assets/showcase/campus.jpg");
+}
+
+#case-classmind:after {
+    background-image: url("/assets/showcase/classmind.png");
+}
+
+#case-capm1:after {
+    background-image: url("/assets/showcase/campus.jpg");
+}
+
+#case-classmind1:after {
+    background-image: url("/assets/showcase/classmind.png");
+}
+
+
+.trapezoid-up, .trapezoid-up:after {
+    -webkit-clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+    clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+}
+
+.trapezoid-down, .trapezoid-down:after {
+    -webkit-clip-path: polygon(20% 100%, 80% 100%, 100% 0, 0 0);
+    clip-path: polygon(20% 100%, 80% 100%, 100% 0, 0 0);
+}
+
+.border-style-thin {
+    background-color: gray;
+}
+
+.border-style-thin:after {
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+}
+
+.button.button-primary:hover,
+button.button-primary:hover,
+input[type="submit"].button-primary:hover,
+input[type="reset"].button-primary:hover,
+input[type="button"].button-primary:hover,
+.button.button-primary:focus,
+button.button-primary:focus,
+input[type="submit"].button-primary:focus,
+input[type="reset"].button-primary:focus,
+input[type="button"].button-primary:focus {
+    color: #FFF;
+    background-color: var(--primary-color-pink);
+    border-color: var(--primary-color-pink);
+}
+
+
+

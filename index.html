@@ -8,69 +8,96 @@ title: Clockworks
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <link rel="stylesheet" type="text/css" href="/css/flexboxgrid.min.css" />
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
-
-        <style>
-            /* http://meyerweb.com/eric/tools/css/reset/ 
-               v2.0 | 20110126
-               License: none (public domain)
-            */
-
-            html, body, div, span, applet, object, iframe,
-            h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-            a, abbr, acronym, address, big, cite, code,
-            del, dfn, em, img, ins, kbd, q, s, samp,
-            small, strike, strong, sub, sup, tt, var,
-            b, u, i, center,
-            dl, dt, dd, ol, ul, li,
-            fieldset, form, label, legend,
-            table, caption, tbody, tfoot, thead, tr, th, td,
-            article, aside, canvas, details, embed, 
-            figure, figcaption, footer, header, hgroup, 
-            menu, nav, output, ruby, section, summary,
-            time, mark, audio, video {
-                margin: 0;
-                padding: 0;
-                border: 0;
-                font-size: 100%;
-                font: inherit;
-                vertical-align: baseline;
-            }
-            /* HTML5 display-role reset for older browsers */
-            article, aside, details, figcaption, figure, 
-            footer, header, hgroup, menu, nav, section {
-                display: block;
-            }
-            body {
-                line-height: 1;
-            }
-            ol, ul {
-                list-style: none;
-            }
-            blockquote, q {
-                quotes: none;
-            }
-            blockquote:before, blockquote:after,
-            q:before, q:after {
-                content: '';
-                content: none;
-            }
-            table {
-                border-collapse: collapse;
-                border-spacing: 0;
-            }
-        </style>
+        <link rel="icon" type="image/png" href="/assets/favicon.png" />
+        <link rel="stylesheet" type="text/css" href="/css/main.css" />
 
         <title>{{ page.title }}</title>
     </head>
-    <body style="max-width: 1280px; overflow: hidden;">
-        <div class="row center-xs middle-xs" style="min-height: 100vh;">
-            <div class="col-xs">
-                <h1 style="font-size: 5.9vw; font-family: 'Open Sans', sans-serif; font-weight: 400;">
-                    Clockworks
-                </h1>
+    <body>
+        <header>
+            <div id="nav-container">
+                <h1>clockworks</h1>
+                <section id="page-header">
+                    <nav id="primary-navigation">
+                        <ul>
+                            <li><a id="nav-current" href="/about.html">ABOUT</a></li>
+                            <li><a href="/team.html">TEAM</a></li>
+                            <!--<li><a href="/blog.html">BLOG</a></li>
+                            <li><a href="/contact.html">CONTACT</a></li>-->
+                        </ul>
+                    </nav>
+                </section>
             </div>
-        </div>
+        </header>
+        <main>
+            <section id="intro">
+                <div class="trapezium-big-up-grey"></div>
+                <article class="trapezoid-text">
+                    <p class="first">Wir sind eine Softwareberatung, spezialisiert auf die Entwicklung von neuen Produkten
+                        und langlebigen, belastbaren Lösungen.
+                    </p>
+                    <p class="second">Wir verstehen uns darauf Ihre Vision zu konkretisieren, diese mit robuster und
+                        effizienter Technologie sowie einem holistischen Konzept für System- und Interaktionsdesign zu
+                        realisieren.
+                    </p>
+                </article>
+                <div class="trapezium-big-down-pink"></div>
+            </section>
+            <div class="container">
+                <div class="content">
+                    <section id="about">
+                        <header><h4>Über uns...</h4></header>
+                        <article>Software ist keine Magie sondern ein Werkzeug. Der Schlüssel zu guter Software
+                            ist es, die
+                            richtigen Probleme schnell zu erkennen und klar über diese zu sprechen - so klar, dass selbst eine
+                            Maschine sie verstehen kann.
+                        </article>
+                    </section>
+
+                    <section id="references">
+                        <header><h4>Wo wir schon helfen konnten</h4></header>
+                        <div id="case-study">
+                            <div id="case-capm" class="clip-each case-capm trapezoid-up border-style-thin"></div>
+                            <div id="case-classmind" class="clip-each trapezoid-down border-style-thin"></div>
+                            <div id="case-capm1" class="clip-each case-capm trapezoid-up border-style-thin"></div>
+                            <div id="case-classmind1" class="clip-each trapezoid-down border-style-thin"></div>
+                        </div>
+                    </section>
+
+                    <section id="contact">
+                        <header><h4>Interessiert an einer Zusammenarbeit?</h4></header>
+                        <article>Kontaktieren Sie uns, um gemeinsam...</article>
+                        <button class="button-primary" type="input" name="CONTACT US"
+                                onclick="location.href='mailto:team@clockworks.io?subject=Kontaktaufnahme';">SCHREIBEN SIE UNS
+                        </button>
+                    </section>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <div class="container footer-content">
+                <section>
+                    Clockworks UG (haftungsbeschränkt)<br/>
+                    Simsonstraße 5<br/>
+                    60385 Frankfurt am Main<br/>
+                    &#9993; contact@clockworks.io<br/>
+                    <a href="/impressum.html">Impressum</a>
+                </section>
+                <section>
+                    &#169; Clockworks 2017
+                </section>
+            </div>
+        </footer>
+
+        <script>
+          (function(d) {
+            var config = {
+              kitId: 'gxp4jrv',
+              scriptTimeout: 3000,
+              async: true
+            },
+            h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+          })(document);
+        </script>
     </body>
 </html>
