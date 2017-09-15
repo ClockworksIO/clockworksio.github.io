@@ -95,6 +95,7 @@ p {
 
 .content > section {
     max-width: 60%;
+    width: 60%;
 }
 
 h1 {
@@ -237,6 +238,7 @@ section {
 }
 
 footer {
+    margin-top: 3em;
     line-height: 25px;
 }
 
@@ -268,11 +270,11 @@ article {
     padding-bottom: 1vh;
 }
 
-#case-study {
+#showcase {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: row;
     justify-content: space-around;
-    margin-top: -30px;
+    margin-bottom: 6em;
 }
 
 .clip-each {
