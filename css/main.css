@@ -56,7 +56,9 @@ html {
     --color-secondary-text: rgba(0,0,0,0.54);
     --primary-color-pink: #D91F5D;
     --primary-color-grey: #58595B;
+    width: 100vw;
     height: 100%;
+    overflow-x: hidden;
 }
 
 body {
@@ -74,6 +76,10 @@ p {
     line-height: 1.45em;
     margin-bottom: 1em;
 }
+
+/*p:only-of-type {
+    margin-bottom: 0;
+}*/
 
 #nav-container {
     display: flex;
@@ -108,6 +114,14 @@ h4 {
     font-size: 1.52em;
     letter-spacing: 0;
     margin-bottom: 0.5em;
+}
+
+h5 {
+    font-family: gibson-regular;
+    font-size: 1.15em;
+    letter-spacing: 0;
+    line-height: 2em;
+    margin-top: 0.5em;
 }
 
 button:hover {
@@ -275,13 +289,38 @@ article {
     flex-direction: row;
     justify-content: space-around;
     margin-bottom: 6em;
+    width: 100vw;
+    max-width: 100vw;
+    overflow-x: scroll;
+
+    padding: 1em 0;
+
+    background: #F8F8F8;
+
+    border-top: 1px solid #E5E5E5;
+    border-bottom: 1px solid #E5E5E5;
+
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+#showcase > .case {
+    flex: 1;
+    margin: 0 0.5em;
+}
+
+.case:nth-child(odd) {
+    padding-top: 155px;
+}
+
+#showcase > .case > p {
+    color: var(--color-secondary-text);
+    text-align: justify;
 }
 
 .clip-each {
     width: 300px;
     height: 300px;
     position: relative;
-    margin-top: 30px;
 }
 
 .clip-each:after {
@@ -305,8 +344,8 @@ article {
     background-image: url("/assets/showcase/campus.jpg");
 }
 
-#case-classmind1:after {
-    background-image: url("/assets/showcase/classmind.png");
+#case-samson:after {
+    background-image: url("/assets/showcase/samson.jpg");
 }
 
 
@@ -321,14 +360,14 @@ article {
 }
 
 .border-style-thin {
-    background-color: gray;
+    background-color: var(--primary-color-grey);
 }
 
 .border-style-thin:after {
-    top: 5px;
-    left: 5px;
-    right: 5px;
-    bottom: 5px;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
 }
 
 .button.button-primary:hover,
