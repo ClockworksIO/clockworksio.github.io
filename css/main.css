@@ -129,10 +129,6 @@ h5 {
     margin-top: 0.5em;
 }
 
-button:hover {
-    background: var(--color-accent);
-}
-
 #page-header {
     padding-top: 0;
     padding-bottom: 0;
@@ -285,6 +281,7 @@ footer section {
     justify-content: space-between;
     max-width: 50vw;
     padding: 1em 0;
+    margin: 0 auto;
 }
 
 footer a {
@@ -367,20 +364,30 @@ article {
 }
 
 
-.button.button-primary:hover,
-button.button-primary:hover,
-input[type="submit"].button-primary:hover,
-input[type="reset"].button-primary:hover,
-input[type="button"].button-primary:hover,
-.button.button-primary:focus,
-button.button-primary:focus,
-input[type="submit"].button-primary:focus,
-input[type="reset"].button-primary:focus,
-input[type="button"].button-primary:focus {
+.button,
+.button:hover,
+.button:focus {
+    height: auto;
+    max-width: 15em;
+    padding: 0.5em 2em;
+
     color: #FFF;
     background-color: var(--color-accent);
     border-color: var(--color-accent);
+    box-shadow: 0 4px 6px rgba(50,50,93,.11), 0 1px 3px rgba(0,0,0,.08);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.20);
+
+    font-size: 1em;
+
+    transition: all .15s ease;
 }
+
+.button:hover {
+    transform: translateY(-1px);
+    background: var(--color-accent);
+    box-shadow: 0 7px 14px rgba(50,50,93,.1), 0 3px 6px rgba(0,0,0,.08);
+}
+
 
 
 /** SECTION-SPECIFIC RULES **/
@@ -458,6 +465,9 @@ section#showcase > .cases {
 
 
 section#contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding: 6em 0;
 }
 
