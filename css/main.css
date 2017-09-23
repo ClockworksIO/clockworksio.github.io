@@ -162,47 +162,90 @@ button:hover {
     border-bottom: 3px solid var(--primary-color-pink);
 }
 
-.trapezium-big-up-grey {
+
+@keyframes trapezoid-slide {
+    from {
+        width: 50vw;
+    }
+
+    25% {
+        width: 50vw;
+    }
+
+    to {
+        width: 20vw;
+    }
+}
+
+
+@keyframes trapezoid-text-fade {
+    from {
+        opacity: 0.0;
+        width: 0vw;
+    }
+
+    80% {
+        opacity: 0.0;
+        width: 0vw;
+    }
+    
+    85% {
+        opacity: 0.0;
+        width: 60vw;
+    }
+
+    to {
+        opacity: 1.0;
+    }
+}
+
+
+.trapezoid {
+    box-sizing: border-box;
+    animation: 1s trapezoid-slide;
+}
+
+.trapezoid.big-up-grey {
     border-right: 7vh solid transparent;
     border-bottom: 35vh solid var(--primary-color-grey);
-    width: 40vh;
+    width: 20vw;
     height: 0;
     padding-top: 6vw;
     margin-left: -8px;
 }
 
-.trapezium-big-down-pink {
+.trapezoid.big-down-pink {
     border-left: 7vh solid transparent;
     border-top: 35vh solid var(--primary-color-pink);
-    width: 40vh;
+    width: 20vw;
     height: 0;
     margin-left: auto;
     margin-right: -8px;
 }
 
+.trapezoid-spacing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 60vw;
+
+    animation: 1.2s trapezoid-text-fade;
+}
+
 @media only screen and (min-width: 672px) {
-    .trapezium-big-up-grey {
+    .trapezoid.big-up-grey {
         border-right: 7vw solid transparent;
         border-bottom: 35vw solid var(--primary-color-grey);
-        max-width: 40vw;
         height: 0;
         padding-top: 6vw;
     }
 
-    .trapezium-big-down-pink {
+    .trapezoid.big-down-pink {
         border-left: 7vw solid transparent;
         border-top: 35vw solid var(--primary-color-pink);
-        max-width: 40vw;
         height: 0;
         margin-left: auto;
-    }
-
-    .trapezium-spacing {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        width: 100vw;
     }
 
     .trapezoid-text {
@@ -309,7 +352,6 @@ article {
 }
 
 .case:nth-child(odd) {
-    padding-top: 155px;
 }
 
 #showcase > .case > p {
@@ -386,4 +428,9 @@ input[type="button"].button-primary:focus {
 }
 
 
+/** SECTION-SPECIFIC RULES **/
+
+
+section#about {
+}
 
