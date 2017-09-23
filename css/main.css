@@ -343,20 +343,19 @@ article {
 }
 
 
-.trapezoid {
+#showcase .trapezoid-up {
     min-width: 300px;
     min-height: 300px;
-}
-
-.trapezoid-up {
     margin-left: 1em;
 }
 
-.trapezoid-down {
+#showcase .trapezoid-down {
+    min-width: 300px;
+    min-height: 300px;
     margin-right: 1em;
 }
 
-.trapezoid-up, .trapezoid-up:after {
+#showcase .trapezoid-up, .trapezoid-up:after {
     float: right;
     
     -webkit-clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
@@ -364,7 +363,7 @@ article {
     shape-outside: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
 }
 
-.trapezoid-down, .trapezoid-down:after {
+#showcase .trapezoid-down, .trapezoid-down:after {
     float: left;
 
     -webkit-clip-path: polygon(20% 100%, 80% 100%, 100% 0, 0 0);
