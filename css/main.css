@@ -54,8 +54,11 @@ table {
 html {
     --color-primary-text: rgba(0,0,0,0.87);
     --color-secondary-text: rgba(0,0,0,0.54);
-    --primary-color-pink: #D91F5D;
-    --primary-color-grey: #58595B;
+    --color-accent: #D91F5D;
+    --color-primary: #58595B;
+    --color-base: #DBDBDB;
+    --color-half-balance: #D1BDCB;
+    --color-balance: #4A2545;
     width: 100vw;
     height: 100%;
     overflow-x: hidden;
