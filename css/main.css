@@ -339,19 +339,13 @@ article {
 }
 
 #case-capm:after {
-    background-image: url("/assets/showcase/campus.jpg");
+    background-image: url("/assets/showcase/sprachtalent.jpg");
+    background-size: cover;
 }
 
 #case-classmind:after {
     background-image: url("/assets/showcase/classmind.png");
-}
-
-#case-capm1:after {
-    background-image: url("/assets/showcase/campus.jpg");
-}
-
-#case-samson:after {
-    background-image: url("/assets/showcase/samson.jpg");
+    background-size: cover;
 }
 
 
