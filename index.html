@@ -21,10 +21,11 @@ title: Clockworks
                 <section id="page-header">
                     <nav id="primary-navigation">
                         <ul>
-                            <li><a id="nav-current" href="/about.html">ABOUT</a></li>
+                            <li><a href="#about" data-scroll>Unternehmen</a></li>
+                            <li><a href="#showcase" data-scroll>Arbeit</a></li>
                             <!-- <li><a href="/team.html">TEAM</a></li> -->
-                            <!--<li><a href="/blog.html">BLOG</a></li>
-                            <li><a href="/contact.html">CONTACT</a></li>-->
+                            <!-- <li><a href="/blog.html">BLOG</a></li> -->
+                            <li><a href="#contact" data-scroll>Kontakt</a></li>
                         </ul>
                     </nav>
                 </section>
@@ -48,8 +49,8 @@ title: Clockworks
             </section>
             <div class="container">
                 <div class="content">
-                    <section id="about">
-                        <header><h4>Über uns...</h4></header>
+                    <section id="about" data-scroll>
+                        <header><h4>Über uns</h4></header>
                         <article>
                             <p>
                                 Software ist keine Magie sondern ein Werkzeug. 
@@ -60,40 +61,40 @@ title: Clockworks
                         </article>
                     </section>
 
-                    <section id="references">
+                    <section id="showcase">
                         <header><h4>Wo wir schon helfen konnten</h4></header>
-                    </section>
 
-                    <div id="showcase">
-                        <div class="case">
-                            <div id="case-capm" class="clip-each case-capm trapezoid-up border-style-thin"></div>
-                            <h5>sprachtalent | Pflege</h5>
-                            <p>
-                                Science cuts two ways, of course; its products can be used for both good and evil. But there's no turning back from science.
-                            </p>
+                        <div class="cases">
+                            <div class="case">
+                                <div id="case-capm" class="clip-each case-capm trapezoid-up border-style-none"></div>
+                                <h5>sprachtalent | Pflege</h5>
+                                <p>
+                                    Science cuts two ways, of course; its products can be used for both good and evil. But there's no turning back from science.
+                                </p>
+                            </div>
+                            <div class="case">
+                                <h5>Classmind</h5>
+                                <p>
+                                    Science cuts two ways, of course; its products can be used for both good and evil. But there's no turning back from science.
+                                </p>
+                                <div id="case-classmind" class="clip-each trapezoid-down border-style-none"></div>
+                            </div>
+                            <div class="case">
+                                <div id="case-capm1" class="clip-each case-capm trapezoid-up border-style-none"></div>
+                                <h5>sprachtalent | Pflege</h5>
+                                <p>
+                                    Science cuts two ways, of course; its products can be used for both good and evil. But there's no turning back from science.
+                                </p>
+                            </div>
+                            <div class="case">
+                                <h5>Classmind</h5>
+                                <p>
+                                    Science cuts two ways, of course; its products can be used for both good and evil. But there's no turning back from science.
+                                </p>
+                                <div id="case-samson" class="clip-each trapezoid-down border-style-none"></div>
+                            </div>
                         </div>
-                        <div class="case">
-                            <h5>Classmind</h5>
-                            <p>
-                                Science cuts two ways, of course; its products can be used for both good and evil. But there's no turning back from science.
-                            </p>
-                            <div id="case-classmind" class="clip-each trapezoid-down border-style-thin"></div>
-                        </div>
-                        <div class="case">
-                            <div id="case-capm1" class="clip-each case-capm trapezoid-up border-style-thin"></div>
-                            <h5>sprachtalent | Pflege</h5>
-                            <p>
-                                Science cuts two ways, of course; its products can be used for both good and evil. But there's no turning back from science.
-                            </p>
-                        </div>
-                        <div class="case">
-                            <h5>Classmind</h5>
-                            <p>
-                                Science cuts two ways, of course; its products can be used for both good and evil. But there's no turning back from science.
-                            </p>
-                            <div id="case-samson" class="clip-each trapezoid-down border-style-thin"></div>
-                        </div>
-                    </div>
+                    </section>
 
                     <section id="contact">
                         <header><h4>Interessiert an einer Zusammenarbeit?</h4></header>
@@ -119,6 +120,12 @@ title: Clockworks
                 </section>
             </div>
         </footer>
+
+        <!-- Enable Smooth Scrolling -->
+        <script type="text/javascript" src="/js/scroll.js"></script>
+        <script type="text/javascript">
+            smoothScroll.init();
+        </script>
 
         <script>
           (function(d) {
