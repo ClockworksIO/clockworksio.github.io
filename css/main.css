@@ -76,6 +76,9 @@ body {
     color: var(--color-primary-text);
 }
 
+
+a:hover { color: var(--color-half-balance); }
+
 p {
     line-height: 1.5em;
     margin-bottom: 3em;
@@ -154,6 +157,10 @@ h5 {
     text-decoration: none;
     text-transform: uppercase;
     padding-bottom: 3px;
+}
+
+#primary-navigation a:hover {
+    border-bottom: 3px solid var(--color-accent);
 }
 
 #primary-navigation #nav-current {
