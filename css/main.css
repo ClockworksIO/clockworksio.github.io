@@ -137,6 +137,12 @@ h5 {
     margin-top: 0.5em;
 }
 
+h6 {
+    font-weight: 400;
+    font-size: 1em;
+    line-height: 1.75em;
+}
+
 #page-header {
     padding-top: 0;
     padding-bottom: 0;
@@ -427,8 +433,15 @@ article {
 }
 
 
+.separator {
+    width: 75vw;
+    border-top: 1px solid;
+    border-top-color: var(--color-base);
+}
 
-/** SECTION-SPECIFIC RULES **/
+
+
+/** SECTION: INTRO **/
 
 
 #intro {
@@ -464,6 +477,8 @@ article {
 }
 
 
+/** SECTION: ABOUT **/
+
 section#about {
     max-width: 45vw;
     padding: 6em 0;
@@ -471,6 +486,8 @@ section#about {
     font-size: 1.15em;
 }
 
+
+/** SECTION: SHOWCASE **/
 
 section#showcase {
     width: 100vw;
@@ -514,6 +531,54 @@ section#showcase > .cases {
 }
 
 
+/** SECTION: TEAM **/
+
+section#team {
+    width: 100vw;
+    padding: 6em 0;
+
+    font-size: 1.15em;
+}
+
+
+.faces {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+
+.member {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.face {
+    width: 10em;
+    height: 10em;
+    margin-bottom: 1em;
+    border-radius: 100%;
+}
+
+
+.face.placeholder {
+    border: 1px solid;
+    border-color: var(--color-base);
+    opacity: 0.54;
+}
+
+
+span.role {
+    color: var(--color-secondary-text);
+    font-size: 0.869em;
+    font-style: italic;
+}
+
+
+/** SECTION: CONTACT **/
+
 section#contact {
     display: flex;
     flex-direction: column;
@@ -521,6 +586,8 @@ section#contact {
     padding: 6em 0;
 }
 
+
+/** SECTION: IMPRESSUM **/
 
 section#impressum {
     max-width: 50vw;

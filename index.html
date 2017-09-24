@@ -38,7 +38,7 @@ title: Clockworks
             </section>
             <div class="container">
                 <div class="content">
-                    <section id="about" data-scroll>
+                    <section id="about">
                         <header><h4>Unsere Sprache</h4></header>
                         <article>
                             <p>
@@ -80,6 +80,63 @@ title: Clockworks
                             </div>
                         </div>
                     </section>
+
+                    <section id="team">
+                        <header><h4>Das Team</h4></header>
+                        <div class="faces">
+                            <div class="member">
+                                <img class="face" src="/assets/team/niko.jpg" />
+                                <h6>Nikolas Göbel</h6>
+                                <span class="role">Founder, Engineering Partner</span>
+                            </div>
+                            <div class="member">
+                                <img class="face" src="/assets/team/malte.jpg" />
+                                <h6>Malte Sandstede</h6>
+                                <span class="role">Founder, Engineering Partner</span>
+                            </div>
+                            <div class="member">
+                                <img class="face placeholder" src="/assets/team/placeholder.png" />
+                                <h6>Moritz Moxter</h6>
+                                <span class="role">Founder und CEO</span>
+                            </div>
+                            <div class="member">
+                                <img class="face placeholder" src="/assets/team/placeholder.png" />
+                                <h6>Marcel Gazsi</h6>
+                                <span class="role">Founder, Infrastructure Engineer</span>
+                            </div>
+                        </div>
+                        <script type="text/javascript">
+                            function shuffle(elems) {
+                             
+                                allElems = (function(){
+                                var ret = [], l = elems.length;
+                                while (l--) { ret[ret.length] = elems[l]; }
+                                return ret;
+                                })();
+                             
+                                var shuffled = (function(){
+                                    var l = allElems.length, ret = [];
+                                    while (l--) {
+                                        var random = Math.floor(Math.random() * allElems.length),
+                                            randEl = allElems[random].cloneNode(true);
+                                        allElems.splice(random, 1);
+                                        ret[ret.length] = randEl;
+                                    }
+                                    return ret; 
+                                })(), l = elems.length;
+                             
+                                while (l--) {
+                                    elems[l].parentNode.insertBefore(shuffled[l], elems[l].nextSibling);
+                                    elems[l].parentNode.removeChild(elems[l]);
+                                }
+                             
+                            }
+                            
+                            shuffle(document.getElementsByClassName('member'));
+                        </script>
+                    </section>
+
+                    <div class="separator"></div>
 
                     <section id="contact">
                         <header><h4>Interessiert an einer Zusammenarbeit?</h4></header>
