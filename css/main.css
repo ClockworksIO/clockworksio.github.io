@@ -71,7 +71,8 @@ body {
     height: 100vh;
     min-height: 100vh;
 
-    font-family: gibson-regular, sans-serif;
+    font-family: "canada-type-gibson", sans-serif;
+    font-weight: 400;
     font-size: inherit;
     color: var(--color-primary-text);
 }
@@ -108,7 +109,7 @@ p {
 
 
 h1 {
-    font-family: gibson-semibold;
+    font-weight: 600;
     font-size: 2.5rem;
 }
 
@@ -120,7 +121,7 @@ h1 > a:hover {
 
 
 h4 {
-    font-family: gibson-regular;
+    font-weight: 400;
     font-size: 1.52em;
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -129,7 +130,7 @@ h4 {
 }
 
 h5 {
-    font-family: gibson-regular;
+    font-weight: 400;
     font-size: 1.15em;
     letter-spacing: 0;
     line-height: 2em;
@@ -159,7 +160,7 @@ h5 {
 
 #primary-navigation a {
     color: var(--color-primary);
-    font-family: gibson-semibold;
+    font-weight: 600;
     font-size: 1em;
     letter-spacing: 1px;
     text-decoration: none;
