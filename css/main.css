@@ -620,11 +620,11 @@ section#showcase > .cases {
 }
 
 
-.clip-each:active {
+/*.clip-each:active {
     transform: translateX(-50vw);
     transition: all 0.2s ease;
 }
-
+*/
 
 .clip-each:after {
     content: "";
