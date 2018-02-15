@@ -31,7 +31,7 @@ title: Clockworks
                                 <polyline points="10,26 32,44, 54,26"
                                           style="fill:transparent;stroke-width:5;stroke:#D91F5D" />
                             </svg>
-                        </a> 
+                        </a>
                     </article>
                 </div>
                 <div class="trapezoid big-down-pink"></div>
@@ -44,12 +44,12 @@ title: Clockworks
                         <header><h4>Unsere Sprache</h4></header>
                         <article>
                             <p>
-                                Gute Software entsteht immer dann, wenn ein Problem nicht nur identifiziert, sondern auch formuliert werden kann; 
+                                Gute Software entsteht immer dann, wenn ein Problem nicht nur identifiziert, sondern auch formuliert werden kann;
                                 wenn eine Idee nicht nur erdacht, sondern als konkrete Lösung artikuliert wird; wenn ein Gedanke so klar beschrieben ist,
                                 dass ihn selbst eine Maschine versteht.
                             </p>
                             <p>
-                                Diese Sprache sprechen wir. 
+                                Diese Sprache sprechen wir.
                             </p>
                             <p>
                                 Wir verstehen uns als Übersetzer zwischen Ihren Geschäftsinteressen und den Möglichkeiten der digitalen Welt: sei es als
@@ -97,7 +97,7 @@ title: Clockworks
                                 <span class="role">Founder, Engineering Partner</span>
                             </div>
                             <div class="member">
-                                <div class="face placeholder" style="background-image: url('/assets/team/placeholder.png')"></div>
+                                <div class="face placeholder" style="background-image: url('/assets/team/moritz.jpg')"></div>
                                 <h6>Moritz Moxter</h6>
                                 <span class="role">Founder und CEO</span>
                             </div>
@@ -109,13 +109,13 @@ title: Clockworks
                         </div>
                         <script type="text/javascript">
                             function shuffle(elems) {
-                             
+
                                 allElems = (function(){
                                 var ret = [], l = elems.length;
                                 while (l--) { ret[ret.length] = elems[l]; }
                                 return ret;
                                 })();
-                             
+
                                 var shuffled = (function(){
                                     var l = allElems.length, ret = [];
                                     while (l--) {
@@ -124,16 +124,16 @@ title: Clockworks
                                         allElems.splice(random, 1);
                                         ret[ret.length] = randEl;
                                     }
-                                    return ret; 
+                                    return ret;
                                 })(), l = elems.length;
-                             
+
                                 while (l--) {
                                     elems[l].parentNode.insertBefore(shuffled[l], elems[l].nextSibling);
                                     elems[l].parentNode.removeChild(elems[l]);
                                 }
-                             
+
                             }
-                            
+
                             shuffle(document.getElementsByClassName('member'));
                         </script>
                     </section>
@@ -151,7 +151,7 @@ title: Clockworks
         {% include footer.html %}
 
         {% include smooth_scrolling.html %}
-        
+
         {% include typekit.html %}
     </body>
 </html>
