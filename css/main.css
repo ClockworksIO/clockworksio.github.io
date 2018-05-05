@@ -699,7 +699,6 @@ section#showcase > .cases {
 
 
 .case > p {
-    color: var(--color-secondary-text);
     text-align: inherit;
 }
 
