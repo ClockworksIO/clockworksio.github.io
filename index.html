@@ -4,259 +4,363 @@ title: Clockworks
 
 <!DOCTYPE html>
 <html>
-    {% include head.html %}
-    <body>
-        {% include header.html %}
+  {% include head.html %}
+  <body>
+    {% include header.html %}
 
-        <main>
-            <section id="intro">
-                <div class="trapezoid big-up-grey"></div>
-                <div class="container trapezoid-spacing">
-                    <article class="trapezoid-text">
-                        <p class="first">Wir sind ein Softwareberatungs- und Technologieunternehmen, das auf die Entwicklung von neuen Produkten
-                            und langlebigen, belastbaren Lösungen spezialisiert ist.
-                        </p>
-                        <p class="second">Wir verstehen uns darauf, Ihre Vision zu konkretisieren und diese mit robuster Technologie sowie einem holistischen Konzept für System- und Interaktionsdesign zu
-                            realisieren.
-                        </p>
-                        <a id="scroll-indicator" href="#about" data-scroll>
-                            <svg width="64" height="64">
-                                <filter id="glow">
-                                    <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
-                                    <feMerge>
-                                        <feMergeNode in="coloredBlur"/>
-                                        <feMergeNode in="SourceGraphic"/>
-                                    </feMerge>
-                                </filter>
-                                <polyline points="10,26 32,44, 54,26"
-                                          style="fill:transparent;stroke-width:5;stroke:#D91F5D" />
-                            </svg>
-                        </a>
-                    </article>
-                </div>
-                <div class="trapezoid big-down-pink"></div>
-            </section>
-            <div class="container">
-                <div class="content">
-                    <div class="separator"></div>
+    <main>
+      <section id="intro">
+        <div class="trapezoid big-up-grey"></div>
+        <div class="container trapezoid-spacing">
+          <article class="trapezoid-text">
+            <p class="first">
+	      Wir sind ein Softwareberatungs- und
+              Technologieunternehmen, das auf die Entwicklung von
+              neuen Produkten und langlebigen, belastbaren Lösungen
+              spezialisiert ist.
+            </p>
+            <p class="second">
+	      Wir verstehen uns darauf, Ihre Vision zu konkretisieren
+              und diese mit robuster Technologie sowie einem
+              holistischen Konzept für System- und Interaktionsdesign
+              zu realisieren.
+            </p>
+            <a id="scroll-indicator" href="#why" data-scroll>
+              <svg width="64" height="64">
+                <filter id="glow">
+                  <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+                  <feMerge>
+                    <feMergeNode in="coloredBlur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
+                <polyline points="10,26 32,44, 54,26"
+                          style="fill:transparent;stroke-width:5;stroke:#D91F5D" />
+              </svg>
+            </a>
+          </article>
+        </div>
+        <div class="trapezoid big-down-pink"></div>
+      </section>
+      <div class="container">
+        <div class="content">
+          <div class="separator"></div>
 
-                    <section id="about">
-                        <header><h4>Unsere Sprache</h4></header>
-                        <article>
-                            <p>
-                                Gute Software entsteht immer dann, wenn ein Problem nicht nur identifiziert, sondern auch formuliert werden kann;
-                                wenn eine Idee nicht nur erdacht, sondern als konkrete Lösung artikuliert wird; wenn ein Gedanke so klar beschrieben ist,
-                                dass ihn selbst eine Maschine versteht.
-                            </p>
-                            <p>
-                                Diese Sprache sprechen wir.
-                            </p>
-                            <p>
-                                Wir verstehen uns als Übersetzer zwischen Ihren Geschäftsinteressen und den Möglichkeiten der digitalen Welt: sei es als
-                                Ihr Berater im Aufbau neuer Geschäftsfelder oder als Ihr Sparringspartner beim Lösen komplexer Probleme.
-                            </p>
-                        </article>
-                    </section>
+          <section id="why">
+            <header><h4>Unsere Sprache</h4></header>
+            <article>
+              <p>
+                Gute Software entsteht immer dann, wenn ein Problem
+                nicht nur identifiziert, sondern auch formuliert
+                werden kann; wenn eine Idee nicht nur erdacht, sondern
+                als konkrete Lösung artikuliert wird; wenn ein Gedanke
+                so klar beschrieben ist, dass ihn selbst eine Maschine
+                versteht.
+              </p>
+              <p>
+                Diese Sprache sprechen wir.
+              </p>
+              <p>
+                Wir verstehen uns als Übersetzer zwischen Ihren
+                Geschäftsinteressen und den Möglichkeiten der
+                digitalen Welt: sei es als Ihr Berater im Aufbau neuer
+                Geschäftsfelder oder als Ihr Sparringspartner beim
+                Lösen komplexer Probleme.
+              </p>
+            </article>
+          </section>
 
-		    <section id="what">
-		      <header><h4>Leistungen</h4></header>
+	  <section id="what">
+	    <header><h4>Leistungen</h4></header>
 
-		      <div class="services">
-			<div class="service main-dev">
-			  <h5>Individualsoftware</h5>
-			  <span>
-			    Wir entwickeln von Grund auf individuelle
-			    Lösungen für das Web, die mobilen
-			    Plattformen, und den Server — eigenständig
-			    oder in Zusammenarbeit mit Ihrem Team.
-			  </span>
-			</div>
-			<div class="service main-consulting">
-			  <h5>Digitale Geschäftsmodelle</h5>
-			  <span>
-			    Wir finden sinnvolle Einsatzgebiete
-			    für existierende Technologien in Ihren 
-			    aktuellen Geschäftsfeldern und Prozessen, 
-			    oder erdenken gleich ganz neue Wege um Sie 
-			    digital voranzubringen.
-			  </SPAN>
-			</div>
-			<div class="service">
-			  <h5>Infrastruktur</h5>
-			  <span>
-			    Wir konzeptionieren und implementieren
-			    self-hosted, hybride oder reine Cloud
-			    Systeme und unterstützen Sie nachhaltig 
-			    durch fortlaufende Wartung und DevOps
-			    Training.
-			  </span>
-			</div>
-			<div class="service">
-			  <h5>Architektur</h5>
-			  <span>
-			    Wir analysieren Ihr neues System auf
-			    potentielle Fehlerquellen, Ineffizienzen,
-			    Sicherheitslücken und langfristige
-			    Wartbarkeit.
-			  </span>
-			</div>
-			<div class="service">
-			  <h5>Datenverarbeitung</h5>
-			  <span>
-			    Ob big oder small, Daten verarbeiten sich
-			    nicht von alleine. Wir planen und bauen
-			    flexible, skalierbare
-			    Daten-Pipelines; selbstverständlich
-			    GDPR-compliant.
-			  </span>
-			</div>
-			<div class="service">
-			  <h5>Interaktionsdesign &amp; Nutzertests</h5>
-			  <span>
-			    Bei der Einführung neuer Lösungen
-			    entscheidet letztendlich die
-			    Nutzerakzeptanz über Erfolg und
-			    Misserfolg. Wir entwickeln UX Konzepte und
-			    testen diese live mit Ihren Nutzen.
-			  </span>
-			</div>
-		      </div>
-		    </section>
+	    <div class="services">
+	      <div class="service main-dev">
+		<h5>Individualsoftware</h5>
+		<span>
+		  Wir entwickeln von Grund auf individuelle
+		  Lösungen für das Web, die mobilen
+		  Plattformen, und den Server — eigenständig
+		  oder in Zusammenarbeit mit Ihrem Team.
+		</span>
+	      </div>
+	      <div class="service main-consulting">
+		<h5>Digitale Geschäftsmodelle</h5>
+		<span>
+		  Wir finden sinnvolle Einsatzgebiete
+		  für existierende Technologien in Ihren 
+		  aktuellen Geschäftsfeldern und Prozessen, 
+		  oder erdenken gleich ganz neue Wege um Sie 
+		  digital voranzubringen.
+		</span>
+	      </div>
+	      <div class="service">
+		<h5>Infrastruktur</h5>
+		<span>
+		  Wir konzeptionieren und implementieren
+		  self-hosted, hybride oder reine Cloud
+		  Systeme und unterstützen Sie nachhaltig 
+		  durch fortlaufende Wartung und DevOps
+		  Training.
+		</span>
+	      </div>
+	      <div class="service">
+		<h5>Architektur</h5>
+		<span>
+		  Wir analysieren Ihr neues System auf
+		  potentielle Fehlerquellen, Ineffizienzen,
+		  Sicherheitslücken und langfristige
+		  Wartbarkeit.
+		</span>
+	      </div>
+	      <div class="service">
+		<h5>Datenverarbeitung</h5>
+		<span>
+		  Ob big oder small, Daten verarbeiten sich
+		  nicht von alleine. Wir planen und bauen
+		  flexible, skalierbare
+		  Daten-Pipelines; selbstverständlich
+		  GDPR-compliant.
+		</span>
+	      </div>
+	      <div class="service">
+		<h5>Interaktionsdesign &amp; Nutzertests</h5>
+		<span>
+		  Bei der Einführung neuer Lösungen
+		  entscheidet letztendlich die
+		  Nutzerakzeptanz über Erfolg und
+		  Misserfolg. Wir entwickeln UX Konzepte und
+		  testen diese live mit Ihren Nutzen.
+		</span>
+	      </div>
+	    </div>
+	  </section>
 		    
-		    <section id="how">
-		      <header><h4>In welcher Form?</h4></header>
+	  <section id="how">
+	    <header><h4>In welcher Form?</h4></header>
 
-		      <div class="engagement-types">
-			<div class="engagement-type">
-			  <h5>Beratung</h5>
-			  <p>
-			    Sie brauchen eine zweite Meinung zur
-			    langfristigen Qualität einer geplanten
-			    Architektur? Es gibt noch viele Unbekannte beim
-			    Einstieg in eine neue Technologie? Wir
-			    unterstützen Ihr Team vor Ort und
-			    helfen in diesen Fragen weiter.
-			  </p>
-			</div>
-			<div class="engagement-type">
-			  <h5>Entwicklung</h5>
-			  <p>
-			    Sie benötigen eine neue Software-Lösung?
-			    Wir erstellen ein Konzept und entwickeln
-			    in kurzer Zeit einen ersten
-			    Prototypen. Von diesem ausgehend
-			    analysieren wir Nutzerfeedback und bringen
-			    Ihr Projekt zur Marktreife.
-			  </p>
-			</div>
-			<div class="engagement-type">
-			  <h5>Partnerschaft</h5>
-			  <p>
-			    Sie planen die Einführung Ihres ersten
-			    software-getriebenen Produkts? Ihre Firma
-			    steht vor einer tiefgreifenden, digitalen
-			    Umstellung? Wir begleiten Sie flexibel und
-			    auf unbestimmte Zeit, mit
-			    leistungsbasierter Entlohnung.
-			  </p>
-			</div>
-		      </div>
-		    </section>
+	    <div class="engagement-types">
+	      <div class="engagement-type">
+		<h5>Beratung</h5>
+		<p>
+		  Sie brauchen eine zweite Meinung zur
+		  langfristigen Qualität einer geplanten
+		  Architektur? Es gibt noch viele Unbekannte beim
+		  Einstieg in eine neue Technologie? Wir
+		  unterstützen Ihr Team vor Ort und
+		  helfen in diesen Fragen weiter.
+		</p>
+	      </div>
+	      <div class="engagement-type">
+		<h5>Entwicklung</h5>
+		<p>
+		  Sie benötigen eine neue Software-Lösung?
+		  Wir erstellen ein Konzept und entwickeln
+		  in kurzer Zeit einen ersten
+		  Prototypen. Von diesem ausgehend
+		  analysieren wir Nutzerfeedback und bringen
+		  Ihr Projekt zur Marktreife.
+		</p>
+	      </div>
+	      <div class="engagement-type">
+		<h5>Partnerschaft</h5>
+		<p>
+		  Sie planen die Einführung Ihres ersten
+		  software-getriebenen Produkts? Ihre Firma
+		  steht vor einer tiefgreifenden, digitalen
+		  Umstellung? Wir begleiten Sie flexibel und
+		  auf unbestimmte Zeit, mit
+		  leistungsbasierter Entlohnung.
+		</p>
+	      </div>
+	    </div>
+	  </section>
+	  
+	  <section id="how">
+	    <header><h4>In welcher Form?</h4></header>
 
-                    <section id="showcase">
-                        <header><h4>Wo wir bereits helfen konnten</h4></header>
+	    <div class="engagement-types">
+	      <div class="engagement-type">
+		<h5>Beratung</h5>
+		<p>
+		  Sie brauchen eine zweite Meinung zur
+		  langfristigen Qualität einer geplanten
+		  Architektur? Viele Unbekannte beim
+		  Einstieg in eine neue Technologie?  Wir
+		  verbringen einige Tage mit Ihrem Team und
+		  helfen in diesen Fragen  weiter.
+		</p>
+	      </div>
+	      <div class="engagement-type">
+		<h5>Entwicklung</h5>
+		<p>
+		  Sie benötigen eine neue Software-Lösung?
+		  Wir erstellen ein Konzept und entwickeln
+		  in kurzer Zeit einen ersten
+		  Prototypen. Von diesem ausgehend
+		  analysieren wir Nutzerfeedback und bringen
+		  Ihr Projekt zur Marktreife.
+		</p>
+	      </div>
+	      <div class="engagement-type">
+		<h5>Partnerschaft</h5>
+		<p>
+		  Sie planen die Einführung Ihres ersten
+		  software-getriebenen Produktes? Ihre Firma
+		  steht vor einer tiefgreifenden, digitalen
+		  Umstellung? Wir begleiten Sie flexibel und
+		  auf unbestimmte Zeit, mit
+		  leistungsbasierter Entlohnung.
+		</p>
+	      </div>
+	    </div>
+	  </section>
+>>>>>>> Squashed commit of the following:
 
-                        <div class="cases">
-                            <div class="case">
-                                <div id="case-capm" class="clip-each case-capm trapezoid-up border-style-none"></div>
-                                <h5>sprachtalent</h5>
-                                <p>
-                                    Gemeinsam mit <a href="http://www.capitalent-medical.com/de/">Capitalent Medical</a> haben
-                                    wir <a href="http://sprachtalent.com/">sprachtalent</a>, das Sprachlernprogramm für
-                                    ausländische Pflegekräfte in Deutschland, entwickelt und von der ersten Vision bis zum Vertrieb hin
-                                    begleitet.
-                                </p>
-                            </div>
-                            <div class="case">
-                                <div id="case-classmind" class="clip-each trapezoid-down border-style-none"></div>
-                                <h5>Classmind</h5>
-                                <p>
-                                    Wir sind die Entwickler hinter <a href="https://classmind.de/">Classmind</a>, einer Kommunikationsplattform
-                                    für Lehrer und Schüler.
-                                </p>
-                            </div>
-                        </div>
-                    </section>
+          <section id="showcase">
+            <header><h4>Wo wir bereits helfen konnten</h4></header>
 
-                    <section id="team">
-                        <header><h4>Das Team</h4></header>
-                        <div class="faces">
-                            <div class="member">
-                                <div class="face" style="background-image: url('/assets/team/niko.jpg')"></div>
-                                <h6>Nikolas Göbel</h6>
-                                <span class="role">Founder, Engineering Partner</span>
-                            </div>
-                            <div class="member">
-                                <div class="face" style="background-image: url('/assets/team/malte.jpg')"></div>
-                                <h6>Malte Sandstede</h6>
-                                <span class="role">Founder, Engineering Partner</span>
-                            </div>
-                            <div class="member">
-                                <div class="face" style="background-image: url('/assets/team/moritz.jpg')"></div>
-                                <h6>Moritz Moxter</h6>
-                                <span class="role">Founder und CEO</span>
-                            </div>
-                            <div class="member">
-                                <div class="face" style="background-image: url('/assets/team/marcel.jpg');background-position: 50% 40%;"></div>
-                                <h6>Marcel Gazsi</h6>
-                                <span class="role">Founder, Infrastructure Engineer</span>
-                            </div>
-                        </div>
-                        <script type="text/javascript">
-                            function shuffle(elems) {
-
-                                allElems = (function(){
-                                var ret = [], l = elems.length;
-                                while (l--) { ret[ret.length] = elems[l]; }
-                                return ret;
-                                })();
-
-                                var shuffled = (function(){
-                                    var l = allElems.length, ret = [];
-                                    while (l--) {
-                                        var random = Math.floor(Math.random() * allElems.length),
-                                            randEl = allElems[random].cloneNode(true);
-                                        allElems.splice(random, 1);
-                                        ret[ret.length] = randEl;
-                                    }
-                                    return ret;
-                                })(), l = elems.length;
-
-                                while (l--) {
-                                    elems[l].parentNode.insertBefore(shuffled[l], elems[l].nextSibling);
-                                    elems[l].parentNode.removeChild(elems[l]);
-                                }
-
-                            }
-
-                            shuffle(document.getElementsByClassName('member'));
-                        </script>
-                    </section>
-
-                    <div class="separator"></div>
-
-                    <section id="contact">
-                        <header><h4>Interessiert an einer Zusammenarbeit?</h4></header>
-                        <a class="button" href="mailto:team@clockworks.io">Schreiben Sie uns</a>
-                    </section>
-                </div>
+            <div class="cases">
+              <div class="case">
+		<svg shape-rendering="geometricprecision"
+		     width="100%"
+		     height="100%"
+		     style="max-width: 300px; overflow: visible;"
+		     viewBox="0 0 100 100">
+		  <defs>
+		    <pattern id="img-sprachtalent-showcase"
+			     patternUnits="userSpaceOnUse"
+			     width="100%"
+			     height="100%">
+		      <image xlink:href="/assets/showcase/sprachtalent.jpg"
+			     preserveAspectRatio="xMinYMid slice"
+			     x="0"
+			     y="0"
+			     width="100%"
+			     height="100%" />
+		    </pattern>
+		  </defs>
+		  <polygon points="0,100 80,100 65,65 80,65 100,0 20,0 35,35 20,35 0,100"
+			   style="stroke-width: 0.5; stroke: var(--color-primary);"
+			   fill="url(#img-sprachtalent-showcase)"/>
+		</svg>
+		<div class="description">
+                  <h5 class="client">Capitalent Medical</h5>
+                  <p>
+                    Gemeinsam
+                    mit <a href="http://www.capitalent-medical.com/de/">Capitalent
+                    Medical</a> haben
+                    wir ,
+                    das Sprachlernprogramm für ausländische
+                    Pflegekräfte in Deutschland, entwickelt und von
+                    der ersten Vision bis zum Vertrieb hin begleitet.
+                  </p>
+		</div>
+              </div>
+              <div class="case">
+		<svg shape-rendering="geometricprecision"
+		     width="50%"
+		     height="100%"
+		     style="max-width: 300px; overflow: visible;"
+		     viewBox="0 0 100 100">
+		  <defs>
+		    <pattern id="img-classmind-showcase"
+			     patternUnits="userSpaceOnUse"
+			     width="100%"
+			     height="100%">
+		      <image xlink:href="/assets/showcase/classmind.png"
+			     preserveAspectRatio="xMinYMid slice"
+			     x="0"
+			     y="0"
+			     width="100%"
+			     height="100%" />
+		    </pattern>
+		  </defs>
+		  <polygon points="0,100 80,100 65,65 80,65 100,0 20,0 35,35 20,35 0,100"
+			   style="stroke-width: 0.5; stroke: var(--color-primary);"
+			   fill="url(#img-classmind-showcase)"/>
+		</svg>
+		<div class="description">
+                  <h5>Classmind</h5>
+                  <p>
+                    Wir sind die Entwickler
+                    hinter <a href="https://classmind.de/">Classmind</a>,
+                    einer Kommunikationsplattform für Lehrer und
+                    Schüler.
+                  </p>
+		</div>
+              </div>
             </div>
-        </main>
+          </section>
 
-        {% include footer.html %}
+          <section id="team">
+            <header><h4>Das Team</h4></header>
+            <div class="faces">
+              <div class="member">
+                <div class="face" style="background-image: url('/assets/team/niko.jpg')"></div>
+                <h6>Nikolas Göbel</h6>
+                <span class="role">Founder, Engineering Partner</span>
+              </div>
+              <div class="member">
+                <div class="face" style="background-image: url('/assets/team/malte.jpg')"></div>
+                <h6>Malte Sandstede</h6>
+                <span class="role">Founder, Engineering Partner</span>
+              </div>
+              <div class="member">
+                <div class="face" style="background-image: url('/assets/team/moritz.jpg')"></div>
+                <h6>Moritz Moxter</h6>
+                <span class="role">Founder und CEO</span>
+              </div>
+              <div class="member">
+                <div class="face" style="background-image: url('/assets/team/marcel.jpg');background-position: 50% 40%;"></div>
+                <h6>Marcel Gazsi</h6>
+                <span class="role">Founder, Infrastructure Engineer</span>
+              </div>
+            </div>
+            <script type="text/javascript">
+              function shuffle(elems) {
 
-        {% include smooth_scrolling.html %}
+              allElems = (function(){
+              var ret = [], l = elems.length;
+              while (l--) { ret[ret.length] = elems[l]; }
+              return ret;
+              })();
 
-        {% include typekit.html %}
-    </body>
+              var shuffled = (function(){
+              var l = allElems.length, ret = [];
+              while (l--) {
+              var random = Math.floor(Math.random() * allElems.length),
+              randEl = allElems[random].cloneNode(true);
+              allElems.splice(random, 1);
+              ret[ret.length] = randEl;
+              }
+              return ret;
+              })(), l = elems.length;
+
+              while (l--) {
+              elems[l].parentNode.insertBefore(shuffled[l], elems[l].nextSibling);
+              elems[l].parentNode.removeChild(elems[l]);
+              }
+
+              }
+
+              shuffle(document.getElementsByClassName('member'));
+            </script>
+          </section>
+
+          <div class="separator"></div>
+
+          <section id="contact">
+            <header><h4>Interessiert an einer Zusammenarbeit?</h4></header>
+            <a class="button" href="mailto:team@clockworks.io">Schreiben Sie uns</a>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    {% include footer.html %}
+
+    {% include smooth_scrolling.html %}
+
+    {% include typekit.html %}
+  </body>
 </html>
