@@ -1,0 +1,9 @@
+site:
+  description: Computation without regrets.
+
+nav:
+  why: Why?
+  what: What?
+  how: How?
+  showcase: Where?
+  team: Who?

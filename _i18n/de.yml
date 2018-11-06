@@ -1,0 +1,11 @@
+site:
+  description: >
+    Softwareberatungs- und Technologieunternehmen. Übersetzer zwischen
+    Ihren Geschäftsinteressen und den Möglichkeiten der digitalen Welt.
+
+nav:
+  why: Warum?
+  what: Was?
+  how: Wie?
+  showcase: Wo?
+  team: Wer?
