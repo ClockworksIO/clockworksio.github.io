@@ -9,3 +9,118 @@ nav:
   how: Wie?
   showcase: Wo?
   team: Wer?
+
+intro:
+  first: >-
+    Wir sind ein Softwareberatungs- und Technologieunternehmen, das
+    auf die Entwicklung von neuen Produkten und langlebigen,
+    belastbaren Lösungen spezialisiert ist.
+  second: >-
+    Wir verstehen uns darauf, Ihre Vision zu konkretisieren und diese
+    mit robuster Technologie sowie einem holistischen Konzept für
+    System- und Interaktionsdesign zu realisieren.
+
+why:
+  header: Unsere Sprache
+  first: >-
+    Gute Software entsteht immer dann, wenn ein Problem nicht nur
+    identifiziert, sondern auch formuliert werden kann; wenn eine Idee
+    nicht nur erdacht, sondern als konkrete Lösung artikuliert wird;
+    wenn ein Gedanke so klar beschrieben ist, dass ihn selbst eine
+    Maschine versteht.
+  second: >-
+    Diese Sprache sprechen wir.
+  third: >-
+    Wir verstehen uns als Übersetzer zwischen Ihren
+    Geschäftsinteressen und den Möglichkeiten der digitalen Welt: sei
+    es als Ihr Berater im Aufbau neuer Geschäftsfelder oder als Ihr
+    Sparringspartner beim Lösen komplexer Probleme.
+
+what:
+  header: Leistungen
+  development:
+    header: Individualsoftware
+    description: >-
+      Wir entwickeln von Grund auf individuelle Lösungen für das Web,
+      die mobilen Plattformen, und den Server — eigenständig oder in
+      Zusammenarbeit mit Ihrem Team.
+  digital_business:
+    header: Digitale Geschäftsmodelle
+    description: >-
+      Wir finden sinnvolle Einsatzgebiete für existierende
+      Technologien in Ihren aktuellen Geschäftsfeldern und Prozessen,
+      oder erdenken gleich ganz neue Wege um Sie digital
+      voranzubringen.
+  infrastructure:
+    header: Infrastruktur
+    description: >-
+      Wir konzeptionieren und implementieren self-hosted, hybride oder
+      reine Cloud Systeme und unterstützen Sie nachhaltig durch
+      fortlaufende Wartung und DevOps Training.
+  architecture:
+    header: Architektur
+    description: >-
+      Wir analysieren Ihr neues System auf potentielle Fehlerquellen,
+      Ineffizienzen, Sicherheitslücken und langfristige Wartbarkeit.
+  processing:
+    header: Datenverarbeitung
+    description: >-
+      Ob big oder small, Daten verarbeiten sich nicht von alleine. Wir
+      planen und bauen flexible, skalierbare Daten-Pipelines;
+      selbstverständlich GDPR-compliant.
+  ux:
+    header: Interaktionsdesign &amp; Nutzertests
+    description: >-
+      Bei der Einführung neuer Lösungen entscheidet letztendlich die
+      Nutzerakzeptanz über Erfolg und Misserfolg. Wir entwickeln UX
+      Konzepte und testen diese live mit Ihren Nutzen.
+
+how:
+  header: In welcher Form?
+  consulting:
+    header: Beratung
+    description: >-
+      Sie brauchen eine zweite Meinung zur langfristigen Qualität
+      einer geplanten Architektur? Es gibt noch viele Unbekannte beim
+      Einstieg in eine neue Technologie? Wir unterstützen Ihr Team vor
+      Ort und helfen in diesen Fragen weiter.
+  development:
+    header: Entwicklung
+    description: >-
+      Sie benötigen eine neue Software-Lösung?  Wir erstellen ein
+      Konzept und entwickeln in kurzer Zeit einen ersten
+      Prototypen. Von diesem ausgehend analysieren wir Nutzerfeedback
+      und bringen Ihr Projekt zur Marktreife.
+  partnership:
+    header: Partnerschaft
+    description: >-
+      Sie planen die Einführung Ihres ersten software-getriebenen
+      Produkts? Ihre Firma steht vor einer tiefgreifenden, digitalen
+      Umstellung? Wir begleiten Sie flexibel und auf unbestimmte Zeit,
+      mit leistungsbasierter Entlohnung.
+
+showcase:
+  header: Wo wir bereits helfen konnten
+  capm:
+    header: Capitalent Medical
+    description: >-
+      Gemeinsam mit <a
+      href="http://www.capitalent-medical.com/de/">Capitalent
+      Medical</a> haben wir <a
+      href="http://www.sprachtalent.com">sprachtalent pflege</a>, das
+      Sprachlernprogramm für ausländische Pflegekräfte in Deutschland,
+      entwickelt und von der ersten Vision bis zum Vertrieb hin
+      begleitet.
+  classmind:
+    header: Classmind
+    description: >-
+      Wir sind die Entwickler hinter <a
+      href="https://classmind.de/">Classmind</a>, einer
+      Kommunikationsplattform für Lehrer und Schüler.
+
+team:
+  header: Das Team
+  
+contact:
+  header: Interessiert an einer Zusammenarbeit?
+  cta: Schreiben Sie uns
