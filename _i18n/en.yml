@@ -10,7 +10,7 @@ nav:
 
 intro:
   first: >-
-    We are a software and technology consultancy specialized in
+    We are a software and technology consulting firm specialized in
     developing new products and durable, resilient solutions.
   second: >-
     We focus on building your vision through robust technology and
@@ -21,55 +21,55 @@ why:
   first: >-
     Great software emerges when a problem is not only identified, but
     when it can be formulated; when an idea is not merely thought, but
-    it's solution is implemented; when a thought is described in such
-    detail, that even a machine can understand it.
+    articulated as a real solution; when a thought is described in such
+    detail that even a machine can understand it.
   second: >-
     This is our language.
   third: >-
-    We are the bridge between business interest and the vast
+    We bridge the gap between business interest and the vast
     opportunities of the digital domain: be it as a consultant in
     creating new businesses or as a partner in solving complicated
     problems.
 
 what:
-  header: Leistungen
+  header: Services
   development:
     header: Software
     description: >-
-      We develop individual solutions for different platforms, be it
-      for the web, mobile or server-side - alone or together with your
+      We develop individual solutions from the ground up for the web,
+      mobile and server-side - alone or together with your
       team.
   digital_business:
     header: Digital Business Models
     description: >-
-      We find meaningful applications of existing technology in you
-      domain, or create new ways to accelerate your digital journey.
+      We find meaningful applications of existing technology in your
+      domain and existing business processes, or create completely new ways to
+      accelerate your digital journey.
   infrastructure:
     header: Infrastructure
     description: >-
       We design and implement self-hosted, hybrid or cloud-only
-      systems and support you sustainable through maintenance and
+      systems and support you sustainably through maintenance and
       DevOps training.
   architecture:
     header: Architecture
     description: >-
       We analyze your new systems for its potential errors,
-      inefficiencies, security holes and long-term maintainability.
+      inefficiencies, security flaws and long-term maintainability.
   processing:
     header: Data Processing
     description: >-
       We build flexible and scalable data pipelines capable of
-      handling big data; GDPR-compliant from the get-go
+      handling big data; GDPR-compliant from the get-go.
   ux:
     header: UI &amp; User Testing
     description: >-
       When introducing new solutions, what the user wants and how he
-      feels about it are ultimately the reason for success or
-      failure. We design UX concepts and test them live with your
-      users.
+      feels about it ultimately drives success or failure.
+      We design UX concepts and test them live with your users.
 
 how:
-  header: In welcher Form?
+  header: In what way?
   consulting:
     header: Consulting
     description: >-
@@ -81,33 +81,32 @@ how:
     header: Development
     description: >-
       You need a new software solution? We have a fast prototyping and
-      iteration work-flow to produce results guided by you and your
+      iteration workflow to produce results guided by you and your
       user until production.
   partnership:
     header: Partnership
     description: >-
       You plan the integration of your first software-driven product?
-      Your company faces a digital transition? We guide you, flexible
-      and for as long as you wish, with performance oriented costs.
+      Your company faces a digital transformation? We guide you, flexible
+      and for as long as you wish, with performance-related compensation.
 
 showcase:
-  header: Wo wir bereits helfen konnten
+  header: Where we helped
   capm:
     header: Capitalent Medical
     description: >-
-      Gemeinsam mit <a
+      Together with <a
       href="http://www.capitalent-medical.com/de/">Capitalent
-      Medical</a> haben wir <a
-      href="http://www.sprachtalent.com">sprachtalent pflege</a>, das
-      Sprachlernprogramm für ausländische Pflegekräfte in Deutschland,
-      entwickelt und von der ersten Vision bis zum Vertrieb hin
-      begleitet.
+      Medical</a> we accompanied the development of <a
+      href="http://www.sprachtalent.com">sprachtalent pflege</a>, a
+      language-learning application for foreign nurses and caretakers in Germany,
+      from its first ideation to a flourishing platform.
   classmind:
     header: Classmind
     description: >-
-      Wir sind die Entwickler hinter <a
-      href="https://classmind.de/">Classmind</a>, einer
-      Kommunikationsplattform für Lehrer und Schüler.
+      We created <a
+      href="https://classmind.de/">Classmind</a>, a communication
+      platform for teachers and students.
 
 team:
   header: The Team
