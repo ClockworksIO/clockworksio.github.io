@@ -4,76 +4,45 @@ site:
     Ihren Geschäftsinteressen und den Möglichkeiten der digitalen Welt.
 
 nav:
-  why: Warum?
   what: Was?
   how: Wie?
-  showcase: Wo?
   team: Wer?
 
 intro:
   first: >-
     Wir sind ein Softwareberatungs- und Technologieunternehmen, das
-    auf die Entwicklung von neuen Produkten und langlebigen,
-    belastbaren Lösungen spezialisiert ist.
+    auf Daten Infrastruktur, verteilte Systeme und deklarative Frontends
+    spezialisiert ist.
   second: >-
-    Wir verstehen uns darauf, Ihre Vision zu konkretisieren und diese
-    mit robuster Technologie sowie einem holistischen Konzept für
-    System- und Interaktionsdesign zu realisieren.
-
-why:
-  header: Unsere Sprache
-  first: >-
-    Gute Software entsteht immer dann, wenn ein Problem nicht nur
-    identifiziert, sondern auch formuliert werden kann; wenn eine Idee
-    nicht nur erdacht, sondern als konkrete Lösung artikuliert wird;
-    wenn ein Gedanke so klar beschrieben ist, dass ihn selbst eine
-    Maschine versteht.
-  second: >-
-    Diese Sprache sprechen wir.
-  third: >-
-    Wir verstehen uns als Übersetzer zwischen Ihren
-    Geschäftsinteressen und den Möglichkeiten der digitalen Welt: sei
-    es als Ihr Berater im Aufbau neuer Geschäftsfelder oder als Ihr
-    Sparringspartner beim Lösen komplexer Probleme.
+    Wir verstehen uns darauf, Ihre Vision durch moderne, robuste
+    und performante Module zu konkretisieren, während wir die höhsten
+    Standarts für Compliance und Sicherheit einhalten.
+    Wir führen sie von den ersten fundamentalen Schritten in der Daten Infrastruktur
+    bis hin zu vollwertigen Applikationen.
 
 what:
   header: Leistungen
-  development:
-    header: Individualsoftware
+  data_infrastructure:
+    header: Daten Infrastruktur
     description: >-
-      Wir entwickeln von Grund auf individuelle Lösungen für das Web,
-      die mobilen Plattformen, und den Server — eigenständig oder in
-      Zusammenarbeit mit Ihrem Team.
-  digital_business:
-    header: Digitale Geschäftsmodelle
+      We have experience building systems onto bare metal and in the cloud.
+      That includes running Docker, Kafka and similar in an secure and automated fashion.
+      Built on top we provide data integration and routing services. From declarative
+      access up to high throughput, low latency stream processing systems. 
+  data_solutions:
+    header: Daten Lösungen
     description: >-
-      Wir finden sinnvolle Einsatzgebiete für existierende
-      Technologien in Ihren aktuellen Geschäftsfeldern und Prozessen,
-      oder erdenken gleich ganz neue Wege um Sie digital
-      voranzubringen.
-  infrastructure:
-    header: Infrastruktur
+      Our core software solution, 3DF, is built fundamentally on differential- and timely dataflow
+      and as such provides high performance in batch, stream and graph processing.
+      We aspire to build a system that grants interactive access to fast changing, distributed datasets
+      while incrementally maintaining potentially very expensive computations.
+  data_applications:
+    header: Daten Applikationen
     description: >-
-      Wir konzeptionieren und implementieren self-hosted, hybride oder
-      reine Cloud Systeme und unterstützen Sie nachhaltig durch
-      fortlaufende Wartung und DevOps Training.
-  architecture:
-    header: Architektur
-    description: >-
-      Wir analysieren Ihr neues System auf potentielle Fehlerquellen,
-      Ineffizienzen, Sicherheitslücken und langfristige Wartbarkeit.
-  processing:
-    header: Datenverarbeitung
-    description: >-
-      Ob big oder small, Daten verarbeiten sich nicht von alleine. Wir
-      planen und bauen flexible, skalierbare Daten-Pipelines;
-      selbstverständlich GDPR-compliant.
-  ux:
-    header: Interaktionsdesign &amp; Nutzertests
-    description: >-
-      Bei der Einführung neuer Lösungen entscheidet letztendlich die
-      Nutzerakzeptanz über Erfolg und Misserfolg. Wir entwickeln UX
-      Konzepte und testen diese live mit Ihren Nutzen.
+      We create declarative, maintainable web applications in different frameworks.
+      Be it a reactive front ends or real time visualizations. Together we will find the best
+      endpoint to your data and ensure a reliable, scalable and maintainable production.
+  learn_more: Mehr
 
 how:
   header: In welcher Form?
@@ -98,25 +67,6 @@ how:
       Produkts? Ihre Firma steht vor einer tiefgreifenden, digitalen
       Umstellung? Wir begleiten Sie flexibel und auf unbestimmte Zeit,
       mit leistungsbasierter Entlohnung.
-
-showcase:
-  header: Wo wir bereits helfen konnten
-  capm:
-    header: Capitalent Medical
-    description: >-
-      Gemeinsam mit <a
-      href="http://www.capitalent-medical.com/de/">Capitalent
-      Medical</a> haben wir <a
-      href="http://www.sprachtalent.com">sprachtalent pflege</a>, das
-      Sprachlernprogramm für ausländische Pflegekräfte in Deutschland,
-      entwickelt und von der ersten Vision bis zum Vertrieb hin
-      begleitet.
-  classmind:
-    header: Classmind
-    description: >-
-      Wir sind die Entwickler hinter <a
-      href="https://classmind.de/">Classmind</a>, einer
-      Kommunikationsplattform für Lehrer und Schüler.
 
 team:
   header: Das Team
