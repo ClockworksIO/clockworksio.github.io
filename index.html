@@ -40,42 +40,27 @@ title: Clockworks
         <div class="content">
           <div class="separator"></div>
 
-          <section id="why">
-            <header><h4>{% t why.header %}</h4></header>
-            <article>
-              <p>{% t why.first %}</p>
-              <p>{% t why.second %}</p>
-              <p>{% t why.third %}</p>
-            </article>
-          </section>
-
           <section id="what">
             <header><h4>{% t what.header %}</h4></header>
 
             <div class="services">
               <div class="service main-dev">
-                <h5>{% t what.development.header %}</h5>
-                <span>{% t what.development.description %}</span>
+                <h5>{% t what.data_infrastructure.header %}</h5>
+                <div class="square" style="background-image: url('/assets/services/infrastructure.jpg')"></div>
+                <span>{% t what.data_infrastructure.description %}</span>
+                <div align="center" > <a class="button">{% t what.learn_more %}</a> </div>
               </div>
               <div class="service main-consulting">
-                <h5>{% t what.digital_business.header %}</h5>
-                <span>{% t what.digital_business.description %}</span>
+                <h5>{% t what.data_solutions.header %}</h5>
+                <div class="square" style="background-image: url('/assets/services/stream.png')"></div>
+                <span>{% t what.data_solutions.description %}</span>
+                <div align="center" > <a class="button" >{% t what.learn_more %}</a> </div>
               </div>
               <div class="service">
-                <h5>{% t what.infrastructure.header %}</h5>
-                <span>{% t what.infrastructure.description %}</span>
-              </div>
-              <div class="service">
-                <h5>{% t what.architecture.header %}</h5>
-                <span>{% t what.architecture.description %}</span>
-              </div>
-              <div class="service">
-                <h5>{% t what.processing.header %}</h5>
-                <span>{% t what.processing.description %}</span>
-              </div>
-              <div class="service">
-                <h5>{% t what.ux.header %}</h5>
-                <span>{% t what.ux.description %}</span>
+                <h5>{% t what.data_applications.header %}</h5>
+                <div class="square" style="background-image: url('/assets/services/application.png')"></div>
+                <span>{% t what.data_applications.description %}</span>
+                <div align="center" > <a class="button" >{% t what.learn_more %}</a> </div>
               </div>
             </div>
           </section>
@@ -99,68 +84,6 @@ title: Clockworks
             </div>
           </section>
           
-          <section id="showcase">
-            <header><h4>{% t showcase.header %}</h4></header>
-
-            <div class="cases">
-              <div class="case">
-                <svg shape-rendering="geometricprecision"
-                     width="100%"
-                     height="100%"
-                     style="max-width: 300px; overflow: visible;"
-                     viewBox="0 0 100 100">
-                  <defs>
-                    <pattern id="img-sprachtalent-showcase"
-                             patternUnits="userSpaceOnUse"
-                             width="100%"
-                             height="100%">
-                      <image xlink:href="/assets/showcase/sprachtalent.jpg"
-                             preserveAspectRatio="xMinYMid slice"
-                             x="0"
-                             y="0"
-                             width="100%"
-                             height="100%" />
-                    </pattern>
-                  </defs>
-                  <polygon points="0,100 80,100 65,65 80,65 100,0 20,0 35,35 20,35 0,100"
-                           style="stroke-width: 0.5; stroke: var(--color-primary);"
-                           fill="url(#img-sprachtalent-showcase)"/>
-                </svg>
-                <div class="description">
-                  <h5 class="client">{% t showcase.capm.header %}</h5>
-                  <p>{% t showcase.capm.description %}</p>
-                </div>
-              </div>
-              <div class="case">
-                <svg shape-rendering="geometricprecision"
-                     width="50%"
-                     height="100%"
-                     style="max-width: 300px; overflow: visible;"
-                     viewBox="0 0 100 100">
-                  <defs>
-                    <pattern id="img-classmind-showcase"
-                             patternUnits="userSpaceOnUse"
-                             width="100%"
-                             height="100%">
-                      <image xlink:href="/assets/showcase/classmind.png"
-                             preserveAspectRatio="xMinYMid slice"
-                             x="0"
-                             y="0"
-                             width="100%"
-                             height="100%" />
-                    </pattern>
-                  </defs>
-                  <polygon points="0,100 80,100 65,65 80,65 100,0 20,0 35,35 20,35 0,100"
-                           style="stroke-width: 0.5; stroke: var(--color-primary);"
-                           fill="url(#img-classmind-showcase)"/>
-                </svg>
-                <div class="description">
-                  <h5>{% t showcase.classmind.header %}</h5>
-                  <p>{% t showcase.classmind.description %}</p>
-                </div>
-              </div>
-            </div>
-          </section>
 
           <section id="team">
             <header><h4>{% t team.header %}</h4></header>
