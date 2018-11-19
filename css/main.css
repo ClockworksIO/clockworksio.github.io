@@ -364,6 +364,7 @@ article {
     height: auto;
     max-width: 15em;
     padding: 0.5em 2em;
+    align-self: center;
 
     color: #FFF;
     background-color: var(--color-accent);
@@ -858,3 +859,12 @@ footer section {
     }
 }
 
+.square {
+    wid6h: 26em;
+    height: 10em;
+    margin-bottom: 1em;
+    border: 1px solid white;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
