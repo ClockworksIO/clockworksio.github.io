@@ -2,9 +2,9 @@ site:
   description: Computation without regrets.
 
 nav:
-  what: What?
-  how: How?
-  team: Who?
+  what: Services
+  how: Collaboration
+  team: Team
 
 intro:
   first: >-
