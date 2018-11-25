@@ -37,11 +37,12 @@ why:
 what:
   header: Services
   development:
-    header: Software
+    header: Web Applications
     description: >-
-      We develop individual solutions from the ground up for the web,
-      mobile and server-side - alone or together with your
-      team.
+      We create fully customized, intuitive interfaces, exploratory
+      data visualizations, and collaboration tools for the web and
+      mobile platforms. We strive for technology that is calm but
+      powerful.
   digital_business:
     header: Digital Business Models
     description: >-
@@ -49,21 +50,29 @@ what:
       domain and existing business processes, or create completely new ways to
       accelerate your digital journey.
   infrastructure:
-    header: Infrastructure
+    header: Data Infrastructure
     description: >-
-      We design and implement self-hosted, hybrid or cloud-only
-      systems and support you sustainably through maintenance and
-      DevOps training.
+      We plan and implement evolvable data storage solutions and
+      service runtimes on bare metal, hybrid or cloud deployments. We
+      offer guidance throughout the initial setup and configuration
+      and provide ongoing maintenance and DevOps training.
   architecture:
     header: Architecture
     description: >-
       We analyze your new systems for its potential errors,
       inefficiencies, security flaws and long-term maintainability.
   processing:
-    header: Data Processing
+    header: Data Solutions
     description: >-
-      We build flexible and scalable data pipelines capable of
-      handling big data; GDPR-compliant from the get-go.
+      Our software platform 3DF serves as a scalable foundation to
+      bring together many diverse data streams and delivers real-time
+      results to interactive queries. We will customize it to your
+      needs — with powerful algorithms and predictive models.
+
+      3DF can also help manage your access policies, ensures results
+      are interpreted consistently throughout your organization, and
+      automatically verifies business-critical compliance guarantees,
+      such as those enforced by the GDPR.
   ux:
     header: UI &amp; User Testing
     description: >-
