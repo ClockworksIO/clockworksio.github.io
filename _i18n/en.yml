@@ -3,18 +3,21 @@ site:
 
 nav:
   why: Why?
-  what: What?
+  what: Services
   how: How?
-  showcase: Where?
-  team: Who?
+  showcase: Customers
+  team: Team
+  blog: Ideas
 
 intro:
   first: >-
-    We are a software and technology consulting firm specialized in
-    developing new products and durable, resilient solutions.
-  second: >-
-    We focus on building your vision through robust technology and
-    with an integrated concept for front- and backend.
+    Your business is increasingly being measured by its ability to
+    extract insights from diverse data streams, and by the speed at
+    which it can feed those insights back into products and services.
+  second: >-        
+    We specialize in systems that produce accurate answers to complex
+    questions in real-time, and the powerful web frontends that make
+    them available to you and your users.
 
 why:
   header: Our Language
@@ -107,6 +110,9 @@ showcase:
       We created <a
       href="https://classmind.de/">Classmind</a>, a communication
       platform for teachers and students.
+
+ideas:
+  header: Latest Ideas
 
 team:
   header: The Team
