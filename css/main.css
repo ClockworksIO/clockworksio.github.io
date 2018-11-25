@@ -945,3 +945,16 @@ article {
     margin: 0 auto;
     max-width: 600px;
 }
+
+article > h1 {
+    margin-bottom: 3rem;
+    line-height: 1.15em;
+}
+
+article > h3 {
+    font-size: 1.15em;
+    letter-spacing: 0px;
+}
+
+em { font-style: italic; }
+strong { font-weight: bold; }
