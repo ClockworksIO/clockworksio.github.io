@@ -11,10 +11,18 @@ url: "http://clockworks.io" # the base hostname & protocol for your site
 
 # Localization
 languages: ['en', 'de']
-exclude_from_localizations: ["js", "css", "assets", "CNAME"]
+exclude_from_localizations: ["js", "css", "assets", "blog", "_posts", "CNAME"]
 
 # Build settings
 markdown: kramdown
 
 gems:
   - jekyll-multiple-languages-plugin
+
+defaults:
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
