@@ -19,21 +19,6 @@ intro:
     questions in real-time, and the powerful web frontends that make
     them available to you and your users.
 
-why:
-  header: Our Language
-  first: >-
-    Great software emerges when a problem is not only identified, but
-    when it can be formulated; when an idea is not merely thought, but
-    articulated as a real solution; when a thought is described in such
-    detail that even a machine can understand it.
-  second: >-
-    This is our language.
-  third: >-
-    We bridge the gap between business interest and the vast
-    opportunities of the digital domain: be it as a consultant in
-    creating new businesses or as a partner in solving complicated
-    problems.
-
 what:
   header: Services
   development:
@@ -43,12 +28,6 @@ what:
       data visualizations, and collaboration tools for the web and
       mobile platforms. We strive for technology that is both calm and
       powerful.
-  digital_business:
-    header: Digital Business Models
-    description: >-
-      We find meaningful applications of existing technology in your
-      domain and existing business processes, or create completely new ways to
-      accelerate your digital journey.
   infrastructure:
     header: Data Infrastructure
     description: >-
@@ -56,11 +35,6 @@ what:
       service runtimes on bare metal, hybrid or cloud deployments. We
       offer guidance throughout the initial setup and configuration
       and provide ongoing maintenance and DevOps training.
-  architecture:
-    header: Architecture
-    description: >-
-      We analyze your new systems for its potential errors,
-      inefficiencies, security flaws and long-term maintainability.
   processing:
     header: Data Solutions
     description: >-
@@ -68,55 +42,9 @@ what:
       combining many diverse data streams and delivering real-time
       results to interactive queries. We will customize it to your
       needs — with powerful algorithms and predictive models.
-  ux:
-    header: UI &amp; User Testing
-    description: >-
-      When introducing new solutions, what the user wants and how he
-      feels about it ultimately drives success or failure.
-      We design UX concepts and test them live with your users.
-
-how:
-  header: In what way?
-  consulting:
-    header: Consulting
-    description: >-
-      You need a second opinion on how long-term maintainable you new
-      architecture is? You face several unknowns in working with new
-      technology?  We support you locally or remotely and help your
-      team with theses questions.
-  development:
-    header: Development
-    description: >-
-      You need a new software solution? We have a fast prototyping and
-      iteration workflow to produce results guided by you and your
-      user until production.
-  partnership:
-    header: Partnership
-    description: >-
-      You plan the integration of your first software-driven product?
-      Your company faces a digital transformation? We guide you, flexible
-      and for as long as you wish, with performance-related compensation.
 
 customers:
   header: Our Customers
-
-showcase:
-  header: Where we helped
-  capm:
-    header: Capitalent Medical
-    description: >-
-      Together with <a
-      href="http://www.capitalent-medical.com/de/">Capitalent
-      Medical</a> we accompanied the development of <a
-      href="http://www.sprachtalent.com">sprachtalent pflege</a>, a
-      language-learning application for foreign nurses and caretakers in Germany,
-      from its first ideation to a flourishing platform.
-  classmind:
-    header: Classmind
-    description: >-
-      We created <a
-      href="https://classmind.de/">Classmind</a>, a communication
-      platform for teachers and students.
 
 ideas:
   header: Latest Ideas
