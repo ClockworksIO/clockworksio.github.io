@@ -926,7 +926,7 @@ footer section {
 }
 
 
-/** SECTION: POSTS **/
+/** SECTION: POSTS, SECTION: IDEAS **/
 
 section#posts {
     margin: 0 auto;
@@ -939,12 +939,31 @@ section#posts ul {
 }
 
 section#posts ul > li { margin-bottom: 2rem; }
+
+section#ideas ul > li > a,
 section#posts ul > li > a {
     flex: 1;
     text-decoration: none;
 }
 
-section#posts .post-link {
+section#ideas ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    max-width: 800px;
+}
+
+section#ideas ul > li {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex: 1;
+    min-width: 420px;
+    align-self: stetch;
+}
+
+.post-link {
+    height: 100%;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -961,6 +980,7 @@ section#posts .post-link {
 .post-link h4 {
     font-size: 1.15em;
     text-transform: none;
+    text-align: left;
     margin: 0;
 }
 
@@ -984,7 +1004,10 @@ section#posts .post-link {
     margin-bottom: 1em;
 }
 
-.post-link > .abstract { color: var(--color-secondary-text); }
+.post-link > .abstract {
+    flex: 1;
+    color: var(--color-secondary-text);
+}
 
 .post-link > .footer {
     flex: 1;
