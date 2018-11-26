@@ -10,12 +10,18 @@
     <main>
       <article>
         <h1>{{ page.title }}</h1>
+        <div id="post-info">
+          <div class="face" style="background-image: url('/assets/team/{{ page.author }}.jpg')"></div>
+          <span>by {{ site.data.authors[page.author].name }}</span>
+        </div>
         
         {{ content | remove_first: page.excerpt }}
       </article>
     </main>
 
     {% include footer.html %}
+
+    {% include smooth_scrolling.html %}
     
     {% include typekit.html %}
   </body>

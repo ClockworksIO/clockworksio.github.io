@@ -15,6 +15,11 @@ exclude_from_localizations: ["js", "css", "assets", "blog", "_posts", "CNAME"]
 
 # Build settings
 markdown: kramdown
+highlighter: rouge
+
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
 
 gems:
   - jekyll-multiple-languages-plugin
