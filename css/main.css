@@ -567,7 +567,7 @@ section#why h4 { text-align: left; }
 section#what {
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
+    align-items: center;
     width: 100vw;
     padding: 8rem 0;
     color: var(--color-inverse);
@@ -576,11 +576,28 @@ section#what {
 
 .service {
     flex: 1;
+    min-height: 420px;
     padding: 2em;
     background: #fff;
     color: var(--color-primary-text);
     line-height: 1.5em;
     border: 1px solid var(--color-base);
+}
+
+.bullet {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    border: 3px solid #5cc70c;
+    font-size: 2rem;
+    height: 2rem;
+    min-height: 2rem;    
+    width: 2rem;
+    min-width: 2rem;
+    color: #5cc70c;
+    margin-top: .1em;
+    margin-right: .5em;
 }
 
 section#what > .services {
@@ -617,12 +634,26 @@ section#what > .services {
     text-transform: uppercase;
 }
 
+.service > .separator {
+    width: 100%;
+    background: var(--color-base);
+    border-radius: 3px;
+    height: 1px;
+    margin: 1.5em 0;
+}
+
 .service > span {
+    display: block;
+    min-height: 8em;
     color: var(--color-secondary-text);
 }
 
 .service > ul > li {
-    margin: .45em 0;
+    display: flex;
+    flex-direction: row;
+    /* align-items: flex-start; */
+    align-items: center;
+    margin: 0 0 1em 0;
 }
 
 /** SECTION: HOW **/
@@ -665,6 +696,39 @@ section#how > .engagement-types {
         border-right: 1px solid var(--color-base);
     }
 }
+
+/** SECTION: CUSTOMERS **/
+
+section#customers { padding: 4rem 0; }
+
+section#customers > .customer-grid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    max-width: 900px;
+}
+
+.customer-logo {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid var(--color-base);
+    margin: 0;
+    padding: 2em;
+    width: 300px;
+}
+
+.customer-logo img {
+    display: block;
+    max-width: 256px;
+    max-height: 128px;
+    width: auto;
+    height: auto;
+}
+
+.customer-logo:last-child { border-right: none;  }
 
 /** SECTION: SHOWCASE **/
 

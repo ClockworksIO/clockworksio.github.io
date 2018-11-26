@@ -41,7 +41,7 @@ what:
     description: >-
       We create fully customized, intuitive interfaces, exploratory
       data visualizations, and collaboration tools for the web and
-      mobile platforms. We strive for technology that is calm but
+      mobile platforms. We strive for technology that is both calm
       powerful.
   digital_business:
     header: Digital Business Models
@@ -64,15 +64,10 @@ what:
   processing:
     header: Data Solutions
     description: >-
-      Our software platform 3DF serves as a scalable foundation to
-      bring together many diverse data streams and delivers real-time
+      Our software platform 3DF serves as a scalable foundation for
+      combining many diverse data streams and delivering real-time
       results to interactive queries. We will customize it to your
       needs — with powerful algorithms and predictive models.
-
-      3DF can also help manage your access policies, ensures results
-      are interpreted consistently throughout your organization, and
-      automatically verifies business-critical compliance guarantees,
-      such as those enforced by the GDPR.
   ux:
     header: UI &amp; User Testing
     description: >-
@@ -101,6 +96,9 @@ how:
       You plan the integration of your first software-driven product?
       Your company faces a digital transformation? We guide you, flexible
       and for as long as you wish, with performance-related compensation.
+
+customers:
+  header: Our Customers
 
 showcase:
   header: Where we helped
