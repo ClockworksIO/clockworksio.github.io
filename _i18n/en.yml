@@ -1,5 +1,5 @@
 site:
-  description: Computation without regrets.
+  description: Accurate answers to complex questions. In real-time.
 
 nav:
   what: Services
@@ -15,7 +15,7 @@ intro:
   second: >-        
     We specialize in systems that produce accurate answers to complex
     questions in real-time, and the powerful web frontends that make
-    them available to you and your users.
+    them available to you, your users, and your customers.
 
 what:
   header: Services
@@ -23,7 +23,7 @@ what:
     header: Data Infrastructure
     description: >-
       We plan and implement evolvable data storage solutions and
-      service runtimes on bare metal, hybrid or cloud deployments. We
+      service runtimes on bare metal, hybrid, or cloud deployments. We
       offer guidance throughout the initial setup and configuration
       and provide ongoing maintenance and DevOps training.
     bullet1: >-
