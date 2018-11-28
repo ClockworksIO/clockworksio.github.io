@@ -957,6 +957,24 @@ article th {
     text-transform: uppercase;
 }
 
+article ul {
+    margin-bottom: 1em;
+    list-style-type: disc;
+}
+
+article ul > li { line-height: 1.45em; }
+
+.footnotes {
+    border-top: 1px solid var(--color-base);
+    margin: 3rem 0 2rem 0;
+    padding-top: 2em;
+    font-size: 0.862em;
+    color: var(--color-secondary-text);
+}
+
+.footnotes > ol { list-style-type: decimal; }
+.footnotes > ol > li { margin-bottom: .5em; }
+
 em { font-style: italic; }
 strong { font-weight: bold; }
 
