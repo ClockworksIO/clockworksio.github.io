@@ -2,9 +2,7 @@ site:
   description: Computation without regrets.
 
 nav:
-  why: Why?
   what: Services
-  how: How?
   showcase: Customers
   team: Team
   blog: Ideas
