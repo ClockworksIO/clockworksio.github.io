@@ -19,21 +19,28 @@ Yes exactly! We are working on a system, dubbed **3DF** for
 *Declarative Differential Dataflow* [1], that has the ability to
 compile Datalog queries into Differential Dataflows.
 
-Differential Dataflow [2] is a data-parallel programming framework
+Differential Dataflow [2] is "a data-parallel programming framework
 designed to efficiently process large volumes of data and to quickly
-respond to arbitrary changes in input collections.
+respond to arbitrary changes in input collections". It is written and
+maintained by Frank McSherry.
 
 A unique property of this framework is its ability to incrementally
-[^1] update the state of various operators (think `join`, `group`,
-...).  In other words: A Differential Dataflow is a computation that
-reacts to incoming changes in a smart and efficient way and propagates
-any new information correctly.
+update the state of various operators (think `join`, `group`, ...).
+In other words: A Differential Dataflow is a computation that reacts
+to incoming changes in a smart and efficient way and propagates any
+new information correctly. There is quite a lot to it and we defer to
+[Frank's blog](http://frankmcsherry.org/) [2] for a trove of
+information on Differential itself.
 
-The system consists of a server written in Rust that takes commands via WebSocket and internally constructs the appropriate dataflows. We've build a client that can compile Datalog queries into query plans that the backend understands.
+The system consists of a server written in Rust that takes commands
+via WebSocket and internally constructs the appropriate
+dataflows. We've build a client that can compile Datalog queries into
+query plans that the backend understands.
 
-There is quite a lot to it and I'll gladly defer to [2] for a lot of information. 
+To clarify, here is a small example: We are interested in all people
+with a certain name and a certain age. As a Datalog query that may
+look like this:
 
-To clarify, here is a small example: We are interested in all people with a certain name and a certain age. As a Datalog query that may look like this:
 ```clojure
 [:find ?name ?age
  :where
@@ -41,7 +48,9 @@ To clarify, here is a small example: We are interested in all people with a cert
  [?e :age ?age]
  [(> ?age 18)]]
 ```
-Now we input some new information (In general that may come from some file, a stream, kafka, datomic, ... you name it): 
+
+Now we input some new information (In general that may come from some
+file, a stream, kafka, datomic, ... you name it):
 
 ```clojure
 {:name "Mabel" :age 19}
@@ -53,18 +62,26 @@ Now we input some new information (In general that may come from some file, a st
 [[["Mabel" 19] 1]]
 ```
 
-It tells us that there is new information in the result set of our query. The tuple consisting of `"Mabel" 19`is the result of our query and the `1`is the difference. That means this information is added. 
+It tells us that there is new information in the result set of our
+query. The tuple consisting of `"Mabel" 19`is the result of our query
+and the `1`is the difference. That means this information is added.
 
-Maybe we realized, that we made a typo and we retract the first information and add a new one: `:name "Mabel :age 21"`. 3DF will promptly tell us 
+Maybe we realized, that we made a typo and we retract the first
+information and add a new one: `:name "Mabel :age 21"`. 3DF will
+promptly tell us
 
 ```clojure
 [[["Mabel" 19] -1] [["Mabel" 21] 1]]
 ```
-indicating that now there are new facts in the system. The person with name "Mabel" is not 19 but actually 21. This represents a fact, a statement about our world that is true at a given point in time.
 
-Given such differences, Differential Dataflow will only do work proportional to the change itself.
+indicating that now there are new facts in the system. The person with
+name "Mabel" is not 19 but actually 21. This represents a fact, a
+statement about our world that is true at a given point in time. Given
+such differences, Differential Dataflow will only do work proportional
+to the change itself.
 
-Having 3DF and subsequentially Differential Dataflow keeping track of our changes we can start looking at Clojurescript and Vega.
+Having 3DF keep track of our changes, we can start looking at
+ClojureScript and Vega.
 
 ## Communication
 
@@ -73,7 +90,7 @@ Datalog expressions, manage input parameters, send data, and receive
 updates to our queries, as new data arrives in the system.
 
 Any further communication is build around Clojure's amazing async
-library. The client code [3] is available for both Clojure &
+library. The client code [4] is available for both Clojure &
 ClojureScript. When connecting to the server, we get a single
 connection handle:
 
@@ -102,9 +119,9 @@ it into the WebSocket.
 Alright. Communication is sorted and we have 3DF running. Now a short
 look at Vega.
 
-Vega is high-level grammar for visualizations [4]. That means we
+Vega is high-level grammar for visualizations [5]. That means we
 describe, in a declarative manner, what we want Vega to
-visualize. Here is an example specification[^2] for a bar chart with x
+visualize. Here is an example specification[^1] for a bar chart with x
 values taken from the `hour` field and y values from `sum_passenger`:
 
 ```clojure
@@ -122,8 +139,6 @@ values taken from the `hour` field and y values from `sum_passenger`:
 
 In contrast to normal Vega specs, we do not specify any data. We will
 stream it!
-
-### Streaming
 
 Vega offers an `embed` functionality, which can run arbitrary
 JavaScript in its callbacks. Well thats exactly the place we will put
@@ -149,18 +164,21 @@ takes a vector of tuples indicating new data to insert and the
 tuples and returns `true` for all that are supposed to be removed.
 
 In the end we call `run` which will execute and render the
-changes. More on that can be read here [5].
+changes. More on that can be read here [6]. Finally we call the
+`embed` method and mount into the DOM.
 
-Now we need to simply call the `embed` method and mount it into the
-DOM.
+## Running Analytics
 
-## Running some analytics
+Our data set is the publicly available data of NYC cab rides [7].  The
+dataset contains one single day, these are around 9.000.000 lines of
+uncompressed csv with a size of 800 MB. We are running 3DF in one
+thread on my MBP.
 
-Our data set is the publicly available data of NYC cab rides [6].
-The dataset contains one single day, these are around 9.000.000 lines of uncompressed csv with a size of 800 MB. We are running 3DF in one thread on my MBP.
+Every line describes one cab ride with the following attributes:
+`VendorID`, `pickup_time`, `passenger_count`, `trip_distance`. The
+remaining ones are omitted, as we are not using them. We will
+simulate streaming this data at 1024 lines per batch.
 
-Every line describes one cab ride with the following attributes: `VendorID`, `pickup_time`, `passenger_count`, `trip_distance`. The remaining ones are omitted, as we are not using them.
-We will simulate streaming this data at 1024 lines per batch.
 ```clojure
 (exec! conn
     (register-source
@@ -169,12 +187,18 @@ We will simulate streaming this data at 1024 lines per batch.
                 :separator ","
                 :schema    [[0 {:Number 0}][1 {:Number 0}] [3 {:Number 0}] [4 {:Number 0}]]}}))
 ```
-Columns from this dataset will always have the namespace `cab/` s.t. we can distinguish them from different sources.
-The reading of the whole dataset takes, at a batch size of 1024 lines, around 70 seconds. That is quite long, compared to 25 when we do not batch them with that high granularity. That is because we increment the logical timestamp every 1024 lines, which leads Differential to do a lot more progress tracking work.
 
-The first thing we look at is quite simple: *Number of transported people per hour*
+Columns from this dataset will always have the namespace `cab/` such
+that we can distinguish them from different sources. The reading of
+the whole dataset takes around 70 seconds with a batch size of 1024
+lines. That is quite long, compared to 25 seconds when we do not batch
+them with that high of a granularity. That is because we increment the
+logical timestamp every 1024 lines, causing Differential to do a lot
+more progress tracking work.
 
-Here is the Datalog query
+The first thing we look at is quite simple: *Number of transported
+people per hour*. Here is the Datalog query:
+
 ```clojure
 (def passenger
   "Number of transported people per hour"
@@ -193,92 +217,79 @@ and values to be added.
 
 ![passengers by hour](/assets/blog/reactive-datalog-with-vega/passengers.gif)
 
-On the x-axis you see the different hours and the y-axis represent the number of transported passengers. You can see how neatly those bars are growing.
+On the x-axis you see the different hours and the y-axis represent the
+number of transported passengers. You can see how neatly those bars
+are growing.
 
-## Interactive queries
-Well that has been nice and fun. We can stream results of our computations into Vega and get updated visualizations whenever something changes in our queries result set. But this is just the beginning. How about creating some interactive visualization just with 3DF.
+## Interactive Queries
 
-Alright, so in order to control anything about an already existing dataflow (our query) we need to use input collections. Here is the query we are looking into now
+Well that has been nice and fun. We can stream results of our
+computations into Vega and get updated visualizations whenever the
+result set of our query changes. But this is just the beginning. How
+about creating an interactive visualization just with 3DF?
+
+For this we will create a new query with an interactive input,
+allowing our users to see results for specific hours of the day. We
+will be looking at a query that asks for the number of rides
+aggregated by trip distance, with all distances rounded to integers.
 
 ```clojure
 (def distance-distribution
-  "Aggregates the number of rides for a given distance"
+  "Aggregate number of rides for a given distance"
   '[:find ?distance (count ?e)
     :where
-    (analysis/hour ?hour)
+    [?e :cab/distance ?distance]
+    [?e :cab/hour ?hour]]) ; <- we want to control this
+```
+
+We introduce a new interactive input called `:filter/hour`.
+
+```clojure
+(exec! conn (create-input :filter/hour))
+```
+
+Now we have to adapt the query to make use of this new input. For that
+we bind input values to the symbol `?hour` and then join them with the
+`:cab/hour`. This ends up looking like the following:
+
+```clojure
+(def distance-distribution
+  "Aggregate number of rides for a given distance"
+  '[:find ?distance (count ?e)
+    :where
+    [_ :filter/hour ?hour] ; <- the new input
     [?e :cab/distance ?distance]
     [?e :cab/hour ?hour]])
 ```
 
-It is a query that asks for every distance and the number of times a
-ride took that distance. I cast the distance float into integers. The
-difference to the former query is the first line in the `:where`
-clause. We bind the symbol `?hour` to the result of `analysis/hour`
-and then join it with the `:cab/hour`. `analysis/hour` is a named
-relation, nothing else then an already registered query.
-
-Cool! So we can feed output from existing queries into others, simply
-by mentioning them. Let's look at how to create this input collection.
-This query simple produces the `?hour` value of all `:filter/hour`
-attributes.
-
-```clojure
-(exec! conn 
-  (create-input 
-    {:filter/hour {:db/valueType :Number}}))
-
-(exec! conn 
-  (register-query
-    schema "analysis/hour"
-    '[:find ?hour
-      :where 
-      [?e :filter/hour ?hour]]))
-```
-
-We create a new schema that just consists of the former attribute,
-create a new input collection and then we register the query. Now we
-can start transacting into that input handle and observe changes to
-our visualization.
-
-In Emacs on the right, I transact different hour values and then
-retract them in the same transaction.
+Now we can start transacting into that input and observe changes to
+our visualization. In Emacs on the right, we update the hour input.
 
 ![interactive queries](/assets/blog/reactive-datalog-with-vega/interactive_2.gif)
 
-I start with the distribution for hour 12, then I move to hour 18 and
-then to hour 3. You could also add several ones to see the distance
-distribution for combined hours. Every addition into the collection of
-the attribute `:filter/hour` leads the `?hour`-join in the
+We start with the distribution at 9pm, move on to 3am, 6pm, and
+finally to 11pm. You could also add several different hours to see the
+distribution for all of them combined. Every addition into
+`:filter/hour` input leads the `?hour`-join in the
 `distance-distribution` query to match all those rows that have the
 respective `:cab/hour` value. Retractions work the same but with
 negative differences and as such lead to data being removed.
 
-On this level of abstraction it looks like we're polling the database
-with different hour filters. But we are not executing the query from
-scatch, we simply let 3DF propagate this new information through the
-system, re-using previously computed results wherever it can.
+## Embrace The Change
 
-## Embrace the change 
+After spending all day building this wonderful dashboard and computing
+all these aggregates your boss storms into your office. He informs you
+that one of the vendors has retracted their data usage consent. We
+need to remove all of their information asap.
 
-Imaging you just did these analytics and your boss stormes into your
-office.  He tells you that one of these vendors has retracted their
-consent for data usage.  Oh damn.  We need to remove all of it
-asap. Damn you GDPR compliance. We just spend all day building this
-wonderful dashboard.
+3DF to the rescue. We have a system that is designed to propagate
+changes efficiently. So lets see how we can solve this.
 
-3DF to the rescue. We have a system that can propagate changes. So
-lets see how we can solve this.
-
-We'll assume that we have a separate database where we store
-information about the different vendors, sort of a user
-database. Every line in our analytics files contains as first column
-an id, uniquely identifying these vendors (in this case there are just
-two of them).
-
-In this case the vendor is referenced by its id in our cab dataset. In
-our query we would match these id references, to incorporate
-information from that vendor database.[^3] Imagine our query would
-have been this:
+We'll assume that we have a separate database containing information
+about the different vendors. Every line in our analytics files
+contains an id, uniquely identifying these vendors. In our query we
+would match on these ids, in order to incorporate information from the
+vendor database[^2]:
 
 ```clojure
 (def passenger
@@ -292,9 +303,8 @@ have been this:
     [_  :vendor/id ?id]])
 ```
 
-Now observe what happens to our analytics computations, at the end of
-day presumably after we processed all data, when we remove this one
-vendor from the vendor database.
+Now observe what happens to our results as we remove this one vendor
+from the vendor database.
 
 ```clojure
 (exec! conn (transact db [[:db/retract :vendor/id 1]]))
@@ -308,33 +318,34 @@ You see how all the values drop down as we remove the vendor. This one
 retraction led to a change touching more than half of all cab rides
 and these changes are propagated through all dataflows.
 
-All computations got updated without us doing anything else, we did
-not change the underlying query, filtered the input dataset or
-explicitly rerun any computation at all. 3DF efficiently computed the
-differences and told us about the changes.
+All our results got updated without us changing our queries or
+filtering the input dataset. It's also important to note that we
+didn't have to re-run our computations from scratch, as we can still
+use the data from all other vendors. 3DF efficiently computed just the
+differences.
 
-This is amazing.
+Imagine we had been feeding these results into even more computations,
+such as price forecasting, movement analytics, or predicting traffic
+bottlenecks. All those downstream computations might've also used
+information affected by this retraction, and would now be updated
+accordingly and in an efficient manner.
 
-Imagine we had a lot more computations, feeding the results from the
-former queries into some price forecasting, movement analytics and so
-on. Every downstream computation, somehow using information that has
-changed through this retraction, would be updated accordingly and as
-efficiently as possible.
+Well this has been a lot of fun. Hopefully you've made it through this
+lengthy piece. Next time we will take a deeper dive into the
+performance characteristics of working with changes, run computations
+in a distributed setting, and see how 3DF performs at scale.
 
-Well this was a lot of fun. I hope you made it through this lengthy
-piece. Next time I will run this in a cluster configuration and we
-will see how 3DF performs when we scale out.  Until then cheers and
-goodbye.
+Until then cheers and goodbye.
 
 ## Resources
 
 - [1] [3DF](https://github.com/comnik/declarative-dataflow)
 - [2] [Differential Dataflow](https://github.com/frankmcsherry/differential-dataflow)
-- [3] [clj-3DF](https://github.com/comnik/clj-3df)
-- [4] [Vega](https://vega.github.io/vega/)
-- [5] [Vega-Streaming](https://vega.github.io/vega-lite/tutorials/streaming.html)
-- [6] [NYC Cab Rides](http://www.nyc.gov/html/tlc/html/about/trip_record_data.shtml)
+- [3] [frankmcsherry.org](http://frankmcsherry.org/)
+- [4] [clj-3DF](https://github.com/comnik/clj-3df)
+- [5] [Vega](https://vega.github.io/vega/)
+- [6] [Vega-Streaming](https://vega.github.io/vega-lite/tutorials/streaming.html)
+- [7] [NYC Cab Rides](http://www.nyc.gov/html/tlc/html/about/trip_record_data.shtml)
 
-[^1]:Actually, even more than that Differential Dataflow keeps the differences partially ordered and as a full trace, instead of totally ordered and compacted as most incremental computation frameworks do, but that does not need to concern us here.
-[^2]:This is a Vega-lite spec, but all the things I later show are Vega. Vega specs are just quite verbose.
-[^3]:We are actually not using the vendor information anywhere else, but let's assume it for now.
+[^1]:This is a Vega-lite spec, but all the things we'll see later are Vega. Vega specs are just quite verbose.
+[^2]:We are actually not using the vendor information anywhere else, but let's assume it for now.
