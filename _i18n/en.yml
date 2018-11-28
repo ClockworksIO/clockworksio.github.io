@@ -19,13 +19,6 @@ intro:
 
 what:
   header: Services
-  development:
-    header: Web Applications
-    description: >-
-      We create fully customized, intuitive interfaces, exploratory
-      data visualizations, and collaboration tools for the web and
-      mobile platforms. We strive for technology that is both calm and
-      powerful.
   infrastructure:
     header: Data Infrastructure
     description: >-
@@ -33,6 +26,14 @@ what:
       service runtimes on bare metal, hybrid or cloud deployments. We
       offer guidance throughout the initial setup and configuration
       and provide ongoing maintenance and DevOps training.
+    bullet1: >-
+      Simple, maintainable, evolvable as you grow
+    bullet2: >-
+      Consistent environments across development and all stages of
+      deployment
+    bullet3: >-
+      Designed for security, efficiency, and compliance with privacy
+      regulations
   processing:
     header: Data Solutions
     description: >-
@@ -40,6 +41,28 @@ what:
       combining many diverse data streams and delivering real-time
       results to interactive queries. We will customize it to your
       needs — with powerful algorithms and predictive models.
+    bullet1: >-
+      Real-time answers to complex questions across all your data
+    bullet2: >-
+      Automatic enforcement of access policies and business-critical
+      compliance guarantees (GDPR)
+    bullet3: >-
+      Consistent interpretation and sub-second propagation of results
+      throughout your organization
+  development:
+    header: Web Applications
+    description: >-
+      We create fully customized, intuitive interfaces, exploratory
+      data visualizations, and collaboration tools for the web and
+      mobile platforms. We strive for technology that is both calm and
+      powerful.
+    bullet1: >-
+      Reflect the state of your business in real-time
+    bullet2: >-
+      Sophisticated, exploratory interactions and support for
+      data-driven decision making
+    bullet3: >-
+      Hassle-free collaboration with full support for offline use
 
 customers:
   header: Our Customers
