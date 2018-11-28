@@ -1,124 +1,81 @@
 site:
-  description: >
-    Softwareberatungs- und Technologieunternehmen. Übersetzer zwischen
-    Ihren Geschäftsinteressen und den Möglichkeiten der digitalen Welt.
+  description: >-
+    Präzise Antworten auf komplexe Fragestellungen. In Echtzeit.
 
 nav:
-  why: Warum?
   what: Was?
-  how: Wie?
   showcase: Wo?
   team: Wer?
   blog: Ideen
 
 intro:
   first: >-
-    Wir sind ein Softwareberatungs- und Technologieunternehmen, das
-    auf die Entwicklung von neuen Produkten und langlebigen,
-    belastbaren Lösungen spezialisiert ist.
+    Ihr Unternehmen wird zunehmend an seiner Fähigkeit gemessen,
+    Erkenntnisse aus vielfältigen Datenströmen zu ziehen und diese
+    reibungslos in Produkte und Dienstleistungen einfliessen zu
+    lassen.
   second: >-
-    Wir verstehen uns darauf, Ihre Vision zu konkretisieren und diese
-    mit robuster Technologie sowie einem holistischen Konzept für
-    System- und Interaktionsdesign zu realisieren.
-
-why:
-  header: Unsere Sprache
-  first: >-
-    Gute Software entsteht immer dann, wenn ein Problem nicht nur
-    identifiziert, sondern auch formuliert werden kann; wenn eine Idee
-    nicht nur erdacht, sondern als konkrete Lösung artikuliert wird;
-    wenn ein Gedanke so klar beschrieben ist, dass ihn selbst eine
-    Maschine versteht.
-  second: >-
-    Diese Sprache sprechen wir.
-  third: >-
-    Wir verstehen uns als Übersetzer zwischen Ihren
-    Geschäftsinteressen und den Möglichkeiten der digitalen Welt: sei
-    es als Ihr Berater im Aufbau neuer Geschäftsfelder oder als Ihr
-    Sparringspartner beim Lösen komplexer Probleme.
+    Wir sind spezialisiert auf Systeme, die in Echtzeit präzise
+    Antworten auf kompleze Fragestellungen liefern, und auf die Web
+    Anwendungen, die diese Fähigkeiten Ihnen, Ihrem Unternehmen, und
+    Ihren Kunden zur Verfügung stellen.
 
 what:
   header: Leistungen
+  infrastructure:
+    header: Daten Infrastruktur
+    description: >-
+      Wir planen und implementieren Lösungen für flexible
+      Datenhaltung und Service Runtimes auf bare metal, hybrid, oder
+      in der cloud. Wir unterstützen Sie nachhaltig durch fortlaufende
+      Wartung und DevOps Training.
+    bullet1: >-
+      Simpel, wartbar, wächst mit Ihren Anforderungen
+    bullet2: >-
+      Konsistente Umgebungen in der Entwicklung, im Testbetrieb, und
+      in Produktion
+    bullet3: >-
+      Designed mit Sicherheit, Effizienz, und Datenschutz im Kopf
+  processing:
+    header: Daten Verarbeitung
+    description: >-
+      Unsere 3DF Platform bietet eine skalierbare Grundlage für das
+      Zusammenführen vielfältiger Datenströme und beantwortet
+      interaktive Anfragen in Echtzeit. Darauf aufbauend
+      implementieren wir für Sie spezialisierte Algorithmen und
+      Modelle.
+    bullet1: >-
+      Echtzeit Antworten auf komplexe Fragestellungen über all Ihre
+      Daten
+    bullet2: >-
+      Automatische Gewährleistung von Zugangskontrollen und
+      Datenschutzrichtlinien (DSVGO)
+    bullet3: >-
+      Einheitliche Analysen, in wenigen Millisekunden überall in
+      Ihrem Unternehmen verfügbar
   development:
     header: Individualsoftware
     description: >-
-      Wir entwickeln von Grund auf individuelle Lösungen für das Web,
-      die mobilen Plattformen, und den Server — eigenständig oder in
-      Zusammenarbeit mit Ihrem Team.
-  digital_business:
-    header: Digitale Geschäftsmodelle
-    description: >-
-      Wir finden sinnvolle Einsatzgebiete für existierende
-      Technologien in Ihren aktuellen Geschäftsfeldern und Prozessen,
-      oder erdenken gleich ganz neue Wege um Sie digital
-      voranzubringen.
-  infrastructure:
-    header: Infrastruktur
-    description: >-
-      Wir konzeptionieren und implementieren self-hosted, hybride oder
-      reine Cloud Systeme und unterstützen Sie nachhaltig durch
-      fortlaufende Wartung und DevOps Training.
-  architecture:
-    header: Architektur
-    description: >-
-      Wir analysieren Ihr neues System auf potentielle Fehlerquellen,
-      Ineffizienzen, Sicherheitslücken und langfristige Wartbarkeit.
-  processing:
-    header: Datenverarbeitung
-    description: >-
-      Ob big oder small, Daten verarbeiten sich nicht von alleine. Wir
-      planen und bauen flexible, skalierbare Daten-Pipelines;
-      selbstverständlich GDPR-compliant.
-  ux:
-    header: Interaktionsdesign &amp; Nutzertests
-    description: >-
-      Bei der Einführung neuer Lösungen entscheidet letztendlich die
-      Nutzerakzeptanz über Erfolg und Misserfolg. Wir entwickeln UX
-      Konzepte und testen diese live mit Ihren Nutzen.
+      Wir entwickeln von Grund auf individuelle Oberflächen,
+      explorative Visualisierungen, und Kollaborations Tools für das
+      Web und die mobilen Plattformen. Wir stehen für Technologie die
+      unaufgeregt viel leistet.
+    bullet1: >-
+      Web Anwendungen, die immer den aktuellen Stand Ihres
+      Unternehmens in Echtzeit widerspiegeln
+    bullet2: >-
+      Explorative, interaktive Analysen für daten-gestützten
+      Entscheidungen
+    bullet3: >-
+      Kollaborative Anwendungen ohne Versionen-Chaos und mit voller
+      Offline Unterstützung
 
-how:
-  header: In welcher Form?
-  consulting:
-    header: Beratung
-    description: >-
-      Sie brauchen eine zweite Meinung zur langfristigen Qualität
-      einer geplanten Architektur? Es gibt noch viele Unbekannte beim
-      Einstieg in eine neue Technologie? Wir unterstützen Ihr Team vor
-      Ort und helfen in diesen Fragen weiter.
-  development:
-    header: Entwicklung
-    description: >-
-      Sie benötigen eine neue Software-Lösung?  Wir erstellen ein
-      Konzept und entwickeln in kurzer Zeit einen ersten
-      Prototypen. Von diesem ausgehend analysieren wir Nutzerfeedback
-      und bringen Ihr Projekt zur Marktreife.
-  partnership:
-    header: Partnerschaft
-    description: >-
-      Sie planen die Einführung Ihres ersten software-getriebenen
-      Produkts? Ihre Firma steht vor einer tiefgreifenden, digitalen
-      Umstellung? Wir begleiten Sie flexibel und auf unbestimmte Zeit,
-      mit leistungsbasierter Entlohnung.
+customers:
+  header: Unsere Kunden
 
-showcase:
-  header: Wo wir bereits helfen konnten
-  capm:
-    header: Capitalent Medical
-    description: >-
-      Gemeinsam mit <a
-      href="http://www.capitalent-medical.com/de/">Capitalent
-      Medical</a> haben wir <a
-      href="http://www.sprachtalent.com">sprachtalent pflege</a>, das
-      Sprachlernprogramm für ausländische Pflegekräfte in Deutschland,
-      entwickelt und von der ersten Vision bis zum Vertrieb hin
-      begleitet.
-  classmind:
-    header: Classmind
-    description: >-
-      Wir sind die Entwickler hinter <a
-      href="https://classmind.de/">Classmind</a>, einer
-      Kommunikationsplattform für Lehrer und Schüler.
-
+ideas:
+  header: Unsere Ideen
+  
 team:
   header: Das Team
   
