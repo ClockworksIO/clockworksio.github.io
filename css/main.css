@@ -568,7 +568,6 @@ section#what {
     width: 2rem;
     min-width: 2rem;
     color: #5cc70c;
-    margin-top: .1em;
     margin-right: .5em;
 }
 
@@ -868,7 +867,6 @@ section#ideas ul > li {
 .post-link:hover h4:after { width: 100%; }
 
 .post-link > .header {
-    flex: 1;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -882,7 +880,6 @@ section#ideas ul > li {
 }
 
 .post-link > .footer {
-    flex: 1;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -894,7 +891,13 @@ section#ideas ul > li {
     color: var(--color-primary);
 }
 
-.post-link > .footer > span { margin-right: .5em; }
+.post-link > .footer > span {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+    margin-right: .5em;
+}
+.post-link > .footer > .category { flex: 2; }
 .post-link > .footer > .language { margin-left: auto; }
 
 
@@ -917,7 +920,7 @@ article {
     width: 64px;
     height: 64px;
     border: 1px solid var(--color-accent);
-    margin-right: 1em;
+    margin: 0 1em 0 0;
 }
 
 article > h1 {
