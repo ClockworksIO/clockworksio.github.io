@@ -1,7 +1,9 @@
 <script type="text/javascript">
   const lang = navigator.language || navigator.userLanguage;
+  const deForced = window.location.pathname.indexOf('/de') >= 0;
+  const enForced = window.location.pathname.indexOf('/en') >= 0;
   
-  if (lang.indexOf('de') === 0 && window.location.pathname.indexOf('/de/') < 0) {
+  if (lang.indexOf('de') === 0 && !deForced && !enForced) {
     window.location = '/de/';
   }
 </script>

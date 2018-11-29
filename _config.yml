@@ -10,8 +10,10 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://clockworks.io" # the base hostname & protocol for your site
 
 # Localization
-languages: ['en', 'de']
-exclude_from_localizations: ["js", "css", "assets", "blog", "_posts", "CNAME"]
+# this is currently a bit of a hack to make the english version
+# available both under / as well as under /en
+languages: ['en', 'en', 'de']
+exclude_from_localizations: ["js", "css", "assets", "_posts", "CNAME"]
 
 # Build settings
 markdown: kramdown
