@@ -73,7 +73,7 @@ Tomorrow"](http://tonsky.me/blog/the-web-after-tomorrow/)[7], much
 more lucid than we can hope to achieve here. The following quotes and
 illustration are taken directly from Nikita's post.
 
-![](/assets/web-after-tomorrow.jpg)
+![The Web After Tomorrow](/assets/blog/incremental-datalog/web-after-tomorrow.jpg)
 
 > Web pages are usually pretty complex, they may track hundreds of
 > different objects, they may track results of complex queries, they

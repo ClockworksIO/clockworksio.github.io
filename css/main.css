@@ -1000,3 +1000,17 @@ pre > code {
     line-height: 1.35em;
     overflow-x: auto;
 }
+
+blockquote {
+    font-style: italic;
+    margin-left: -21px;
+    margin-bottom: 1.75em;
+    padding-left: 18px;
+    border-left: 3px solid #444;
+}
+
+blockquote > p {
+    margin-bottom: 2em;
+}
+
+blockquote > ul { list-style: none; }
