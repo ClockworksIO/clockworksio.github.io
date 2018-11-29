@@ -23,9 +23,6 @@ kramdown:
   input: GFM
   syntax_highlighter: rouge
 
-gems:
-  - jekyll-multiple-languages-plugin
-
 defaults:
   -
     scope:
