@@ -1,6 +1,6 @@
 ---
 title: Reactive Datalog with Vega
-category: 3DF, ClojureScript, Vega, Datalog
+tags: 3DF ClojureScript Vega Datalog
 language: EN
 author: david
 ---

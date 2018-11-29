@@ -18,7 +18,7 @@
               </div>
               <div class="footer">
                 <span class="date">{{ post.date | date_to_string }}</span>
-                <span class="category">in {{ post.category }}</span>
+                <span class="tags">in {% for tag in post.tags %} {{ tag }} {% endfor %}</span>
                 <span class="language">{{ post.language }}</span>
               </div>
             </a>
@@ -29,8 +29,6 @@
     </main>
 
     {% include footer.html %}
-
-    <!-- {% include lang_redirect.html %} -->
 
     {% include smooth_scrolling.html %}
 

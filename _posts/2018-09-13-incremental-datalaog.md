@@ -1,6 +1,6 @@
 ---
 title: Incremental Datalog with Differential Dataflows
-category: 3DF, Datalog
+tags: 3DF Datalog
 language: EN
 author: niko
 ---

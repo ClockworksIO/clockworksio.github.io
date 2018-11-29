@@ -897,7 +897,7 @@ section#ideas ul > li {
     overflow-x: hidden;
     margin-right: .5em;
 }
-.post-link > .footer > .category { flex: 2; }
+.post-link > .footer > .tags { flex: 2; }
 .post-link > .footer > .language { margin-left: auto; }
 
 
