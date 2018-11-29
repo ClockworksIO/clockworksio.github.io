@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <meta name="description" content="Präzise Antworten auf komplexe Fragestellungen. In Echtzeit." />
+    <meta property="og:title" content="Clockworks UG" />
+    <meta property="og:description" content="Präzise Antworten auf komplexe Fragestellungen. In Echtzeit." />
+
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
+    <link rel="stylesheet" type="text/css" href="/css/main.css" />
+    <link rel="stylesheet" type="text/css" href="/css/github-theme.css">
+
+    <title>Reactive Datalog with Vega</title>
+</head>
+
+  <body>
+    <header>
+  <div id="nav-container">
+    <h1><a href="/#">clockworks</a></h1>
+    <div class="menu-separator"></div>
+    <section id="page-header">
+      <nav id="primary-navigation">
+        <ul>
+          
+          <li><a href="/de#what" data-scroll>Was?</a></li>
+          <li><a href="/de#customers" data-scroll>Wo?</a></li>
+          <li><a href="/de#team" data-scroll>Wer?</a></li>
+          <li><a href="/de/blog" data-scroll>Ideen</a></li>
+          
+        </ul>
+      </nav>
+    </section>
+    <div class="menu-separator"></div>
+  </div>
+</header>
+
+
+    <main>
+      <article>
+        <h1>Reactive Datalog with Vega</h1>
+        <div id="post-info">
+          <div class="face" style="background-image: url('/assets/team/david.jpg')"></div>
+          <span>by David Bach</span>
+        </div>
+        
+        <!--abstract-->
+
+<p><em>In this post we will build a streaming Vega visualization backed by
+reactive Datalog queries.</em></p>
+
+<h2 id="reactive-datalog">Reactive Datalog?</h2>
+
+<p>Yes exactly! We are working on a system, dubbed <strong>3DF</strong> for
+<em>Declarative Differential Dataflow</em> [1], that has the ability to
+compile Datalog queries into Differential Dataflows.</p>
+
+<p>Differential Dataflow [2] is “a data-parallel programming framework
+designed to efficiently process large volumes of data and to quickly
+respond to arbitrary changes in input collections”. It is written and
+maintained by Frank McSherry.</p>
+
+<p>A unique property of this framework is its ability to incrementally
+update the state of various operators (think <code class="highlighter-rouge">join</code>, <code class="highlighter-rouge">group</code>, …).
+In other words: A Differential Dataflow is a computation that reacts
+to incoming changes in a smart and efficient way and propagates any
+new information correctly. There is quite a lot to it and we defer to
+<a href="http://frankmcsherry.org/">Frank’s blog</a> [2] for a trove of
+information on Differential itself.</p>
+
+<p>The system consists of a server written in Rust that takes commands
+via WebSocket and internally constructs the appropriate
+dataflows. We’ve build a client that can compile Datalog queries into
+query plans that the backend understands.</p>
+
+<p>To clarify, here is a small example: We are interested in all people
+with a certain name and a certain age. As a Datalog query that may
+look like this:</p>
+
+<div class="language-clojure highlighter-rouge"><pre class="highlight"><code><span class="p">[</span><span class="no">:find</span><span class="w"> </span><span class="n">?name</span><span class="w"> </span><span class="n">?age</span><span class="w">
+ </span><span class="no">:where</span><span class="w">
+ </span><span class="p">[</span><span class="n">?e</span><span class="w"> </span><span class="no">:name</span><span class="w"> </span><span class="n">?name</span><span class="p">]</span><span class="w">
+ </span><span class="p">[</span><span class="n">?e</span><span class="w"> </span><span class="no">:age</span><span class="w"> </span><span class="n">?age</span><span class="p">]</span><span class="w">
+ </span><span class="p">[(</span><span class="nb">&gt;</span><span class="w"> </span><span class="n">?age</span><span class="w"> </span><span class="mi">18</span><span class="p">)]]</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>Now we input some new information (In general that may come from some
+file, a stream, kafka, datomic, … you name it):</p>
+
+<div class="language-clojure highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="no">:name</span><span class="w"> </span><span class="s">"Mabel"</span><span class="w"> </span><span class="no">:age</span><span class="w"> </span><span class="mi">19</span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>3DF will update us promptly (For how see below):</p>
+
+<div class="language-clojure highlighter-rouge"><pre class="highlight"><code><span class="p">[[[</span><span class="s">"Mabel"</span><span class="w"> </span><span class="mi">19</span><span class="p">]</span><span class="w"> </span><span class="mi">1</span><span class="p">]]</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>It tells us that there is new information in the result set of our
+query. The tuple consisting of <code class="highlighter-rouge">"Mabel" 19</code>is the result of our query
+and the <code class="highlighter-rouge">1</code>is the difference. That means this information is added.</p>
+
+<p>Maybe we realized, that we made a typo and we retract the first
+information and add a new one: <code class="highlighter-rouge">:name "Mabel :age 21"</code>. 3DF will
+promptly tell us</p>
+
+<div class="language-clojure highlighter-rouge"><pre class="highlight"><code><span class="p">[[[</span><span class="s">"Mabel"</span><span class="w"> </span><span class="mi">19</span><span class="p">]</span><span class="w"> </span><span class="mi">-1</span><span class="p">]</span><span class="w"> </span><span class="p">[[</span><span class="s">"Mabel"</span><span class="w"> </span><span class="mi">21</span><span class="p">]</span><span class="w"> </span><span class="mi">1</span><span class="p">]]</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>indicating that now there are new facts in the system. The person with
+name “Mabel” is not 19 but actually 21. This represents a fact, a
+statement about our world that is true at a given point in time. Given
+such differences, Differential Dataflow will only do work proportional
+to the change itself.</p>
+
+<p>Having 3DF keep track of our changes, we can start looking at
+ClojureScript and Vega.</p>
+
+<h2 id="communication">Communication</h2>
+
+<p>3DF exposes a WebSocket connection over which we can register new
+Datalog expressions, manage input parameters, send data, and receive
+updates to our queries, as new data arrives in the system.</p>
+
+<p>Any further communication is build around Clojure’s amazing async
+library. The client code [4] is available for both Clojure &amp;
+ClojureScript. When connecting to the server, we get a single
+connection handle:</p>
+
+<div class="language-clojure highlighter-rouge"><pre class="highlight"><code><span class="p">(</span><span class="k">def</span><span class="w"> </span><span class="n">conn</span><span class="w"> </span><span class="p">(</span><span class="nf">create-conn</span><span class="w"> </span><span class="s">"ws://127.0.0.1:6262"</span><span class="p">))</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>It contains one async channel were all outputs are put and one sink to
+which we can write commands.  As we likely will be running more than
+one query, we want dedicated subscribers for every one of them. For
+that purpose we use pub/sub from the async library.  We partition our
+results by the name of the query.</p>
+
+<p>A registration will look like the following, with the former query:</p>
+
+<div class="language-clojure highlighter-rouge"><pre class="highlight"><code><span class="p">(</span><span class="nf">exec!</span><span class="w"> </span><span class="n">conn</span><span class="w"> </span><span class="p">(</span><span class="nf">register-query</span><span class="w"> </span><span class="s">"people-over-18"</span><span class="w"> </span><span class="n">query</span><span class="p">))</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>Here <code class="highlighter-rouge">people-over-18</code> is our globally named relation and <code class="highlighter-rouge">exec!</code> is a
+macro that will serialize the output from <code class="highlighter-rouge">register-query</code> and write
+it into the WebSocket.</p>
+
+<h2 id="vega">Vega</h2>
+
+<p>Alright. Communication is sorted and we have 3DF running. Now a short
+look at Vega.</p>
+
+<p>Vega is high-level grammar for visualizations [5]. That means we
+describe, in a declarative manner, what we want Vega to
+visualize. Here is an example specification<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup> for a bar chart with x
+values taken from the <code class="highlighter-rouge">hour</code> field and y values from <code class="highlighter-rouge">sum_passenger</code>:</p>
+
+<div class="language-clojure highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="no">:data</span><span class="w">     </span><span class="p">{</span><span class="no">:name</span><span class="w"> </span><span class="s">"passenger"</span><span class="p">}</span><span class="w">
+ </span><span class="no">:width</span><span class="w">    </span><span class="mi">1000</span><span class="w">
+ </span><span class="no">:heigt</span><span class="w">    </span><span class="mi">1500</span><span class="w">
+ </span><span class="no">:mark</span><span class="w">     </span><span class="s">"bar"</span><span class="w">
+ </span><span class="no">:encoding</span><span class="w"> </span><span class="p">{</span><span class="no">:x</span><span class="w"> </span><span class="p">{</span><span class="no">:field</span><span class="w"> </span><span class="s">"hour"</span><span class="w">
+                </span><span class="no">:type</span><span class="w">  </span><span class="s">"quantitative"</span><span class="w">
+                </span><span class="no">:title</span><span class="w"> </span><span class="s">"Hour"</span><span class="p">}</span><span class="w">
+            </span><span class="no">:y</span><span class="w"> </span><span class="p">{</span><span class="no">:field</span><span class="w"> </span><span class="s">"sum_passenger"</span><span class="w">
+                </span><span class="no">:type</span><span class="w">  </span><span class="s">"quantitative"</span><span class="w">
+                </span><span class="no">:title</span><span class="w"> </span><span class="s">"# passengers"</span><span class="p">}}}</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>In contrast to normal Vega specs, we do not specify any data. We will
+stream it!</p>
+
+<p>Vega offers an <code class="highlighter-rouge">embed</code> functionality, which can run arbitrary
+JavaScript in its callbacks. Well thats exactly the place we will put
+our communication logic to get new results.</p>
+
+<div class="language-clojure highlighter-rouge"><pre class="highlight"><code><span class="p">(</span><span class="nf">go-loop</span><span class="w"> </span><span class="p">[]</span><span class="w"> 
+  </span><span class="p">(</span><span class="nb">when-let</span><span class="w"> </span><span class="p">[[</span><span class="n">_</span><span class="w"> </span><span class="n">results</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="nf">&lt;!</span><span class="w"> </span><span class="n">source</span><span class="p">)]</span><span class="w">
+    </span><span class="p">(</span><span class="nb">..</span><span class="w"> </span><span class="n">res</span><span class="w"> </span><span class="n">-view</span><span class="w">
+      </span><span class="p">(</span><span class="nf">change</span><span class="w"> </span><span class="n">data-name</span><span class="w">
+              </span><span class="p">(</span><span class="nb">..</span><span class="w"> </span><span class="n">js/vega</span><span class="w"> </span><span class="n">changeset</span><span class="w">
+              </span><span class="p">(</span><span class="nf">insert</span><span class="w"> </span><span class="p">(</span><span class="nf">vega-insert</span><span class="w"> </span><span class="n">encoding</span><span class="w"> </span><span class="p">(</span><span class="no">:insert</span><span class="w"> </span><span class="n">diffmap</span><span class="p">)))</span><span class="w">
+                      </span><span class="p">(</span><span class="nb">remove</span><span class="w"> </span><span class="p">(</span><span class="nf">vega-remove</span><span class="w"> </span><span class="n">encoding</span><span class="w"> </span><span class="p">(</span><span class="no">:remove</span><span class="w"> </span><span class="n">diffmap</span><span class="p">)))))</span><span class="w">
+                      </span><span class="p">(</span><span class="nf">run</span><span class="p">))</span><span class="w">
+  </span><span class="p">(</span><span class="nf">recur</span><span class="p">)))</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>As soon as some data arrives in the channel, we take it, process it
+and call two Vega methods.  We create a <code class="highlighter-rouge">changeset</code> via the <code class="highlighter-rouge">change</code>
+method, expressing what changes Vega should visualize. The <code class="highlighter-rouge">insert</code>
+takes a vector of tuples indicating new data to insert and the
+<code class="highlighter-rouge">remove</code> takes a function, which will be called on the existing data
+tuples and returns <code class="highlighter-rouge">true</code> for all that are supposed to be removed.</p>
+
+<p>In the end we call <code class="highlighter-rouge">run</code> which will execute and render the
+changes. More on that can be read here [6]. Finally we call the
+<code class="highlighter-rouge">embed</code> method and mount into the DOM.</p>
+
+<h2 id="running-analytics">Running Analytics</h2>
+
+<p>Our data set is the publicly available data of NYC cab rides [7].  The
+dataset contains one single day, these are around 9.000.000 lines of
+uncompressed csv with a size of 800 MB. We are running 3DF in one
+thread on my MBP.</p>
+
+<p>Every line describes one cab ride with the following attributes:
+<code class="highlighter-rouge">VendorID</code>, <code class="highlighter-rouge">pickup_time</code>, <code class="highlighter-rouge">passenger_count</code>, <code class="highlighter-rouge">trip_distance</code>. The
+remaining ones are omitted, as we are not using them. We will
+simulate streaming this data at 1024 lines per batch.</p>
+
+<div class="language-clojure highlighter-rouge"><pre class="highlight"><code><span class="p">(</span><span class="nf">exec!</span><span class="w"> </span><span class="n">conn</span><span class="w">
+    </span><span class="p">(</span><span class="nf">register-source</span><span class="w">
+     </span><span class="p">[</span><span class="no">:cab/vendor</span><span class="w"> </span><span class="no">:cab/hour</span><span class="w"> </span><span class="no">:cab/passenger</span><span class="w"> </span><span class="no">:cab/distance</span><span class="p">]</span><span class="w">
+     </span><span class="p">{</span><span class="no">:CsvFile</span><span class="w"> </span><span class="p">{</span><span class="no">:path</span><span class="w">      </span><span class="s">"DATA_PATH"</span><span class="w">
+                </span><span class="no">:separator</span><span class="w"> </span><span class="s">","</span><span class="w">
+                </span><span class="no">:schema</span><span class="w">    </span><span class="p">[[</span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="no">:Number</span><span class="w"> </span><span class="mi">0</span><span class="p">}][</span><span class="mi">1</span><span class="w"> </span><span class="p">{</span><span class="no">:Number</span><span class="w"> </span><span class="mi">0</span><span class="p">}]</span><span class="w"> </span><span class="p">[</span><span class="mi">3</span><span class="w"> </span><span class="p">{</span><span class="no">:Number</span><span class="w"> </span><span class="mi">0</span><span class="p">}]</span><span class="w"> </span><span class="p">[</span><span class="mi">4</span><span class="w"> </span><span class="p">{</span><span class="no">:Number</span><span class="w"> </span><span class="mi">0</span><span class="p">}]]}}))</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>Columns from this dataset will always have the namespace <code class="highlighter-rouge">cab/</code> such
+that we can distinguish them from different sources. The reading of
+the whole dataset takes around 70 seconds with a batch size of 1024
+lines. That is quite long, compared to 25 seconds when we do not batch
+them with that high of a granularity. That is because we increment the
+logical timestamp every 1024 lines, causing Differential to do a lot
+more progress tracking work.</p>
+
+<p>The first thing we look at is quite simple: <em>Number of transported
+people per hour</em>. Here is the Datalog query:</p>
+
+<div class="language-clojure highlighter-rouge"><pre class="highlight"><code><span class="p">(</span><span class="k">def</span><span class="w"> </span><span class="n">passenger</span><span class="w">
+  </span><span class="s">"Number of transported people per hour"</span><span class="w">
+  </span><span class="o">'</span><span class="p">[</span><span class="no">:find</span><span class="w"> </span><span class="n">?hour</span><span class="w"> </span><span class="p">(</span><span class="nf">sum</span><span class="w"> </span><span class="n">?passenger</span><span class="p">)</span><span class="w">
+    </span><span class="no">:with</span><span class="w"> </span><span class="n">?e</span><span class="w">
+    </span><span class="no">:where</span><span class="w">
+    </span><span class="p">[</span><span class="n">?e</span><span class="w"> </span><span class="no">:cab/passenger</span><span class="w"> </span><span class="n">?passenger</span><span class="p">]</span><span class="w">
+    </span><span class="p">[</span><span class="n">?e</span><span class="w"> </span><span class="no">:cab/hour</span><span class="w"> </span><span class="n">?hour</span><span class="p">]])</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>The Vega specs for all queries are here: <a href="https://gist.github.com/eoxxs/cca4b9d83b1eece79e4ce4ea22b16509">vega-specs</a></p>
+
+<p>You’ll only see parts of the whole day. 3DF will update us with a
+quite high frequency. Every update consists of values to be removed
+and values to be added.</p>
+
+<p><img src="/assets/blog/reactive-datalog-with-vega/passengers.gif" alt="passengers by hour" /></p>
+
+<p>On the x-axis you see the different hours and the y-axis represent the
+number of transported passengers. You can see how neatly those bars
+are growing.</p>
+
+<h2 id="interactive-queries">Interactive Queries</h2>
+
+<p>Well that has been nice and fun. We can stream results of our
+computations into Vega and get updated visualizations whenever the
+result set of our query changes. But this is just the beginning. How
+about creating an interactive visualization just with 3DF?</p>
+
+<p>For this we will create a new query with an interactive input,
+allowing our users to see results for specific hours of the day. We
+will be looking at a query that asks for the number of rides
+aggregated by trip distance, with all distances rounded to integers.</p>
+
+<div class="language-clojure highlighter-rouge"><pre class="highlight"><code><span class="p">(</span><span class="k">def</span><span class="w"> </span><span class="n">distance-distribution</span><span class="w">
+  </span><span class="s">"Aggregate number of rides for a given distance"</span><span class="w">
+  </span><span class="o">'</span><span class="p">[</span><span class="no">:find</span><span class="w"> </span><span class="n">?distance</span><span class="w"> </span><span class="p">(</span><span class="nb">count</span><span class="w"> </span><span class="n">?e</span><span class="p">)</span><span class="w">
+    </span><span class="no">:where</span><span class="w">
+    </span><span class="p">[</span><span class="n">?e</span><span class="w"> </span><span class="no">:cab/distance</span><span class="w"> </span><span class="n">?distance</span><span class="p">]</span><span class="w">
+    </span><span class="p">[</span><span class="n">?e</span><span class="w"> </span><span class="no">:cab/hour</span><span class="w"> </span><span class="n">?hour</span><span class="p">]])</span><span class="w"> </span><span class="c1">; &lt;- we want to control this
+</span></code></pre>
+</div>
+
+<p>We introduce a new interactive input called <code class="highlighter-rouge">:filter/hour</code>.</p>
+
+<div class="language-clojure highlighter-rouge"><pre class="highlight"><code><span class="p">(</span><span class="nf">exec!</span><span class="w"> </span><span class="n">conn</span><span class="w"> </span><span class="p">(</span><span class="nf">create-input</span><span class="w"> </span><span class="no">:filter/hour</span><span class="p">))</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>Now we have to adapt the query to make use of this new input. For that
+we bind input values to the symbol <code class="highlighter-rouge">?hour</code> and then join them with the
+<code class="highlighter-rouge">:cab/hour</code>. This ends up looking like the following:</p>
+
+<div class="language-clojure highlighter-rouge"><pre class="highlight"><code><span class="p">(</span><span class="k">def</span><span class="w"> </span><span class="n">distance-distribution</span><span class="w">
+  </span><span class="s">"Aggregate number of rides for a given distance"</span><span class="w">
+  </span><span class="o">'</span><span class="p">[</span><span class="no">:find</span><span class="w"> </span><span class="n">?distance</span><span class="w"> </span><span class="p">(</span><span class="nb">count</span><span class="w"> </span><span class="n">?e</span><span class="p">)</span><span class="w">
+    </span><span class="no">:where</span><span class="w">
+    </span><span class="p">[</span><span class="n">_</span><span class="w"> </span><span class="no">:filter/hour</span><span class="w"> </span><span class="n">?hour</span><span class="p">]</span><span class="w"> </span><span class="c1">; &lt;- the new input
+</span><span class="w">    </span><span class="p">[</span><span class="n">?e</span><span class="w"> </span><span class="no">:cab/distance</span><span class="w"> </span><span class="n">?distance</span><span class="p">]</span><span class="w">
+    </span><span class="p">[</span><span class="n">?e</span><span class="w"> </span><span class="no">:cab/hour</span><span class="w"> </span><span class="n">?hour</span><span class="p">]])</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>Now we can start transacting into that input and observe changes to
+our visualization. In Emacs on the right, we update the hour input.</p>
+
+<p><img src="/assets/blog/reactive-datalog-with-vega/interactive_2.gif" alt="interactive queries" /></p>
+
+<p>We start with the distribution at 9pm, move on to 3am, 6pm, and
+finally to 11pm. You could also add several different hours to see the
+distribution for all of them combined. Every addition into
+<code class="highlighter-rouge">:filter/hour</code> input leads the <code class="highlighter-rouge">?hour</code>-join in the
+<code class="highlighter-rouge">distance-distribution</code> query to match all those rows that have the
+respective <code class="highlighter-rouge">:cab/hour</code> value. Retractions work the same but with
+negative differences and as such lead to data being removed.</p>
+
+<h2 id="embrace-the-change">Embrace The Change</h2>
+
+<p>After spending all day building this wonderful dashboard and computing
+all these aggregates your boss storms into your office. He informs you
+that one of the vendors has retracted their data usage consent. We
+need to remove all of their information asap.</p>
+
+<p>3DF to the rescue. We have a system that is designed to propagate
+changes efficiently. So lets see how we can solve this.</p>
+
+<p>We’ll assume that we have a separate database containing information
+about the different vendors. Every line in our analytics files
+contains an id, uniquely identifying these vendors. In our query we
+would match on these ids, in order to incorporate information from the
+vendor database<sup id="fnref:2"><a href="#fn:2" class="footnote">2</a></sup>:</p>
+
+<div class="language-clojure highlighter-rouge"><pre class="highlight"><code><span class="p">(</span><span class="k">def</span><span class="w"> </span><span class="n">passenger</span><span class="w">
+  </span><span class="s">"Number of transported people per hour"</span><span class="w">
+  </span><span class="o">'</span><span class="p">[</span><span class="no">:find</span><span class="w"> </span><span class="n">?hour</span><span class="w"> </span><span class="p">(</span><span class="nf">sum</span><span class="w"> </span><span class="n">?passenger</span><span class="p">)</span><span class="w">
+    </span><span class="no">:with</span><span class="w"> </span><span class="n">?e</span><span class="w">
+    </span><span class="no">:where</span><span class="w">
+    </span><span class="p">[</span><span class="n">?e</span><span class="w"> </span><span class="no">:cab/passenger</span><span class="w"> </span><span class="n">?passenger</span><span class="p">]</span><span class="w">
+    </span><span class="p">[</span><span class="n">?e</span><span class="w"> </span><span class="no">:cab/hour</span><span class="w"> </span><span class="n">?hour</span><span class="p">]</span><span class="w">
+    </span><span class="p">[</span><span class="n">?e</span><span class="w"> </span><span class="no">:cab/vendor</span><span class="w"> </span><span class="n">?id</span><span class="p">]</span><span class="w">
+    </span><span class="p">[</span><span class="n">_</span><span class="w">  </span><span class="no">:vendor/id</span><span class="w"> </span><span class="n">?id</span><span class="p">]])</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>Now observe what happens to our results as we remove this one vendor
+from the vendor database.</p>
+
+<div class="language-clojure highlighter-rouge"><pre class="highlight"><code><span class="p">(</span><span class="nf">exec!</span><span class="w"> </span><span class="n">conn</span><span class="w"> </span><span class="p">(</span><span class="nf">transact</span><span class="w"> </span><span class="n">db</span><span class="w"> </span><span class="p">[[</span><span class="no">:db/retract</span><span class="w"> </span><span class="no">:vendor/id</span><span class="w"> </span><span class="mi">1</span><span class="p">]]))</span><span class="w">
+</span></code></pre>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Number of passengers</th>
+      <th style="text-align: center">Distribution of distances</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"><img src="/assets/blog/reactive-datalog-with-vega/gdpr_1.gif" alt="number of passengers" /></td>
+      <td style="text-align: center"><img src="/assets/blog/reactive-datalog-with-vega/gdpr_2.gif" alt="distribution of distances" /></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>You see how all the values drop down as we remove the vendor. This one
+retraction led to a change touching more than half of all cab rides
+and these changes are propagated through all dataflows.</p>
+
+<p>All our results got updated without us changing our queries or
+filtering the input dataset. It’s also important to note that we
+didn’t have to re-run our computations from scratch, as we can still
+use the data from all other vendors. 3DF efficiently computed just the
+differences.</p>
+
+<p>Imagine we had been feeding these results into even more computations,
+such as price forecasting, movement analytics, or predicting traffic
+bottlenecks. All those downstream computations might’ve also used
+information affected by this retraction, and would now be updated
+accordingly and in an efficient manner.</p>
+
+<p>Well this has been a lot of fun. Hopefully you’ve made it through this
+lengthy piece. Next time we will take a deeper dive into the
+performance characteristics of working with changes, run computations
+in a distributed setting, and see how 3DF performs at scale.</p>
+
+<p>Until then cheers and goodbye.</p>
+
+<h2 id="resources">Resources</h2>
+
+<ul>
+  <li>[1] <a href="https://github.com/comnik/declarative-dataflow">3DF</a></li>
+  <li>[2] <a href="https://github.com/frankmcsherry/differential-dataflow">Differential Dataflow</a></li>
+  <li>[3] <a href="http://frankmcsherry.org/">frankmcsherry.org</a></li>
+  <li>[4] <a href="https://github.com/comnik/clj-3df">clj-3DF</a></li>
+  <li>[5] <a href="https://vega.github.io/vega/">Vega</a></li>
+  <li>[6] <a href="https://vega.github.io/vega-lite/tutorials/streaming.html">Vega-Streaming</a></li>
+  <li>[7] <a href="http://www.nyc.gov/html/tlc/html/about/trip_record_data.shtml">NYC Cab Rides</a></li>
+</ul>
+
+<div class="footnotes">
+  <ol>
+    <li id="fn:1">
+      <p>This is a Vega-lite spec, but all the things we’ll see later are Vega. Vega specs are just quite verbose.&nbsp;<a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:2">
+      <p>We are actually not using the vendor information anywhere else, but let’s assume it for now.&nbsp;<a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+      </article>
+    </main>
+
+    <footer>
+    <div class="footer-content">
+        <section>
+            Clockworks UG (haftungsbeschränkt)<br/>
+            Simsonstraße 5<br/>
+            60385 Frankfurt am Main<br/>
+        </section>
+        <section>
+            <a href="mailto:contact@clockworks.io">contact@clockworks.io</a><br/>
+            <a href="/impressum">Impressum</a><br />
+            &#169; Clockworks 2018
+        </section>
+    </div>
+</footer>
+
+
+    <script type="text/javascript" src="/js/scroll.js"></script>
+<script type="text/javascript">
+
+const header = document.getElementById('nav-container');
+
+smoothScroll.init({offset: header.offsetHeight});
+
+function onPageScroll () {
+  if (window.pageYOffset > header.offsetTop) {
+    header.classList.add('sticky');
+  } else {
+    header.classList.remove('sticky');
+  }
+}
+
+window.onscroll = onPageScroll;
+
+</script>
+
+    
+    <script>
+  (function(d) {
+    var config = {
+      kitId: 'gxp4jrv',
+      scriptTimeout: 3000,
+      async: true
+    },
+    h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+  })(document);
+</script>
+
+  </body>
+</html>
