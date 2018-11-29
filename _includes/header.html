@@ -5,16 +5,16 @@
     <section id="page-header">
       <nav id="primary-navigation">
         <ul>
-          {% if page.path == "index.html" %}
-          <li><a href="#what" data-scroll>{% t nav.what %}</a></li>
-          <li><a href="#customers" data-scroll>{% t nav.showcase %}</a></li>
-          <li><a href="#team" data-scroll>{% t nav.team %}</a></li>
-          <li><a href="/{{site.lang}}/blog" data-scroll>{% t nav.blog %}</a></li>
+          {% if page.title == "Clockworks" %}
+          <li><a href="#what" data-scroll>{{ site.data[page.lang].nav.what }}</a></li>
+          <li><a href="#customers" data-scroll>{{ site.data[page.lang].nav.showcase }}</a></li>
+          <li><a href="#team" data-scroll>{{ site.data[page.lang].nav.team }}</a></li>
+          <li><a href="/{{page.lang}}/blog" data-scroll>{{ site.data[page.lang].nav.blog }}</a></li>
           {% else %}
-          <li><a href="/{{site.lang}}#what" data-scroll>{% t nav.what %}</a></li>
-          <li><a href="/{{site.lang}}#customers" data-scroll>{% t nav.showcase %}</a></li>
-          <li><a href="/{{site.lang}}#team" data-scroll>{% t nav.team %}</a></li>
-          <li><a href="/{{site.lang}}/blog" data-scroll>{% t nav.blog %}</a></li>
+          <li><a href="/{{page.lang}}#what" data-scroll>{{ site.data[page.lang].nav.what }}</a></li>
+          <li><a href="/{{page.lang}}#customers" data-scroll>{{ site.data[page.lang].nav.showcase }}</a></li>
+          <li><a href="/{{page.lang}}#team" data-scroll>{{ site.data[page.lang].nav.team }}</a></li>
+          <li><a href="/{{page.lang}}/blog" data-scroll>{{ site.data[page.lang].nav.blog }}</a></li>
           {% endif %}
         </ul>
       </nav>

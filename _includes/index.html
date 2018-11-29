@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+  {% include head.html %}
+  <body>
+    {% include header.html %}
+
+    <main id="main">
+      <section id="intro">
+        <div class="trapezoid big-up-grey"></div>
+        <div class="container trapezoid-spacing">
+          <article class="trapezoid-text">
+            <p class="first">
+              {{ site.data[page.lang].intro.first }}
+            </p>
+            <p class="second">
+              {{ site.data[page.lang].intro.second }}
+            </p>
+            <a id="scroll-indicator" href="#what" data-scroll>
+              <svg width="64" height="64">
+                <filter id="glow">
+                  <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+                  <feMerge>
+                    <feMergeNode in="coloredBlur"/>
+                    <feMergeNode in="SourceGraphic"/>
+                  </feMerge>
+                </filter>
+                <polyline points="10,26 32,44, 54,26"
+                          style="fill:transparent;stroke-width:5;stroke:#D91F5D" />
+              </svg>
+            </a>
+          </article>
+        </div>
+        <div class="trapezoid big-down-pink"></div>
+      </section>
+      <div class="container">
+        <div class="content">
+          <div class="separator"></div>
+
+          <section id="what">
+            <header><h4>{{ site.data[page.lang].what.header }}</h4></header>
+
+            <div class="services">
+              <div class="service">
+                <h5>{{ site.data[page.lang].what.infrastructure.header }}</h5>
+                <span>{{ site.data[page.lang].what.infrastructure.description }}</span>
+                <div class="separator"></div>
+                <ul>
+                  <li>
+                    <i class="bullet">+</i>
+                    {{ site.data[page.lang].what.infrastructure.bullet1 }}
+                  </li>
+                  <li>
+                    <i class="bullet">+</i>
+                    {{ site.data[page.lang].what.infrastructure.bullet2 }}
+                  </li>
+                  <li>
+                    <i class="bullet">+</i>
+                    {{ site.data[page.lang].what.infrastructure.bullet3 }}
+                  </li>
+                </ul>
+              </div>
+              <div class="service">
+                <h5>{{ site.data[page.lang].what.processing.header }}</h5>
+                <span>{{ site.data[page.lang].what.processing.description }}</span>
+                <div class="separator"></div>
+                <ul>
+                  <li>
+                    <i class="bullet">+</i>
+                    {{ site.data[page.lang].what.processing.bullet1 }}
+                  </li>
+                  <li>
+                    <i class="bullet">+</i>
+                    {{ site.data[page.lang].what.processing.bullet2 }}
+                  </li>
+                  <li>
+                    <i class="bullet">+</i>
+                    {{ site.data[page.lang].what.processing.bullet3 }}
+                  </li>
+                </ul>
+              </div>
+              <div class="service">
+                <h5>{{ site.data[page.lang].what.development.header }}</h5>
+                <span>{{ site.data[page.lang].what.development.description }}</span>
+                <div class="separator"></div>
+                <ul>
+                  <li>
+                    <i class="bullet">+</i>
+                    {{ site.data[page.lang].what.development.bullet1 }}
+                  </li>
+                  <li>
+                    <i class="bullet">+</i>
+                    {{ site.data[page.lang].what.development.bullet2 }}
+                  </li>
+                  <li>
+                    <i class="bullet">+</i>
+                    {{ site.data[page.lang].what.development.bullet3 }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </section>
+          
+          <section id="customers">
+            <header><h4>{{ site.data[page.lang].customers.header }}</h4></header>
+
+            <div class="customer-grid">
+              <div class="customer-logo">
+                <img alt="Capitalent Medical" src="/assets/showcase/capitalent-medical.svg" />
+              </div>
+              <div class="customer-logo">
+                <img alt="DB Netze" src="/assets/showcase/db-netze.gif" />
+              </div>
+              <div class="customer-logo">
+                <img alt="Süwag" src="/assets/showcase/suewag.png" />
+              </div>
+            </div>
+          </section>
+          
+          <section id="ideas">
+            <header><h4>{{ site.data[page.lang].ideas.header }}</h4></header>
+
+            <ul>
+              {% for post in site.posts limit:3 %}
+              <li>
+                <a class="post-link" href="{{ post.url }}">
+                  <div class="header">
+                    <h4>{{ post.title }}</h4>
+                  </div>
+                  <div class="abstract">
+                    {{ post.excerpt }}
+                  </div>
+                  <div class="footer">
+                    <span class="date">{{ post.date | date_to_string }}</span>
+                    <span class="category">in {{ post.category }}</span>
+                    <span class="language">{{ post.language }}</span>
+                  </div>
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
+          </section>
+
+          <section id="team">
+            <header><h4>{{ site.data[page.lang].team.header }}</h4></header>
+            <div class="faces">
+              <div class="member">
+                <div class="face" style="background-image: url('/assets/team/niko.jpg')"></div>
+                <h6>Nikolas Göbel</h6>
+                <span class="role">Founder, Engineering Partner</span>
+              </div>
+              <div class="member">
+                <div class="face" style="background-image: url('/assets/team/malte.jpg')"></div>
+                <h6>Malte Sandstede</h6>
+                <span class="role">Founder, Engineering Partner</span>
+              </div>
+              <div class="member">
+                <div class="face" style="background-image: url('/assets/team/moritz.jpg')"></div>
+                <h6>Moritz Moxter</h6>
+                <span class="role">Founder, CEO</span>
+              </div>
+              <div class="member">
+                <div class="face" style="background-image: url('/assets/team/david.jpg');background-position: 50% 40%;"></div>
+                <h6>David Bach</h6>
+                <span class="role">Engineering Associate</span>
+              </div>
+            </div>
+            <script type="text/javascript">
+              function shuffle(elems) {
+
+              allElems = (function(){
+              var ret = [], l = elems.length;
+              while (l--) { ret[ret.length] = elems[l]; }
+              return ret;
+              })();
+
+              var shuffled = (function(){
+              var l = allElems.length, ret = [];
+              while (l--) {
+              var random = Math.floor(Math.random() * allElems.length),
+              randEl = allElems[random].cloneNode(true);
+              allElems.splice(random, 1);
+              ret[ret.length] = randEl;
+              }
+              return ret;
+              })(), l = elems.length;
+
+              while (l--) {
+              elems[l].parentNode.insertBefore(shuffled[l], elems[l].nextSibling);
+              elems[l].parentNode.removeChild(elems[l]);
+              }
+
+              }
+
+              shuffle(document.getElementsByClassName('member'));
+            </script>
+          </section>
+
+          <div class="separator"></div>
+
+          <section id="contact">
+            <header><h4>{{ site.data[page.lang].contact.header }}</h4></header>
+            <a class="button" href="mailto:contact@clockworks.io">{{ site.data[page.lang].contact.cta }}</a>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    {% include footer.html %}
+
+    {% include lang_redirect.html %}
+    
+    {% include smooth_scrolling.html %}
+
+    {% include typekit.html %}
+  </body>
+</html>
