@@ -734,6 +734,12 @@ section#team {
     align-items: center;
 }
 
+.member > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
 .face {
     width: 5em;
     height: 5em;
@@ -757,6 +763,10 @@ section#team {
         margin-top: 2em;
         flex-direction: column;
         margin-top: 1em;
+    }
+
+    .member div {
+        align-items: center;
     }
 
     .faces {
