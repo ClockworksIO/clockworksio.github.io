@@ -688,7 +688,6 @@ section#customers > .customer-grid {
         justify-content: center;
         border-right: 1px solid var(--color-base);
         margin: 0;
-        padding: 2em;
         width: 300px;
     }
 }
@@ -696,9 +695,9 @@ section#customers > .customer-grid {
 .customer-logo img {
     display: block;
     max-width: 256px;
+    width: 256px;
+    height: 128px;
     max-height: 128px;
-    width: auto;
-    height: auto;
 }
 
 .customer-logo:last-child { border-right: none;  }
