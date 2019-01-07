@@ -1004,6 +1004,28 @@ section#ideas ul > li:first-child {
 .post-link > .footer > .tags { flex: 2; }
 .post-link > .footer > .language { margin-left: auto; }
 
+.more-ideas-container {
+    display: flex;
+    justify-content: flex-end; 
+    width: 100%;
+    margin: 1rem 3.5rem 2rem 1rem;
+}
+
+@media screen and (min-width: 672px) {
+    .more-ideas-container {
+        justify-content: center;
+        margin: 0;
+        margin-top: 2rem;
+    }
+}
+
+.more-ideas {
+    color: white;
+    text-decoration: none;
+    font-size: 1em;
+    font-weight: 600;
+    text-transform: uppercase;
+}
 
 /** ARTICLE **/
 
