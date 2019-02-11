@@ -1078,7 +1078,7 @@ article > p {
 
 @media screen and (min-width: 672px) {
     article > p {
-        marign-bottom: 2em;
+        margin-bottom: 2em;
     }
 
     article {
