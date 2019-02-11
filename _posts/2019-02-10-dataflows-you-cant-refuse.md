@@ -9,7 +9,7 @@ In this article, we'll explore what bringing a declarative, pull-based web after
 
 <!--abstract-->
 
-*This article was originally published on [Malte's personal blog](https://www.maltesandstede.com/clojure/3df/2019/02/10/dataflows-you-cant-refuse.html).*
+*This article was originally published on [Malte's personal blog](https://www.maltesandstede.com/2019/02/10/dataflows-you-cant-refuse).*
 
 *I guess it's time I write about [Declarative Differential Dataflows (3DF)](https://github.com/comnik/clj-3df), a project we have been working on [academically](https://www.systems.ethz.ch) and [professionally](https://www.clockworks.io) for quite some time. 3DF builds upon [Differential Dataflows](https://github.com/TimelyDataflow/differential-dataflow), which in turn is based on [Timely Dataflows](https://github.com/TimelyDataflow/timely-dataflow), both created by [Frank McSherry](http://www.frankmcsherry.org).*
 
