@@ -2,7 +2,9 @@
 title: "Reaktive Queries über verteilte real-time Data Streams [Talk]"
 tags: 3DF Architecture
 language: DE 
-author: david
+author:
+  - david
+  - moritz
 ---
 
 Diesen Talk haben David und Moritz auf der Konferenz *buildingIoT 2019* in Kooperation mit Frank McSherry, Malte und Niko gehalten.

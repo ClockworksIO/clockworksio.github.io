@@ -2,7 +2,9 @@
 title: "Across Time and Space — A Many-Worlds Interpretation of State [talk]"
 tags: 3DF Architecture
 language: EN
-author: malte
+author: 
+  - malte
+  - niko
 ---
 
 This is a conference talk Malte and Niko gave at BobKonf 2019.

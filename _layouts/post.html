@@ -11,8 +11,14 @@
       <article>
         <h1>{{ page.title }}</h1>
         <div id="post-info">
-          <div class="face" style="background-image: url('/assets/team/{{ page.author }}.jpg')"></div>
-          <span>by {{ site.data.authors[page.author].name }}</span>
+          {% for author in page.author %}
+            <div class="face" style="background-image: url('/assets/team/{{ author }}.jpg')"></div>
+          {% endfor %}
+          <span>by 
+            {% for author in page.author %}
+              {{ site.data.authors[author].name }}{% if forloop.index != (forloop.length - 1) %}, {% endif %}
+            {% endfor %}
+          </span>
         </div>
         
         {{ content | remove_first: page.excerpt }}
