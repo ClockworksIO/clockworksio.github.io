@@ -1,6 +1,6 @@
 ---
 title: "Across Time and Space — A Many-Worlds Interpretation of State [talk]"
-tags: 3DF Time 
+tags: 3DF Architecture
 language: EN
 author: malte
 ---
