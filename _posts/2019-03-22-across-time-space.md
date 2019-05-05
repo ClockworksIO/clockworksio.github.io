@@ -26,7 +26,7 @@ Using Clojure and Rust, we explore these ideas in the context of 3DF, a stream p
 
 ## Video
 
-Not uploaded yet.
+<iframe src="https://www.youtube.com/embed/QsbxwdfiO5c" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <br />
 
