@@ -1062,19 +1062,21 @@ article > h1 {
     margin-bottom: 1rem;
 }
 
-/* article > h2 { */
-/*     font-size: 1.3225rem; */
-/*     line-height: 1.15em; */
-/*     margin-bottom: 1em; */
-/* } */
-
-article > h3,
 article > h2 {
     /* font-size: 1em; */
     font-size: 1.3225rem;
     font-weight: bold;
     margin-top: 3em;
     margin-bottom: 1.75em;
+    letter-spacing: 0px;
+    text-transform: uppercase;
+}
+
+article > h3 {
+    font-size: 1em;
+    font-weight: bold;
+    margin-top: 1em;
+    margin-bottom: 1em;
     letter-spacing: 0px;
     text-transform: uppercase;
 }
