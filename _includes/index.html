@@ -131,7 +131,9 @@
                   </div>
                   <div class="footer">
                     <span class="date">{{ post.date | date_to_string }}</span>
-                    <span class="tags">in {% for tag in post.tags %} {{ tag }} {% endfor %}</span>
+                    {% if post.tags %}
+                    <span class="tags">{% for tag in post.tags %} <span class="tag">{{ tag }}</span> {% endfor %}</span>
+                    {% endif %}
                     <span class="language">{{ post.language }}</span>
                   </div>
                 </a>

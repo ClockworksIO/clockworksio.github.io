@@ -991,7 +991,6 @@ section#ideas ul > li:first-child {
     margin-top: 1em;
     /* text-transform: uppercase; */
     letter-spacing: 1px;
-    font-style: italic;
     color: var(--color-primary);
 }
 
@@ -1001,8 +1000,17 @@ section#ideas ul > li:first-child {
     overflow-x: hidden;
     margin-right: .5em;
 }
-.post-link > .footer > .tags { flex: 2; }
-.post-link > .footer > .language { margin-left: auto; }
+.post-link > .footer > .date {
+    color: var(--color-secondary-text);
+}
+.post-link > .footer > .tags {
+    flex: 2;
+}
+.post-link > .footer > .language {
+    color: var(--color-accent);
+    font-style: italic;
+    margin-left: auto;
+}
 
 .more-ideas-container {
     display: flex;
@@ -1133,6 +1141,7 @@ sup {
     text-decoration: underline;
 }
 
+.tag,
 code {
     background: #F8F8F8;
     padding: .2em .5em;
