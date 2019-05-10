@@ -16,10 +16,10 @@ reactive Datalog queries.*
 ## Reactive Datalog?
 
 Yes exactly! We are working on a system, dubbed **3DF** for
-*Declarative Differential Dataflow* [1], that has the ability to
+*Declarative Differential Dataflow*[^3df], that has the ability to
 compile Datalog queries into Differential Dataflows.
 
-Differential Dataflow [2] is "a data-parallel programming framework
+Differential Dataflow[^dd] is "a data-parallel programming framework
 designed to efficiently process large volumes of data and to quickly
 respond to arbitrary changes in input collections". It is written and
 maintained by Frank McSherry.
@@ -29,7 +29,7 @@ update the state of various operators (think `join`, `group`, ...).
 In other words: A Differential Dataflow is a computation that reacts
 to incoming changes in a smart and efficient way and propagates any
 new information correctly. There is quite a lot to it and we defer to
-[Frank's blog](http://frankmcsherry.org/) [2] for a trove of
+[Frank's blog](http://frankmcsherry.org/)[^frank] for a trove of
 information on Differential itself.
 
 The system consists of a server written in Rust that takes commands
@@ -90,7 +90,7 @@ Datalog expressions, manage input parameters, send data, and receive
 updates to our queries, as new data arrives in the system.
 
 Any further communication is build around Clojure's amazing async
-library. The client code [4] is available for both Clojure &
+library. The client code[^clj3df] is available for both Clojure &
 ClojureScript. When connecting to the server, we get a single
 connection handle:
 
@@ -117,10 +117,8 @@ it into the WebSocket.
 ## Vega
 
 Alright. Communication is sorted and we have 3DF running. Now a short
-look at Vega.
-
-Vega is high-level grammar for visualizations [5]. That means we
-describe, in a declarative manner, what we want Vega to
+look at Vega, a high-level grammar for visualizations[^vega]. That
+means we describe, in a declarative manner, what we want Vega to
 visualize. Here is an example specification[^1] for a bar chart with x
 values taken from the `hour` field and y values from `sum_passenger`:
 
@@ -164,15 +162,15 @@ takes a vector of tuples indicating new data to insert and the
 tuples and returns `true` for all that are supposed to be removed.
 
 In the end we call `run` which will execute and render the
-changes. More on that can be read here [6]. Finally we call the
-`embed` method and mount into the DOM.
+changes. More on that can be read here[^vegastream]. Finally we call
+the `embed` method and mount into the DOM.
 
 ## Running Analytics
 
-Our data set is the publicly available data of NYC cab rides [7].  The
-dataset contains one single day, these are around 9.000.000 lines of
-uncompressed csv with a size of 800 MB. We are running 3DF in one
-thread on my MBP.
+Our data set is the publicly available data of NYC cab
+rides[^cab]. The dataset contains one single day, these are around
+9.000.000 lines of uncompressed csv with a size of 800 MB. We are
+running 3DF in one thread on my MBP.
 
 Every line describes one cab ride with the following attributes:
 `VendorID`, `pickup_time`, `passenger_count`, `trip_distance`. The
@@ -337,15 +335,12 @@ in a distributed setting, and see how 3DF performs at scale.
 
 Until then cheers and goodbye.
 
-## Resources
-
-- [1] [3DF](https://github.com/comnik/declarative-dataflow)
-- [2] [Differential Dataflow](https://github.com/frankmcsherry/differential-dataflow)
-- [3] [frankmcsherry.org](http://frankmcsherry.org/)
-- [4] [clj-3DF](https://github.com/comnik/clj-3df)
-- [5] [Vega](https://vega.github.io/vega/)
-- [6] [Vega-Streaming](https://vega.github.io/vega-lite/tutorials/streaming.html)
-- [7] [NYC Cab Rides](http://www.nyc.gov/html/tlc/html/about/trip_record_data.shtml)
-
 [^1]:This is a Vega-lite spec, but all the things we'll see later are Vega. Vega specs are just quite verbose.
 [^2]:We are actually not using the vendor information anywhere else, but let's assume it for now.
+[^3df]: [3DF](https://github.com/comnik/declarative-dataflow)
+[^dd]: [Differential Dataflow](https://github.com/frankmcsherry/differential-dataflow)
+[^frank]: [frankmcsherry.org](http://frankmcsherry.org/)
+[^clj3df]: [clj-3DF](https://github.com/comnik/clj-3df)
+[^vega]: [Vega](https://vega.github.io/vega/)
+[^vegastream]: [Vega-Streaming](https://vega.github.io/vega-lite/tutorials/streaming.html)
+[^cab]: [NYC Cab Rides](http://www.nyc.gov/html/tlc/html/about/trip_record_data.shtml)
