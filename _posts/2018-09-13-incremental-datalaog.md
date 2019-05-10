@@ -56,7 +56,7 @@ worthwile challenge.
 
 > We note that the 22 software products in Table 1 have limited or no
 > support for incremental and streaming computations.
-> - Sahu et al. 2018, [The Ubiquity of Large Graphs](https://github.com/frankmcsherry/differential-dataflow) [^sahu]
+> - Sahu et al. 2018, The Ubiquity of Large Graphs[^sahu]
 
 **Scalable view maintenance.** We want to be able to maintain highly
 specific, potentially inter-dependent views for many thousand
@@ -68,10 +68,9 @@ database.
 **Live, interactive web applications.** Scalable view maintenance and
 near real-time propagation of changes allows us to efficiently treat
 web clients as just another database peer. This idea is laid out in
-["The Web After
-Tomorrow"](http://tonsky.me/blog/the-web-after-tomorrow/)[^7], much
-more lucid than we can hope to achieve here. The following quotes and
-illustration are taken directly from Nikita's post.
+Nikita Prokopov's "The Web After Tomorrow"[^7], much more lucid than
+we can hope to achieve here. The following quotes and illustration are
+taken directly from Nikita's post.
 
 ![The Web After Tomorrow](/assets/blog/incremental-datalog/web-after-tomorrow.jpg)
 
@@ -87,23 +86,24 @@ illustration are taken directly from Nikita's post.
 ## Related work
 
 Naturally, various systems already exist in this interesting
-space. The Apache Kafka project introduced a streaming SQL engine not
-too long ago[^ksql] and *changefeeds* have been one of RethinkDB's[^rethink]
-most distinctive features for a while now. We wanted to provide such
-an incrementalized execution engine for the Datalog language and
-explore how well the powerful primitives offered by Differential
-dataflow would be suited to such an undertaking. This post is meant to
-provide a high-level overview of what we're up too, in-depth
-discussions, comparisons, and examples will follow.
+space. The Apache Kafka project introduced [a streaming SQL
+engine](https://github.com/confluentinc/ksql) not too long ago and
+*changefeeds* have been one of
+[RethinkDB's](https://www.rethinkdb.com/blog/realtime-web/) most
+distinctive features for a while now. We wanted to provide such an
+incrementalized execution engine for the Datalog language and explore
+how well the powerful primitives offered by Differential dataflow
+would be suited to such an undertaking. This post is meant to provide
+a high-level overview of what we're up too, in-depth discussions,
+comparisons, and examples will follow.
 
 ## Differential dataflow
-
-From its [GitHub
-repository](https://github.com/frankmcsherry/differential-dataflow):
 
 > Differential dataflow is a data-parallel programming framework
 > designed to efficiently process large volumes of data and to quickly
 > respond to arbitrary changes in input collections.
+>
+> - from its [GitHub repository](https://github.com/frankmcsherry/differential-dataflow)
 
 Differential dataflow[^dd] [^ddpaper] (*Differential*) allows us to
 express incremental computations (i.e. computations that will only do
@@ -124,10 +124,9 @@ The 3DF project is an experimental implementation of an incremental
 Datalog engine based on Differential dataflow. It is meant to be used
 on top of systems like Datomic or Kafka, providing durability and any
 other features you'd expect from a proper database. 3DF consists of a
-[library and
-server](https://github.com/comnik/declarative-dataflow)[^3df] written in
-Rust, providing dynamic synthetization of rather explicit query plans
-(like those found in SQL engines) into differential dataflows.
+library and a server[^3df] written in Rust, providing dynamic
+synthetization of rather explicit query plans (like those found in SQL
+engines) into differential dataflows.
 
 ``` clojure
 ;; a simple query plan
@@ -138,12 +137,11 @@ Rust, providing dynamic synthetization of rather explicit query plans
    [?e ?name ?age]]}
 ```
 
-On top of this we provide [a
-frontend](https://github.com/comnik/clj-3df)[^clj3df] in
-Clojure(Script) which compiles Datalog expressions into query plans
-and offers a WebSocket interface for registering queries and receiving
-results. We did not want to invent a new flavour of Datalog (yet?) and
-thus implemented [Datomic's query
+On top of this we provide a frontend[^clj3df] in Clojure(Script) which
+compiles Datalog expressions into query plans and offers a WebSocket
+interface for registering queries and receiving results. We did not
+want to invent a new flavour of Datalog (yet?) and thus implemented
+[Datomic's query
 language](https://docs.datomic.com/on-prem/query.html) — which itself
 is modeled closely after Datalog.
 
@@ -165,7 +163,5 @@ We'll take a deep dive into 3DF internals in a future post.
 [^ddpaper]: [McSherry et al., "Differential dataflow"](https://github.com/frankmcsherry/differential-dataflow/blob/master/differentialdataflow.pdf)
 [^3df]: [github.com/comnik/declarative-dataflow](https://github.com/comnik/declarative-dataflow)
 [^clj3df]: [github.com/comnik/clj-3df](https://github.com/comnik/clj-3df)
-[^ksql]: [Kafka Streaming SQL](https://github.com/confluentinc/ksql)
-[^rethink]: [RethinkDB](https://www.rethinkdb.com/blog/realtime-web/)
 [^sahu]: [The Ubiquity of Large Graphs](https://github.com/frankmcsherry/differential-dataflow)
 [^7]: [The Web After Tomorrow](http://tonsky.me/blog/the-web-after-tomorrow/)
