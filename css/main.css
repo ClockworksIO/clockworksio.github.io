@@ -1130,6 +1130,11 @@ article ul > li { line-height: 1.45em; }
 .footnotes > ol { list-style-type: decimal; }
 .footnotes > ol > li { margin-bottom: .5em; }
 
+sup {
+    padding-top: 250px;
+    margin-top: -250px;
+}
+
 em { font-style: italic; }
 strong { font-weight: bold; }
 sup {
