@@ -49,7 +49,7 @@ Our work tackles a number of use cases.
 
 **Analysis of large, dynamic graphs.** Graph processing is here to
 stay, as more and more organizations of all sizes and across varying
-industries rely on it.[^6] Datalog with its recursive rules is well
+industries rely on it.[^sahu] Datalog with its recursive rules is well
 suited to express graph queries and executing those over larger and
 larger graphs as thousands of edges change every second seems like a
 worthwile challenge.
