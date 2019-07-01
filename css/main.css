@@ -690,7 +690,6 @@ section#customers > .customer-grid {
         display: flex;
         align-items: center;
         justify-content: center;
-        border-right: 1px solid var(--color-base);
         margin: 0;
         width: 300px;
     }
@@ -699,12 +698,10 @@ section#customers > .customer-grid {
 .customer-logo img {
     display: block;
     max-width: 256px;
-    width: 256px;
-    height: 128px;
+    /* width: 256px; */
+    /* height: 128px; */
     max-height: 128px;
 }
-
-.customer-logo:last-child { border-right: none;  }
 
 /** SECTION: TEAM **/
 
