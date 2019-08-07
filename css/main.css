@@ -84,12 +84,10 @@ body {
 }
 
 
-p a,
-footer a {
+a {
     color: var(--color-accent);
     text-decoration: none;
 }
-
 
 a:hover { color: var(--color-half-balance); }
 
@@ -540,7 +538,7 @@ section {
 
 @media screen and (min-width: 672px) {
     section#intro {
-        margin-bottom: 12em;
+        margin-bottom: 2em;
     }
 }
 
@@ -550,6 +548,46 @@ section#intro {
     justify-content: space-between;
     max-width: 100vw;
     overflow-x: hidden;
+}
+
+/** SECTION: TECHNOLOGIES **/
+
+section#technologies {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    max-width: 100vw;
+    padding: 1.3rem 0;
+}
+
+@media screen and (min-width: 672px) {
+    section#technologies {
+        padding: 4rem 0 4rem 0;
+    }
+}
+
+section#technologies .grid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    max-width: 900px;
+}
+
+.grid > .border-right {
+    border-right: 1px solid var(--color-base);
+}
+
+section#technologies .grid > div {
+    flex: 1;
+    padding: 1.5em 1.75em 2.5em 1.75em;
+    text-align: center;
+}
+
+section#technologies .grid h4 {
+    display: inline-block;
+    margin-bottom: .5em;
 }
 
 /** SECTION: WHAT **/
@@ -898,6 +936,7 @@ section#posts ul > li > a {
     text-decoration: none;
 }
 
+section#technologies ul,
 section#ideas ul {
     display: flex;
     flex-direction: row;
@@ -975,7 +1014,7 @@ section#ideas ul > li:first-child {
     margin-bottom: 1em;
 }
 
-.post-link > .abstract {
+.abstract {
     flex: 1;
     color: var(--color-secondary-text);
 }

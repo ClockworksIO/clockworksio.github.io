@@ -2,6 +2,7 @@ site:
   description: Accurate answers to complex questions. In real-time.
 
 nav:
+  technologies: Technologies
   what: Services
   showcase: Customers
   team: Team
@@ -17,6 +18,9 @@ intro:
     questions in real-time, and the powerful web frontends that make
     them available to you, your users, and your customers.
 
+technologies:
+  header: Technologies
+    
 what:
   header: Services
   infrastructure:

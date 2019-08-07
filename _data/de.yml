@@ -3,6 +3,7 @@ site:
     Präzise Antworten auf komplexe Fragestellungen. In Echtzeit.
 
 nav:
+  technologies: Technologien
   what: Was?
   showcase: Wo?
   team: Wer?
@@ -19,6 +20,9 @@ intro:
     Antworten auf komplexe Fragestellungen liefern, und auf die
     Webanwendungen, die diese Fähigkeiten Ihnen, Ihrem Unternehmen,
     und Ihren Kunden zur Verfügung stellen.
+
+technologies:
+  header: Technologien
 
 what:
   header: Leistungen
