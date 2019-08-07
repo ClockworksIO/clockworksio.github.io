@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="409px" height="129px" viewBox="0 0 409 129" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 56.2 (81672) - https://sketch.com -->
+    <title>Group 3</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.74">
+        <g id="Artboard" transform="translate(-1179.000000, -809.000000)">
+            <g id="Group-3" transform="translate(1179.000000, 809.000000)">
+                <polygon id="Rectangle" fill="#D1BDCB" points="0 12.7059507 129 0 129 129 0 116.862081"></polygon>
+                <polygon id="Rectangle" fill="#D1BDCB" points="280 0 409 13.5882231 409 116.78825 280 129"></polygon>
+                <polygon id="Triangle" fill="#D91F5D" transform="translate(175.500000, 64.500000) rotate(90.000000) translate(-175.500000, -64.500000) " points="175.5 30 239 99 112 99"></polygon>
+                <polygon id="Triangle" fill="#D91F5D" transform="translate(233.500000, 64.000000) rotate(270.000000) translate(-233.500000, -64.000000) " points="233.5 30 297 98 170 98"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>
