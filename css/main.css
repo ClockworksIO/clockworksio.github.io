@@ -152,6 +152,11 @@ h6 {
     align-items: center;
 }
 
+.trapezoid-text {
+    font-weight: 300;
+    line-height: 1.65em;
+}
+
 @media screen and (max-width: 320px) {
     .trapezoid-text { font-size: 5vw; }
 }
