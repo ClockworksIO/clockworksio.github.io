@@ -20,6 +20,14 @@ intro:
 
 technologies:
   header: Technologies
+  declarative: >-
+    Our open source framework for modeling streaming relational data
+    from many heterogeneous sources and for querying it using Datalog
+    and GraphQL.
+  kplex: >-
+    Some modeling trade-offs you make with Kafka will be frozen in
+    time. kplex eases the pain and reduces inertia, should these
+    decisions come back to bite you.
     
 what:
   header: Services

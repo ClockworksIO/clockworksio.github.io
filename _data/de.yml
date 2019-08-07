@@ -23,6 +23,13 @@ intro:
 
 technologies:
   header: Technologien
+  declarative: >-
+    Unser open source Framework für das Modellieren und Abfragen von
+    relationalen Datenströmen. Unterstützt Datalog und GraphQL.
+  kplex: >-
+    Modellierungsentscheidungen beim Eventstreaming werden durch
+    Apache Kafka in Stein gemeißelt. kplex hilft dabei diese
+    nachträglich zu umschiffen.
 
 what:
   header: Leistungen
