@@ -1,6 +1,6 @@
 ---
-title: kplex - A Kafka Superpower
-tags: Timely Kafka
+title: Two Kafka Superpowers
+tags: Timely Kafka kplex
 language: EN
 author:
   - niko
@@ -8,7 +8,10 @@ author:
   - david
 ---
 
-@TODO
+We discuss partitioning — arguably the highest impact decision in any
+Kafka setup — from three different perspectives, and introduce kplex,
+a tool we built for whenever we need to bend an entrenched Kafka setup
+in ways it does not want to go.
 
 <!--abstract-->
 
@@ -33,13 +36,10 @@ records that need to stay in a fixed order must go to the same
 partition.
 
 Kafka would like us to keep the number of partitions within reasonable
-limits (previously in the hundreds, nowadays [in the
-thousands](https://www.confluent.io/blog/apache-kafka-supports-200k-partitions-per-cluster))
-for [various performance-related
-reasons]((https://www.confluent.io/blog/how-choose-number-topics-partitions-kafka-cluster)). However
-it is the ordering guarantees provided by partitions that impose much
-more stringent constraints, as the following two extremes will
-highlight.
+limits[^partition-limit] for various performance-related
+reasons[^partition-performance]. However it is the ordering
+guarantees provided by partitions that impose much more stringent
+constraints, as the following two extremes will highlight.
 
 **Fully Sequential** We need to persist a database transaction log in
 Kafka, i.e. a sequence of transaction data annotated with logical
@@ -63,24 +63,74 @@ from a specific geographic region.
 
 **Sharded** [TODO]
 
+In an ideal setting, from a logical point of view, we therefore want
+the freedom to assign each available consistency domain to its own
+physical partition for maximum throughput.
+
 ## Partitioning - The Physical Perspective
 
-Once we know how much concurrency we can hope for without giving up
-consistency
+Clusters are happy as long as each machine is only asked to bear load
+in proportion to its relative capabilities. I.e., for a cluster made
+up of identical machines, we want data to be distributed
+uniformly. Machines that are asked to do more than their fair share,
+tend to act up or worse, drag their peers down with them.
 
-Uniformly partitioned records prevent hotspots
-and thus ensure smooth operations. On the other hand, partitioning by
-domain attributes is crucial for consistent, stateful processing.
+In order to prevent such hotspots and ensure smooth operations, we
+want the freedom to distribute data according to the relative
+capabilities of each machine in our cluster — a requirement that might
+be in conflict with the logical perspective from above, whenever the
+distribution of data across consistency domains is skewed.
 
-```
-# pro/contra uniform partitioning
-+ no hotspots
-- no consistency
-```
+## Partitioning Decoupled
 
-[source: https://blog.newrelic.com/engineering/effective-strategies-kafka-topic-partitioning/]
+Summarizing the above (and glossing over some of the idiosyncracies in
+Kafka's current implementation, most of which could reasonably be
+fixed in the future), we have seen now how throughput and skew
+considerations alone would lead us to using many physical partitions
+and distribute records randomly between them. It is only our need for
+ordering guarantees which forces us to make compromises. This raises
+an uncomfortable issue.
 
-## Partitioning - The Modeling Perspective
+Kafka decouples data producers from data consumers, by acting as the
+unified "plumbing" platform between them. This is highly attractive to
+organizations, because it allows them to support many different teams
+on a shared, coherent view of their business. *Consistency, however,
+is a joint property of producer, storage, and consumer.* Therefore, no
+matter how carefully we make these decisions, they will always
+interfere with some valid use cases later on.
+
+> [...] the partitioning strategy for your producers depends on what
+> your consumers will do with the data.
+>
+> - Amy Boyle, "Effective Strategies for Kafka Topic Partitioning"[^newrelic]
+
+We realized that in order to satisfy the trimuvirate of throughput,
+skew, and consistency, we would have to *decouple physical from
+logical partitioning* as much as possible, while <u>preserving
+ordering guarantees</u> in the process. We built
+[kplex](https://www.clockworks.io/kplex/) to do precisely that.
+
+Specifically, we encounter two types of mismatch: (1) strong physical
+guarantees supporting weak logical requirements — here the physical
+distribution *limits the concurrency* that could otherwise be applied
+to the computation, and (2) weak physical guarantees thwarting strong
+logical requirements — here the physical distribution *makes it
+impossible* to do consistent, stateful processing.
+
+`kplex` solves both of these.
+
+## Unlocking Consumer Concurrency
+
+@TODO (example: transaction log, computing commutative aggregate)
+
+## Reading Consistently From Multiple Partitions
+
+@TODO (example: transaction log uniformly distributed, computing state
+of the database)
+
+## Bonus: Partitioning - The Modeling Perspective
+
+@TODO move this into a separate post
 
 Stateful processing is easier when everything is in a single topic,
 especially when order matters. But normalization allows for scale,
@@ -97,25 +147,6 @@ simpler schemas, and granular retention policies.
 
 [source: https://martin.kleppmann.com/2018/01/18/event-types-in-kafka-topic.html]
 
-## Partitioning Decoupled
-
-Summarizing the above (and glossing over Kafka's idiosyncracies, most
-of which could reasonably be fixed in the future), we have seen now
-how throughput and skew considerations alone would lead us to using
-many physical partitions and distribute records randomly amongst
-them. It is only our need for ordering guarantees which forces us to
-make compromises. This raises an uncomfortable issue.
-
-Kafka decouples data producers from data consumers, by acting as the
-unified "plumbing" platform between them. This is highly attractive to
-organizations, because it allows them to support many different teams
-on a shared, coherent view of their business. *Consistency, however,
-is a joint property of producer, storage, and consumer.* Therefore, no
-matter how carefully we make these decisions, they will always
-interfere with some valid use cases later on. 
-
-We realized that in order to satisfy the trimuvirate of throughput,
-skew, and consistency, we would have to *decouple physical from
-logical partitioning* as much as possible, while <u>preserving
-ordering guarantees</u> in the process. That is why we built
-[kplex](https://www.clockworks.io/kplex/).
+[^partition-limit]: Previously in the hundreds, nowadays [in the thousands](https://www.confluent.io/blog/apache-kafka-supports-200k-partitions-per-cluster).
+[^partition-performance]: [Jun Rao, "How to choose the number of topics/partitions in a Kafka cluster?"](https://www.confluent.io/blog/how-choose-number-topics-partitions-kafka-cluster)
+[^newrelic]: [Amy Boyle, "Effective Strategies for Kafka Topic Partitioning"](https://blog.newrelic.com/engineering/effective-strategies-kafka-topic-partitioning/)
