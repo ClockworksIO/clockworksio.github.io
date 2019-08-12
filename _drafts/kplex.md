@@ -1,6 +1,6 @@
 ---
 title: Two Kafka Superpowers
-tags: Timely Kafka kplex
+tags: Kafka kplex
 language: EN
 author:
   - niko
@@ -128,24 +128,8 @@ impossible* to do consistent, stateful processing.
 @TODO (example: transaction log uniformly distributed, computing state
 of the database)
 
-## Bonus: Partitioning - The Modeling Perspective
-
-@TODO move this into a separate post
-
-Stateful processing is easier when everything is in a single topic,
-especially when order matters. But normalization allows for scale,
-simpler schemas, and granular retention policies.
-
-```
-# pro/contra denormalization
-+ consistency
-+ simple consumer logic (only 1 poll)
-- granularity of policies
-- granularity of consumption
-- schema complexity
-```
-
-[source: https://martin.kleppmann.com/2018/01/18/event-types-in-kafka-topic.html]
+@TODO "how can this be a scalability benefit?" -> not yet, that's
+where the rest of incremental view maintenance comes in
 
 [^partition-limit]: Previously in the hundreds, nowadays [in the thousands](https://www.confluent.io/blog/apache-kafka-supports-200k-partitions-per-cluster).
 [^partition-performance]: [Jun Rao, "How to choose the number of topics/partitions in a Kafka cluster?"](https://www.confluent.io/blog/how-choose-number-topics-partitions-kafka-cluster)
