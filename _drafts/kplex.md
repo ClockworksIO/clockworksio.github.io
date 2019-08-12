@@ -9,9 +9,9 @@ author:
 ---
 
 We discuss partitioning — arguably the highest impact decision in any
-Kafka setup — from three different perspectives, and introduce kplex,
-a tool we built for whenever we need to bend an entrenched Kafka setup
-in ways it does not want to go.
+Kafka setup — and introduce kplex, a tool for repartitioning Kafka
+topics consistently and on-the-fly, allowing you to unlock concurrency
+and perform correct stateful processing across partitions.
 
 <!--abstract-->
 
@@ -27,10 +27,10 @@ physical (concerned with scalability) and the logical (concerned with
 correctness). We notice that an optimal, correctness-preserving
 partitioning strategy *depends on what consumers will do* with the
 data, thus impeding later use cases. We introduce
-[kplex](https://www.clockworks.io/kplex/), a tool we built to
-repartition Kafka topics consistently and on-the-fly, allowing you to
-unlock consumer concurrency and perform correct stateful processing
-across partitions.
+[kplex](https://www.clockworks.io/kplex/), a tool for repartitioning
+Kafka topics consistently and on-the-fly, allowing you to unlock
+consumer concurrency and perform correct stateful processing across
+partitions.
 
 ## Partitioning - The Physical Perspective
 
@@ -130,16 +130,63 @@ impossible* to do consistent, stateful processing.
 
 `kplex` solves both of these.
 
+## Repartitioning a topic on-the-fly
+
+Let's start with a simple example. `ksql-datagen`[^datagen] is a handy
+tool for generating synthetic Kafka topics. We use this to populate
+three partitions of a `pageviews` topic, each containing records not
+unlike the following sample:
+
+``` json
+{"viewtime":1565606197468,"userid":"User_6","pageid":"Page_62"}
+{"viewtime":1565606197566,"userid":"User_9","pageid":"Page_60"}
+{"viewtime":1565606197821,"userid":"User_4","pageid":"Page_98"}
+{"viewtime":1565606198058,"userid":"User_7","pageid":"Page_14"}
+{"viewtime":1565606198622,"userid":"User_1","pageid":"Page_63"}
+```
+
+Pretend that we initially choose `pageid` as the partitioning key,
+thus making sure that all pageview records for any specific page end
+up on the same partition and remain in the order they were produced in
+(which corresponds to the `viewtime` order). 
+
+While this suited our initial use cases perfectly, we might want to
+write a consumer that looks at the history of pageviews *of each
+individual user*. This is problematic, because pageview records for
+any individual user are strewn across all of the physical
+partitions. We therefore want to consume all partitions in parallel,
+reshuffling records by `userid` as we go, all the while preserving
+`viewtime` order. This is captured by the following `kplex` job:
+
+``` json
+{
+  "workers": 3,
+  "kafka": { "broker": "localhost:9092" },
+  "topics": {
+    "pageviews": {
+      "max_delay_ms": 30000,
+      "polling_interval": {"secs": 1, "nanos": 0}
+    }
+  },
+  "derive": {
+    "pageviews_by_user": {
+      "from": "pageviews",
+      "key": {"Pointer": "/userid"},
+      "timestamp": {"Pointer": "/viewtime"},
+      "order": "TimeOrder",
+      "output": {
+        "VirtualPartitions": { "count": 9 }
+      }
+    }
+  }
+}
+```
+
+Let's try it out, before going through it piece-by-piece.
+
+
+
 ## Unlocking Consumer Concurrency
-
-Let's look at . We compress a stream of
-image data and upload them to a blob store. More generally we need to
-perform a (relatively) expensive computation for each input record,
-but records can be considered in isolation and in an arbitrary
-order. In this scenario we *should* be able to employ plenty of
-threads
-
-@TODO (example: transaction log, computing commutative aggregate)
 
 ## Reading Consistently From Multiple Partitions
 
@@ -152,3 +199,4 @@ where the rest of incremental view maintenance comes in
 [^partition-limit]: Previously in the hundreds, nowadays [in the thousands](https://www.confluent.io/blog/apache-kafka-supports-200k-partitions-per-cluster).
 [^partition-performance]: [Jun Rao, "How to choose the number of topics/partitions in a Kafka cluster?"](https://www.confluent.io/blog/how-choose-number-topics-partitions-kafka-cluster)
 [^newrelic]: [Amy Boyle, "Effective Strategies for Kafka Topic Partitioning"](https://blog.newrelic.com/engineering/effective-strategies-kafka-topic-partitioning/)
+[^datagen]: [ksql-datagen](https://docs.confluent.io/current/ksql/docs/tutorials/generate-custom-test-data.html)
