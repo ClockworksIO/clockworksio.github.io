@@ -124,8 +124,8 @@ impossible* to do consistent, stateful processing.
 
 Let's start with a simple example. `ksql-datagen`[^datagen] is a handy
 tool for generating synthetic Kafka topics. We use this to populate
-three partitions of a `pageviews` topic, each containing records not
-unlike the following sample:
+three partitions of a `pageviews_by_page` topic, each containing
+records not unlike the following sample:
 
 ``` json
 {"viewtime":1565606197468,"userid":"User_6","pageid":"Page_62"}
@@ -153,14 +153,14 @@ order. This is captured by the following `kplex` job:
   "workers": 3,
   "kafka": { "broker": "localhost:9092" },
   "topics": {
-    "pageviews": {
+    "pageviews_by_page": {
       "max_delay_ms": 30000,
       "polling_interval": {"secs": 1, "nanos": 0}
     }
   },
   "derive": {
     "pageviews_by_user": {
-      "from": "pageviews",
+      "from": "pageviews_by_page",
       "key": {"Pointer": "/userid"},
       "timestamp": {"Pointer": "/viewtime"},
       "order": "TimeOrder",
@@ -172,11 +172,34 @@ order. This is captured by the following `kplex` job:
 }
 ```
 
-Let's try it out, before going through it piece-by-piece.
+Let's try it out first.
 
 ![repartition pageviews](/assets/blog/kplex/repartition_pageviews_extended.gif)
 
-## Unlocking Consumer Concurrency
+What you see in the above GIF is `kplex` repartitioning the three
+physical partitions (each respecting `viewtime` order) of
+`pageviews_by_page` into nine virtual partitions by user (each
+respecting `viewtime` order). Each virtual partition feeds a fifo
+pipe, waiting to be consumed (in this case by `cat` writing into a
+file). No intermediate Kafka topics are created in the process.
+
+``` shell
+# A common pattern combining kplex with xargs.
+kplex <config> | xargs -P9 -n2 <consumer>
+```
+
+`kplex` takes a job configuration (like the one above) as input, which
+should provide four pieces of information:
+ 
+ `workers` | How many cores to use.
+ `kafka`   | How to talk to your Kafka cluster.
+ `topics`  | Meta-data about the physical topics you want to process.
+ `derive`  | Virtual topics to derive from those physical topics.
+
+As you can see, the basic version of `kplex` is designed for use on
+individual machines with multiple cores. Any program that works with
+input streams can be a `kplex` consumer. For larger use cases we offer
+a distributed version of `kplex`.
 
 ## Reading Consistently From Multiple Partitions
 

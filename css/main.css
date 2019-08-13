@@ -1245,3 +1245,11 @@ blockquote > p {
 }
 
 blockquote > ul { list-style: none; }
+
+table {
+    margin-bottom: 2em;
+}
+
+td {
+    padding: .5em;
+}
