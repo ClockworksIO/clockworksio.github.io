@@ -3,9 +3,7 @@ title: Two Kafka Superpowers
 tags: Kafka kplex
 language: EN
 author:
-  - niko
-  - malte
-  - david
+  - team
 ---
 
 We discuss partitioning — arguably the highest impact decision in any
@@ -122,10 +120,10 @@ impossible* to do consistent, stateful processing.
 
 ## Repartitioning a topic on-the-fly
 
-Let's start with a simple example. `ksql-datagen`[^datagen] is a handy
-tool for generating synthetic Kafka topics. We use this to populate
-three partitions of a `pageviews_by_page` topic, each containing
-records not unlike the following sample:
+`ksql-datagen`[^datagen] is a handy tool for generating synthetic
+Kafka topics. We use this to populate three partitions of a
+`pageviews_by_page` topic, each containing records not unlike the
+following sample:
 
 ``` json
 {"viewtime":1565606197468,"userid":"User_6","pageid":"Page_62"}
@@ -203,13 +201,72 @@ a distributed version of `kplex`.
 
 ## Reading Consistently From Multiple Partitions
 
-@TODO (example: transaction log uniformly distributed, computing state
-of the database)
+In the previous example we changed not only the partitioning key, but
+also chose a higher number of virtual partitions. Going from `n`
+physical to `m > n` virtual partitions can be useful even *without*
+changing the partitioning key, because it can unlock concurrency for
+I/O-heavy consumers.
 
-@TODO "how can this be a scalability benefit?" -> not yet, that's
-where the rest of incremental view maintenance comes in
+The other extreme however, going from `n` to a single partition is
+interesting as well, because it corresponds to reconstructing a
+consistent timeline of events for an entire topic. There is much more
+to it[^3df], but this is a first step to processing things like
+distributed transaction logs — which traditionally have been
+constrained to single partition setups.
+
+To illustrate this we again make use of `ksql-datagen`, this time
+populating six partitions of an `orders` topic. Here is a sample,
+taken from one of those partitions:
+
+``` json
+{"ordertime":1504776415695,"orderid":5,"itemid":"Item_366","orderunits":6.6560792199065375,"address":{"city":"City_72","state":"State_76","zipcode":59809}}
+{"ordertime":1501571188542,"orderid":11,"itemid":"Item_401","orderunits":8.026309881360708,"address":{"city":"City_71","state":"State_52","zipcode":29263}}
+{"ordertime":1497015695172,"orderid":15,"itemid":"Item_276","orderunits":2.6758133491091525,"address":{"city":"City_11","state":"State_36","zipcode":67176}}
+{"ordertime":1506027510309,"orderid":17,"itemid":"Item_572","orderunits":3.140245079869947,"address":{"city":"City_66","state":"State_78","zipcode":97471}}
+{"ordertime":1494713135481,"orderid":21,"itemid":"Item_517","orderunits":5.044951208919925,"address":{"city":"City_41","state":"State_61","zipcode":44006}}
+```
+
+Of particular interest is the `ordertime` column, which this time
+around does *not* correspond to the ingestion order on this partition
+(you can see `1497015695172` appearing after `1501571188542`). So even
+consuming from a single partition we will not observe a consistent
+timeline. Consuming from all partitions will leave us with a
+near-arbitrary interleaving of events. The following `kplex` job
+reconstructs a consistent global timeline.
+
+``` json
+{
+  "workers": 6,
+  "kafka": { "broker": "localhost:9092" },
+  "topics": {
+    "orders": {
+      "max_delay_ms": 30000,
+      "polling_interval": {"secs": 1, "nanos": 0}
+    }
+  },
+  "derive": {
+    "orders": {
+      "timestamp": {"Pointer": "/ordertime"},
+      "order": "TimeOrder",
+      "output": "Stdout"
+    }
+  }
+}
+```
+
+Notice that this job is similar to the repartitioning job above. What
+we have done now is first to leave out the `key` declaration in the
+derivation of `orders`. It is redundant, as we don't want to change
+the partitioning key in this scenario. Second, we have changed the
+`output` declaration from `VirtualPartitions` to `Stdout`, as now with
+only a single virtual partition we do not need to deal with multiple
+pipes, and can produce to standard out directly. Lastly, we are using
+six `kplex` threads now, in order to be able to consume all input
+partitions in parallel[^threads].
 
 [^partition-limit]: Previously in the hundreds, nowadays [in the thousands](https://www.confluent.io/blog/apache-kafka-supports-200k-partitions-per-cluster).
 [^partition-performance]: [Jun Rao, "How to choose the number of topics/partitions in a Kafka cluster?"](https://www.confluent.io/blog/how-choose-number-topics-partitions-kafka-cluster)
 [^newrelic]: [Amy Boyle, "Effective Strategies for Kafka Topic Partitioning"](https://blog.newrelic.com/engineering/effective-strategies-kafka-topic-partitioning/)
 [^datagen]: [ksql-datagen](https://docs.confluent.io/current/ksql/docs/tutorials/generate-custom-test-data.html)
+[^3df]: There is more to it, but [we are working on that as well](https://github.com/comnik/declarative-dataflow).
+[^threads]: At some point we will start hitting diminishing returns here and should stick to a number of worker threads that is proportional to the number of physical cores available.
