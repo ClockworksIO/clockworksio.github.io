@@ -56,13 +56,12 @@ Partitions are both the unit of concurrency and of consistency in
 Kafka. The more partitions we have, the more consumer instances we can
 bring to bear in parallel, increasing throughput. On the other hand,
 records that need to be consumed in aggregate, in a specific order, or
-both must go to the same partition.
-
-Kafka would like us to keep the number of partitions within reasonable
-limits[^partition-limit] for various performance-related
-reasons[^partition-performance]. However it is the ordering guarantees
-provided by partitions that impose much more stringent constraints, as
-the following two extremes will highlight.
+both must go to the same partition. Kafka would like us to keep the
+number of partitions within reasonable limits[^partition-limit] for
+various performance-related reasons[^partition-performance]. However
+it is the ordering guarantees provided by partitions that impose much
+more stringent constraints, as the following two extremes will
+highlight.
 
 **Fully Sequential** We need to persist a database transaction log in
 Kafka, i.e. a sequence of transaction data annotated with logical
@@ -84,31 +83,22 @@ records must be presented in order. Examples for such domains are the
 subset of records affecting an individual user or those originating
 from a specific geographic region.
 
-**Sharded** [TODO]
-
 In an ideal setting, from a logical point of view, we therefore want
-the freedom to assign each available consistency domain to its own
-physical partition for maximum throughput — while still making sure
-that a consumer sees all records for any specific key, and in the
-exact order they were produced in.
+the freedom to assign each consistency domain to its own physical
+partition for maximum throughput — while still making sure that a
+consumer sees all records for any specific key, and in the exact order
+they were produced in.
 
 ## Partitioning Decoupled
 
-Summarizing the above (and glossing over some of the idiosyncracies in
-Kafka's current implementation, most of which could reasonably be
-fixed in the future), we have seen now how throughput and skew
-considerations alone would lead us to using many physical partitions
-and distribute records randomly between them. It is only our need for
-ordering guarantees which forces us to make compromises. This raises
-an uncomfortable issue.
-
-Kafka decouples data producers from data consumers, by acting as the
-unified "plumbing" platform between them. This is highly attractive to
-organizations, because it allows them to support many different teams
-on a shared, coherent view of their business. *Consistency, however,
-is a joint property of producer, storage, and consumer.* Therefore, no
-matter how carefully we make these decisions, they will always
-interfere with some valid use cases later on.
+We have seen now how throughput and skew considerations alone would
+lead us to using a great many physical partitions and distribute
+records between them uniformly. The correctness guarantees demanded by
+our use case on the other hand, force us to partition according to
+attributes of the data itself. This raises an uncomfortable issue,
+because correctness is a joint property of producer, storage, and
+consumer. Therefore, no matter how carefully we choose a partitioning
+scheme, it will always interfere with some valid use cases later on.
 
 > [...] the partitioning strategy for your producers depends on what
 > your consumers will do with the data.
@@ -117,9 +107,9 @@ interfere with some valid use cases later on.
 
 In order to satisfy the trimuvirate of throughput, skew, and
 consistency, we will have to *decouple physical from logical
-partitioning* as much as possible, while <u>preserving ordering
-guarantees</u> in the process. We built
-[kplex](https://www.clockworks.io/kplex/) to do precisely that.
+partitioning*, while <u>preserving ordering guarantees</u> in the
+process. We built [kplex](https://www.clockworks.io/kplex/) to do
+precisely that.
 
 Specifically, we encounter two types of mismatch: (1) strong physical
 guarantees supporting weak logical requirements — here the physical
@@ -145,18 +135,18 @@ unlike the following sample:
 {"viewtime":1565606198622,"userid":"User_1","pageid":"Page_63"}
 ```
 
-Pretend that we initially choose `pageid` as the partitioning key,
-thus making sure that all pageview records for any specific page end
-up on the same partition and remain in the order they were produced in
-(which corresponds to the `viewtime` order). 
+We initially choose `pageid` as the partitioning key, thus making sure
+that all pageview records for any specific page end up on the same
+partition and remain in the order they were produced in (which
+corresponds to the `viewtime` order).
 
-While this suited our initial use cases perfectly, we might want to
-write a consumer that looks at the history of pageviews *of each
-individual user*. This is problematic, because pageview records for
-any individual user are strewn across all of the physical
-partitions. We therefore want to consume all partitions in parallel,
-reshuffling records by `userid` as we go, all the while preserving
-`viewtime` order. This is captured by the following `kplex` job:
+While this suited our initial use cases well, we might want to write a
+consumer that looks at the history of pageviews *of each individual
+user*. This is problematic, because pageview records for any
+individual user are strewn across all of the physical partitions. We
+therefore want to consume all partitions in parallel, reshuffling
+records by `userid` as we go, all the while preserving `viewtime`
+order. This is captured by the following `kplex` job:
 
 ``` json
 {
