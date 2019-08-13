@@ -184,7 +184,7 @@ reshuffling records by `userid` as we go, all the while preserving
 
 Let's try it out, before going through it piece-by-piece.
 
-
+![repartition pageviews](/assets/blog/kplex/repartition_pageviews_extended.gif)
 
 ## Unlocking Consumer Concurrency
 

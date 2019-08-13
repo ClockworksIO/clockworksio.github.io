@@ -1146,10 +1146,21 @@ article p {
 }
 
 article img {
+    box-sizing: border-box;
     display: block;
     max-width: 100%;
     width: auto;
     height: auto;
+    border-radius: 3px;
+    border: 1px solid var(--color-accent);
+    padding: 1px;
+}
+
+@media screen and (min-width: 672px) {
+    article img {
+        max-width: 130%;
+        transform: translateX(-10%);
+    }
 }
 
 article th {
