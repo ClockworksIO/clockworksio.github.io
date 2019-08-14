@@ -215,38 +215,40 @@ distributed transaction logs — which traditionally have been
 constrained to single partition setups.
 
 To illustrate this we again make use of `ksql-datagen`, this time
-populating six partitions of an `orders` topic. Here is a sample,
+populating six partitions of a `clickstream` topic. Here is a sample,
 taken from one of those partitions:
 
 ``` json
-{"ordertime":1504776415695,"orderid":5,"itemid":"Item_366","orderunits":6.6560792199065375,"address":{"city":"City_72","state":"State_76","zipcode":59809}}
-{"ordertime":1501571188542,"orderid":11,"itemid":"Item_401","orderunits":8.026309881360708,"address":{"city":"City_71","state":"State_52","zipcode":29263}}
-{"ordertime":1497015695172,"orderid":15,"itemid":"Item_276","orderunits":2.6758133491091525,"address":{"city":"City_11","state":"State_36","zipcode":67176}}
-{"ordertime":1506027510309,"orderid":17,"itemid":"Item_572","orderunits":3.140245079869947,"address":{"city":"City_66","state":"State_78","zipcode":97471}}
-{"ordertime":1494713135481,"orderid":21,"itemid":"Item_517","orderunits":5.044951208919925,"address":{"city":"City_41","state":"State_61","zipcode":44006}}
+{"_time":1565780158477,"userid":7,"ip":"222.245.174.248","status":"405","request":"GET /site/user_status.html HTTP/1.1"}
+{"_time":1565780158566,"userid":35,"ip":"111.168.57.122","status":"406","request":"GET /images/track.png HTTP/1.1"}
+{"_time":1565780158684,"userid":35,"ip":"111.168.57.122","status":"302","request":"GET /site/user_status.html HTTP/1.1"}
+{"_time":1565780158877,"userid":1,"ip":"222.173.165.103","status":"302","request":"GET /site/login.html HTTP/1.1"}
 ```
 
-Of particular interest is the `ordertime` column, which this time
-around does *not* correspond to the ingestion order on this partition
-(you can see `1497015695172` appearing after `1501571188542`). So even
-consuming from a single partition we will not observe a consistent
-timeline. Consuming from all partitions will leave us with a
-near-arbitrary interleaving of events. The following `kplex` job
-reconstructs a consistent global timeline.
+Of particular interest is the event time (the `_time` attribute),
+which roughly corresponds to the ingestion time on this partition give
+or take a few milliseconds. We will not observe the correct
+event-timeline when consuming the `clickstream` topic. This is both
+because Kafka makes no ordering guarantees across partitions, and
+because some events will be delayed by a few milliseconds on their way
+to Kafka.
+
+The following `kplex` job reconstructs the correct, global timeline
+on-the-fly:
 
 ``` json
 {
   "workers": 6,
   "kafka": { "broker": "localhost:9092" },
   "topics": {
-    "orders": {
-      "max_delay_ms": 30000,
+    "clickstream": {
+      "max_delay_ms": 1000,
       "polling_interval": {"secs": 1, "nanos": 0}
     }
   },
   "derive": {
-    "orders": {
-      "timestamp": {"Pointer": "/ordertime"},
+    "clickstream": {
+      "timestamp": {"Pointer": "/_time"},
       "order": "TimeOrder",
       "output": "Stdout"
     }
@@ -254,15 +256,32 @@ reconstructs a consistent global timeline.
 }
 ```
 
-Notice that this job is similar to the repartitioning job above. What
-we have done now is first to leave out the `key` declaration in the
-derivation of `orders`. It is redundant, as we don't want to change
-the partitioning key in this scenario. Second, we have changed the
+What we have done now (compared to the repartitioning job from above)
+is first to leave out the `key` declaration in the derivation of
+`clickstream`. It is redundant, as we don't want to change the
+partitioning key in this scenario. Second, we have changed the
 `output` declaration from `VirtualPartitions` to `Stdout`, as now with
 only a single virtual partition we do not need to deal with multiple
 pipes, and can produce to standard out directly. Lastly, we are using
 six `kplex` threads now, in order to be able to consume all input
 partitions in parallel[^threads].
+
+Notice also that we choose to receive events in event time order
+(`"order": "TimeOrder"`), rather than in ingestion order, to rectify
+records that got delayed and got ingested out-of-order. For this to
+work in a streaming context, we have to declare an upper bound on how
+much records can be reasonably delayed (`"max_delay_ms": 1000` in this
+case). With this information provided, `kplex` workers will coordinate
+to make sure that they only forward events once they are certain that
+all previous events have arrived.
+
+## Immutability cuts both ways
+
+There is of course much more to working efficiently with a Kafka setup
+(too much, some might argue). `kplex` itself also has a few more
+tricks up its sleeve, which we will talk about soon. In the meantime,
+check out [the website](https://www.clockworks.io/kplex/), and let us
+know what you think.
 
 [^partition-limit]: Previously in the hundreds, nowadays [in the thousands](https://www.confluent.io/blog/apache-kafka-supports-200k-partitions-per-cluster).
 [^partition-performance]: [Jun Rao, "How to choose the number of topics/partitions in a Kafka cluster?"](https://www.confluent.io/blog/how-choose-number-topics-partitions-kafka-cluster)
