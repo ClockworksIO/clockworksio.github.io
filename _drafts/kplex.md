@@ -210,7 +210,7 @@ I/O-heavy consumers.
 The other extreme however, going from `n` to a single partition is
 interesting as well, because it corresponds to reconstructing a
 consistent timeline of events for an entire topic. There is much more
-to it[^3df], but this is a first step to processing things like
+to it[^3df], but this is a first step towards processing things like
 distributed transaction logs — which traditionally have been
 constrained to single partition setups.
 
@@ -227,11 +227,10 @@ taken from one of those partitions:
 
 Of particular interest is the event time (the `_time` attribute),
 which roughly corresponds to the ingestion time on this partition give
-or take a few milliseconds. We will not observe the correct
-event-timeline when consuming the `clickstream` topic. This is both
-because Kafka makes no ordering guarantees across partitions, and
-because some events will be delayed by a few milliseconds on their way
-to Kafka.
+or take a few milliseconds. We will *not* observe the correct event
+timeline when consuming the `clickstream` topic. This is both because
+Kafka makes no ordering guarantees across partitions, and because some
+events will be delayed by a few milliseconds on their way to Kafka.
 
 The following `kplex` job reconstructs the correct, global timeline
 on-the-fly:
@@ -256,6 +255,10 @@ on-the-fly:
 }
 ```
 
+Let's try it out again, before talking about it.
+
+![consistent read](/assets/blog/kplex/consistent_read.gif)
+
 What we have done now (compared to the repartitioning job from above)
 is first to leave out the `key` declaration in the derivation of
 `clickstream`. It is redundant, as we don't want to change the
@@ -267,21 +270,34 @@ six `kplex` threads now, in order to be able to consume all input
 partitions in parallel[^threads].
 
 Notice also that we choose to receive events in event time order
-(`"order": "TimeOrder"`), rather than in ingestion order, to rectify
-records that got delayed and got ingested out-of-order. For this to
-work in a streaming context, we have to declare an upper bound on how
-much records can be reasonably delayed (`"max_delay_ms": 1000` in this
-case). With this information provided, `kplex` workers will coordinate
-to make sure that they only forward events once they are certain that
-all previous events have arrived.
+(`"order": "TimeOrder"`), rather than in ingestion order, to put
+out-of-order records back in place. For this to work in a streaming
+setting, we have to declare an upper bound on how much records can be
+reasonably delayed (`"max_delay_ms": 1000` in this case). With this
+information provided, `kplex` workers will coordinate to make sure
+that they only forward events once they are certain that all previous
+events have arrived. You can spot these 1000ms of delay in the GIF.
+
+To verify that we indeed produce a correct timeline, we consume the
+first thousand events using `kafkacat` and `kplex` respectively and
+extract their timestamps into two files (`times_kafkacat` and
+`times_kplex`). `kplex` will also continuously verify that it never
+breaks the monotonicity of timestamps on each virtual partition.
+
+``` shell
+> wc -l <(diff times_kafkacat <(sort -n times_kafkacat))
+    1336 /dev/fd/11
+> wc -l <(diff times_kplex <(sort -n times_kplex))
+       0 /dev/fd/11
+```
 
 ## Immutability cuts both ways
 
-There is of course much more to working efficiently with a Kafka setup
-(too much, some might argue). `kplex` itself also has a few more
-tricks up its sleeve, which we will talk about soon. In the meantime,
-check out [the website](https://www.clockworks.io/kplex/), and let us
-know what you think.
+There is of course much more to working efficiently with and evolving
+a Kafka setup (too much, some might argue). `kplex` itself also has a
+few more tricks up its sleeve, which we will talk about soon. In the
+meantime, check out [the website](https://www.clockworks.io/kplex/),
+and let us know what you think.
 
 [^partition-limit]: Previously in the hundreds, nowadays [in the thousands](https://www.confluent.io/blog/apache-kafka-supports-200k-partitions-per-cluster).
 [^partition-performance]: [Jun Rao, "How to choose the number of topics/partitions in a Kafka cluster?"](https://www.confluent.io/blog/how-choose-number-topics-partitions-kafka-cluster)
