@@ -146,53 +146,46 @@ therefore want to consume all partitions in parallel, reshuffling
 records by `userid` as we go, all the while preserving `viewtime`
 order. This is captured by the following `kplex` job:
 
-``` json
-{
-  "workers": 3,
-  "kafka": { "broker": "localhost:9092" },
-  "topics": {
-    "pageviews_by_page": {
-      "max_delay_ms": 30000,
-      "polling_interval": {"secs": 1, "nanos": 0}
-    }
-  },
-  "derive": {
-    "pageviews_by_user": {
-      "from": "pageviews_by_page",
-      "key": {"Pointer": "/userid"},
-      "timestamp": {"Pointer": "/viewtime"},
-      "order": "TimeOrder",
-      "output": {
-        "VirtualPartitions": { "count": 9 }
-      }
-    }
-  }
-}
+``` ini
+# repartition_pageviews.toml
+
+# How many cores to run with?
+workers = 3
+
+# How to talk to your Kafka cluster?
+[kafka]
+broker = "localhost:9092"
+
+# Metadata about a physical topic you want to process.
+[topics.pageviews_by_page]
+max_delay_ms = 30_000
+polling_interval_ms = 1_000
+
+# Virtual topic to derive from this physical topic.
+[derive.pageviews_by_user]
+from = "pageviews_by_page"
+key = { pointer = "/userid" }
+timestamp = "/viewtime"
+order = "TimeOrder"
+output = { virtual_partitions = { count = 9 } }
 ```
 
 Let's try it out first.
 
-![repartition pageviews](/assets/blog/kplex/repartition_pageviews_extended.gif)
+![repartition pageviews](/assets/blog/kplex/repartition_pageviews.gif)
 
 What you see in the above GIF is `kplex` repartitioning the three
-physical partitions (each respecting `viewtime` order) of
-`pageviews_by_page` into nine virtual partitions by user (each
-respecting `viewtime` order). Each virtual partition feeds a fifo
-pipe, waiting to be consumed (in this case by `cat` writing into a
-file). No intermediate Kafka topics are created in the process.
+physical partitions of `pageviews_by_page` (partitioned by `pageid`,
+ordered by `viewtime`) into nine virtual partitions partitioned by
+`userid` — and still ordered by `viewtime`! Each virtual partition
+feeds a fifo pipe, waiting to be consumed (in this case by `cat`
+writing into a file). No intermediate Kafka topics are created in the
+process.
 
 ``` shell
 # A common pattern combining kplex with xargs.
 kplex <config> | xargs -P9 -n2 <consumer>
 ```
-
-`kplex` takes a job configuration (like the one above) as input, which
-should provide four pieces of information:
- 
- `workers` | How many cores to use.
- `kafka`   | How to talk to your Kafka cluster.
- `topics`  | Meta-data about the physical topics you want to process.
- `derive`  | Virtual topics to derive from those physical topics.
 
 As you can see, the basic version of `kplex` is designed for use on
 individual machines with multiple cores. Any program that works with
@@ -235,24 +228,25 @@ events will be delayed by a few milliseconds on their way to Kafka.
 The following `kplex` job reconstructs the correct, global timeline
 on-the-fly:
 
-``` json
-{
-  "workers": 6,
-  "kafka": { "broker": "localhost:9092" },
-  "topics": {
-    "clickstream": {
-      "max_delay_ms": 1000,
-      "polling_interval": {"secs": 1, "nanos": 0}
-    }
-  },
-  "derive": {
-    "clickstream": {
-      "timestamp": {"Pointer": "/_time"},
-      "order": "TimeOrder",
-      "output": "Stdout"
-    }
-  }
-}
+``` ini
+# consistent_read.toml
+
+# use six consumer threads
+workers = 6
+
+[kafka]
+broker = "localhost:9092"
+
+[topics.clickstream]
+# records won't arrive more than a second out of order
+max_delay_ms = 1_000
+# poll the topic every 500ms
+polling_interval_ms = 500
+
+[derive.clickstream]
+timestamp = "/_time"
+order = "TimeOrder"
+output = "stdout"
 ```
 
 Let's try it out again, before talking about it.
@@ -263,20 +257,22 @@ What we have done now (compared to the repartitioning job from above)
 is first to leave out the `key` declaration in the derivation of
 `clickstream`. It is redundant, as we don't want to change the
 partitioning key in this scenario. Second, we have changed the
-`output` declaration from `VirtualPartitions` to `Stdout`, as now with
-only a single virtual partition we do not need to deal with multiple
-pipes, and can produce to standard out directly. Lastly, we are using
-six `kplex` threads now, in order to be able to consume all input
-partitions in parallel[^threads].
+`output` declaration from `virtual_partitions` to `stdout`, as now
+with only a single virtual partition we do not need to deal with
+multiple pipes, and can produce to standard out directly. Lastly, we
+are using six `kplex` threads now, in order to be able to consume all
+input partitions in parallel[^threads].
 
-Notice also that we choose to receive events in event time order
-(`"order": "TimeOrder"`), rather than in ingestion order, to put
-out-of-order records back in place. For this to work in a streaming
-setting, we have to declare an upper bound on how much records can be
-reasonably delayed (`"max_delay_ms": 1000` in this case). With this
-information provided, `kplex` workers will coordinate to make sure
-that they only forward events once they are certain that all previous
-events have arrived. You can spot these 1000ms of delay in the GIF.
+Notice also that we again choose a domain attribute (`timestamp =
+"_time"`) as the new timestamp on the virtual `clickstream`
+topic. This implies that `kplex` will unveil events in event time
+order to us, putting out-of-order records back in place in the
+process. For this to work in a streaming setting, we have to declare
+an upper bound on how much records can be reasonably delayed
+(`max_delay_ms = 1_000` in this case). With this information provided,
+`kplex` workers will coordinate to make sure that they only forward
+events once they are certain that all previous events have
+arrived. You can spot this extra second of delay in the GIF.
 
 To verify that we indeed produce a correct timeline, we consume the
 first thousand events using `kafkacat` and `kplex` respectively and
