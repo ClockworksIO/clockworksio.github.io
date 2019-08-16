@@ -1,5 +1,5 @@
 ---
-title: Two Kafka Superpowers
+title: "kplex - Decoupling Partitioning in Kafka"
 tags: Kafka kplex
 language: EN
 author:
@@ -81,8 +81,8 @@ records must be presented in order. Examples for such domains are the
 subset of records affecting an individual user or those originating
 from a specific geographic region.
 
-In an ideal setting, from a logical point of view, we therefore want
-the freedom to assign each consistency domain to its own physical
+In an ideal setting, unifying the two points of view, we therefore
+want the freedom to assign each consistency domain to its own physical
 partition for maximum throughput — while still making sure that a
 consumer sees all records for any specific key, and in the exact order
 they were produced in.
