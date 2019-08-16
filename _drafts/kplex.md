@@ -22,9 +22,9 @@ record. Immutability, we might say, cuts both ways.
 In the following we look at partitioning — arguably the highest impact
 decision in any Kafka setup — from two different perspectives: the
 physical (concerned with scalability) and the logical (concerned with
-correctness). We notice that an optimal, correctness-preserving
-partitioning strategy *depends on what consumers will do* with the
-data, thus impeding later use cases. We introduce
+correctness). The optimal, correctness-preserving partitioning
+strategy *depends on what consumers will do* with the data, thus
+impeding later use cases. We introduce
 [kplex](https://www.clockworks.io/kplex/), a tool for repartitioning
 Kafka topics consistently and on-the-fly, allowing you to unlock
 consumer concurrency and perform correct stateful processing across
@@ -35,7 +35,7 @@ partitions.
 Clusters are happy as long as each machine is only asked to bear load
 in proportion to its relative capabilities. I.e., for a cluster made
 up of identical machines, we want data to be distributed
-uniformly. Machines that are asked to do more than their fair share,
+uniformly. Machines that are asked to do more than their fair share
 tend to act up, or worse, get in the way of their peers.
 
 In an ideal setting, taking into account only the physical
@@ -44,7 +44,7 @@ according to the relative capabilities of each machine in our
 cluster. Doing so prevents hotspots and ensures smooth scaling as we
 add machines.
 
-Unfortunately this requirement is often at odds with the constraints
+Unfortunately, this requirement is often at odds with the constraints
 imposed by the (arguably much more important!) need to produce correct
 outputs.
 
@@ -56,7 +56,7 @@ bring to bear in parallel, increasing throughput. On the other hand,
 records that need to be consumed in aggregate, in a specific order, or
 both must go to the same partition. Kafka would like us to keep the
 number of partitions within reasonable limits[^partition-limit] for
-various performance-related reasons[^partition-performance]. However
+various performance-related reasons[^partition-performance]. However,
 it is the ordering guarantees provided by partitions that impose much
 more stringent constraints, as the following two extremes will
 highlight.
@@ -103,7 +103,7 @@ scheme, it will always interfere with some valid use cases later on.
 >
 > - Amy Boyle, "Effective Strategies for Kafka Topic Partitioning"[^newrelic]
 
-In order to satisfy the trimuvirate of throughput, skew, and
+In order to satisfy the triumvirate of throughput, skew, and
 consistency, we will have to *decouple physical from logical
 partitioning*, while <u>preserving ordering guarantees</u> in the
 process. We built [kplex](https://www.clockworks.io/kplex/) to do
@@ -122,8 +122,8 @@ impossible* to do consistent, stateful processing.
 
 `ksql-datagen`[^datagen] is a handy tool for generating synthetic
 Kafka topics. We use this to populate three partitions of a
-`pageviews_by_page` topic, each containing records not unlike the
-following sample:
+`pageviews_by_page` topic, each containing records like the following
+sample:
 
 ``` json
 {"viewtime":1565606197468,"userid":"User_6","pageid":"Page_62"}
@@ -178,7 +178,7 @@ What you see in the above GIF is `kplex` repartitioning the three
 physical partitions of `pageviews_by_page` (partitioned by `pageid`,
 ordered by `viewtime`) into nine virtual partitions partitioned by
 `userid` — and still ordered by `viewtime`! Each virtual partition
-feeds a fifo pipe, waiting to be consumed (in this case by `cat`
+feeds a FIFO pipe, waiting to be consumed (in this case by `cat`
 writing into a file). No intermediate Kafka topics are created in the
 process.
 
