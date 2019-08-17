@@ -17,14 +17,16 @@ Like any technology considered core infrastructure, Kafka forces its
 users to make certain trade-offs. What sides we take in these trades
 becomes increasingly harder to change as data accumulates. This is
 exacerbated by Kafka's distinguished role as an immutable historic
-record. Immutability, we might say, cuts both ways. 
+record; any changes you make after the fact must maintain
+compatibility with all historic views on your business. Immutability,
+we might say, cuts both ways.
 
 In the following we look at partitioning — arguably the highest impact
 decision in any Kafka setup — from two different perspectives: the
 physical (concerned with scalability) and the logical (concerned with
 correctness). The optimal, correctness-preserving partitioning
-strategy *depends on what consumers will do* with the data, thus
-impeding later use cases. We introduce
+strategy *depends on what consumers will do* with the data. Thus, what
+might be optimal now will impede other use cases later. We introduce
 [kplex](https://www.clockworks.io/kplex/), a tool for repartitioning
 Kafka topics consistently and on-the-fly, allowing you to unlock
 consumer concurrency and perform correct stateful processing across
