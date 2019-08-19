@@ -10,5 +10,9 @@
     <link rel="stylesheet" type="text/css" href="/css/main.css" />
     <link rel="stylesheet" type="text/css" href="/css/github-theme.css">
 
+    {% for js in page.customjs %}
+    <script type="text/javascript" async src="{{ js }}"></script>
+    {% endfor %}
+
     <title>{{ page.title }}</title>
 </head>
